@@ -1,6 +1,7 @@
 package sGen.teachu.database;
 
 import sGen.teachu.DTO.BabyInfoDTO;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -38,7 +39,14 @@ public class DBItemAdapter {
 	}
 
 	public long addBaby(BabyInfoDTO _baby) {
-		return 0;
+		ContentValues values = new ContentValues();
+		
+		//각 열에 값 할당
+		values.put("BABY_ID", _baby.getBabyId());
+		values.put("NAME", _baby.getName());
+		
+		//열삽입
+		return db.insert("BABY_INFO", null, values);
 	}
 
 	public boolean deleteBaby(long _babyIndex) {
