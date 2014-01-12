@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	 <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5sp"
+	        android:text="성명"/>  
+	        <EditText 
+	            android:id="@+id/change_name"
+	            android:onClick="mOnclick"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            />  
+    </LinearLayout>
+    
+	<LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5sp"
+	        android:text="비밀번호"/>  
+	        <EditText 
+	            android:id="@+id/change_pw"
+	            android:onClick="mOnclick"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            />  
+    </LinearLayout>
+    
+	<LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5sp"
+	        android:text="나이"/>  
+	        <EditText 
+	            android:id="@+id/change_age"
+	            android:onClick="mOnclick"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            />  
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5sp"
+	        android:text="성별"/> 
+	        <RadioGroup 
+	            android:id="@+id/change_sexradiogroup"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	            <RadioButton 
+	                android:id="@+id/ch_radio_boys"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:onClick="mOnclick"
+	                android:text="남자"/>
+	            <RadioButton 
+	                android:id="@+id/ch_radio_girls"
+	                android:layout_marginLeft="10sp"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:onClick="mOnclick"
+	                android:text="여자"/>
+	        </RadioGroup>   
+    </LinearLayout>
+           
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+        <Button 
+	        android:id="@+id/but_change_info"
+	        android:onClick="mOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="수정"/>
+		<Button 
+	        android:id="@+id/but_change_cancel"
+	        android:onClick="mOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="취소"/>
+    </LinearLayout>
+    
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/layout_one_showoneperson_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">      
+    </LinearLayout>
+        
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+        <Button 
+	        android:id="@+id/but_one_reenroll"
+	        android:onClick="rOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="수정"/>
+		<Button 
+	        android:id="@+id/but_one_delete"
+	        android:onClick="rOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="삭제"/>
+		<Button 
+	        android:id="@+id/but_one_list"
+	        android:onClick="rOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="목록"/>
+		
+		<Button 
+	        android:id="@+id/but_baby_grow"
+	        android:onClick="rOnclick"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="BabyGrowth"/>
+    </LinearLayout>
+
+</LinearLayout>
