@@ -1,5 +1,7 @@
 package sGen.teachu.database;
 
+import java.util.Date;
+
 import sGen.teachu.DTO.BabyInfoDTO;
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-public class DBItemAdapter {
+public class DBBabyInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
 	private static final int DATABASE_VERSION = 1;
 
@@ -18,7 +20,7 @@ public class DBItemAdapter {
 	private final Context context;
 	private DBOpenHelper dbHelper; // SQLite를 활용하는 방법[Open이나 버젼관리]
 
-	public DBItemAdapter(Context _context) {
+	public DBBabyInfoAdapter(Context _context) {
 		context = _context;
 		dbHelper = new DBOpenHelper(context, DATABASE_NAME, null,
 				DATABASE_VERSION);
@@ -39,6 +41,7 @@ public class DBItemAdapter {
 	}
 
 	public long addBaby(BabyInfoDTO _baby) {
+		
 		ContentValues values = new ContentValues();
 		
 		//참고
@@ -47,13 +50,20 @@ public class DBItemAdapter {
 		//각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
+		values.put("PASSWORD", _baby.getPassword());
+		values.put("SEX", _baby.getSex());
+		values.put("BIRTH", _baby.getBirth().toString());
 		
 		//열삽입
 		return db.insert("BABY_INFO", null, values);
 	}
 
 	public boolean deleteBaby(long _babyIndex) {
-		return false;
+		ContentValues values = new ContentValues();
+		
+		values.put("BABY_ID", _babyIndex);
+		
+		return db.update("BABY_INFO", values, "BABY_ID" + "=" + _babyIndex,null) > 0;
 	}
 
 	public boolean updateBaby(long _babyIndex, BabyInfoDTO _baby) {
