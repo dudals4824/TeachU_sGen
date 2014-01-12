@@ -41,6 +41,9 @@ public class DBItemAdapter {
 	public long addBaby(BabyInfoDTO _baby) {
 		ContentValues values = new ContentValues();
 		
+		//참고
+		//http://blog.daum.net/gunsu0j/252
+		
 		//각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
