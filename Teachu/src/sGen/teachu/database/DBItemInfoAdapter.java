@@ -1,6 +1,7 @@
 package sGen.teachu.database;
 
 import sGen.teachu.DTO.ItemInfoDTO;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -38,6 +39,9 @@ public class DBItemInfoAdapter {
 	}
 
 	public long additem(ItemInfoDTO _item) {
+		ContentValues values = new ContentValues();
+		
+		
 		return 0;
 	}
 

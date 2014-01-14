@@ -41,29 +41,30 @@ public class DBBabyInfoAdapter {
 	}
 
 	public long addBaby(BabyInfoDTO _baby) {
-		
+		// 참고
+		// http://blog.daum.net/gunsu0j/252
+
+		// Make row
 		ContentValues values = new ContentValues();
-		
-		//참고
-		//http://blog.daum.net/gunsu0j/252
-		
-		//각 열에 값 할당
+
+		// 각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
 		values.put("PASSWORD", _baby.getPassword());
 		values.put("SEX", _baby.getSex());
 		values.put("BIRTH", _baby.getBirth().toString());
-		
-		//열삽입
+
+		// 열삽입
 		return db.insert("BABY_INFO", null, values);
 	}
 
 	public boolean deleteBaby(long _babyIndex) {
 		ContentValues values = new ContentValues();
-		
+
 		values.put("BABY_ID", _babyIndex);
-		
-		return db.update("BABY_INFO", values, "BABY_ID" + "=" + _babyIndex,null) > 0;
+
+		return db.update("BABY_INFO", values, "BABY_ID" + "=" + _babyIndex,
+				null) > 0;
 	}
 
 	public boolean updateBaby(long _babyIndex, BabyInfoDTO _baby) {
