@@ -59,6 +59,10 @@ public class DBBabyInfoAdapter {
 	}
 
 	public boolean deleteBaby(long _babyIndex) {
+		return db.delete("BABY_INFO", "BABY_ID" + "=" + _babyIndex, null) > 0;
+	}
+
+	public boolean updateBaby(long _babyIndex, BabyInfoDTO _baby) {
 		ContentValues values = new ContentValues();
 
 		values.put("BABY_ID", _babyIndex);
@@ -67,20 +71,31 @@ public class DBBabyInfoAdapter {
 				null) > 0;
 	}
 
-	public boolean updateBaby(long _babyIndex, BabyInfoDTO _baby) {
-		return false;
-	}
-
 	public Cursor getAllBabyCursor() {
-		return null;
+		return db.query("BABY_INFO", new String[] { "BABY_ID", "NAME", "PASSWORD", "SEX", "BIRTH" },
+				null, null, null, null, null);
 	}
 
 	public Cursor setCursorBabyInfo(long _babyIndex) throws SQLException {
-		return null;
+		Cursor result = db.query(true, "BABY_INFO", new String[] { "BABY_ID", "NAME", "PASSWORD", "SEX", "BIRTH" }, 
+				"BABY_ID" + "=" + _babyIndex, null, null, null, null, null);
+
+        if ((result.getCount() == 0) || !result.moveToFirst()) {
+        	throw new SQLException("No Todo items found for row: " + _babyIndex);
+        }
+
+        return result;
 	}
 
-	public BabyInfoDTO getBabyInfo(long _babyIndex) throws SQLException {
-		return null;
+	public Cursor getBabyInfo(long _babyIndex) throws SQLException {
+		Cursor cursor = db.query(true, "BABY_INFO", new String[] { "BABY_ID", "NAME", "PASSWORD", "SEX", "BIRTH" }, 
+				"BABY_ID" + "=" + _babyIndex, null, null, null, null, null);
+
+        if ((cursor.getCount() == 0) || !cursor.moveToFirst()) {
+            throw new SQLException("No to do item found for row: " + _babyIndex);
+        }
+      
+        return cursor;
 	}
 
 }
