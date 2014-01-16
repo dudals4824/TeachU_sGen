@@ -40,8 +40,7 @@ public class DBItemInfoAdapter {
 
 	public long additem(ItemInfoDTO _item) {
 		ContentValues values = new ContentValues();
-		
-		
+
 		return 0;
 	}
 
