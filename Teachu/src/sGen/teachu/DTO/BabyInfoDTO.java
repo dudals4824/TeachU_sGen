@@ -1,11 +1,12 @@
 package sGen.teachu.DTO;
+
 import java.util.Date;
 
 public class BabyInfoDTO {
 	private int babyId;
 	private String name;
 	private String password;
-	private int sex; // 0?�자 1?�자
+	private int sex;
 	private Date birth;
 
 	public BabyInfoDTO(int babyId, String name, String password, int sex,
@@ -16,6 +17,10 @@ public class BabyInfoDTO {
 		this.password = password;
 		this.sex = sex;
 		this.birth = birth;
+	}
+
+	public BabyInfoDTO() {
+		super();
 	}
 
 	public int getBabyId() {
