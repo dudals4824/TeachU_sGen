@@ -13,31 +13,27 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		super(context, name, factory, version);
 	}
 
-	//BABYINFO TABLE DDL
+	// BABYINFO TABLE DDL
 	private static final String BABYINFO_CREATE = "create table BABY_INFO("
 			+ "BABY_ID integer primary key autoincrement,"
 			+ "NAME	text not null," + "PASSWORD text not null,"
-			+ "AGE	integer not null," + "SEX	text not null);";
-	
-	//BABYGROWTH TABLE DDL
-	private static final String BABYGROWTH_CREATE ="create table BABY_GROWTH(" +
-			"ITEM_ID integer primary key autoincrement," +
-			"CATE_ID integer not null," +
-			"BABY_ID integer not null," +
-			"SHOW_CNT integer," +
-			"CORRECT_ANS integer);";
-	
-	//ITEMINFO TABLE DDL
-	private static final String ITEM_CREATE = "create table ITEM(" +
-			"ITEM_ID integer primary key autoincrement," +
-			"CATE_ID integer not null," +
-			"ITEM_NAME text not null);";
-	
-	//CATEGORY TABLE DDL
-	private static final String CATEGORY_CREATE = "create table CATEGORY(" +
-			"CATE_ID integer primary key autoincrement," +
-			"NAME text not null," +
-			"PAID boolean not null);";
+			+ "BIRTH DATE not null," + "SEX	integer not null);";
+
+	// BABYGROWTH TABLE DDL
+	private static final String BABYGROWTH_CREATE = "create table BABY_GROWTH("
+			+ "ITEM_ID integer primary key autoincrement,"
+			+ "CATE_ID integer not null," + "BABY_ID integer not null,"
+			+ "SHOW_CNT integer," + "CORRECT_ANS integer);";
+
+	// ITEMINFO TABLE DDL
+	private static final String ITEM_CREATE = "create table ITEM("
+			+ "ITEM_ID integer primary key autoincrement,"
+			+ "CATE_ID integer not null," + "ITEM_NAME text not null);";
+
+	// CATEGORY TABLE DDL
+	private static final String CATEGORY_CREATE = "create table CATEGORY("
+			+ "CATE_ID integer primary key autoincrement,"
+			+ "NAME text not null," + "PAID boolean not null);";
 
 	// DB 파일이 생성될 때 호출됨
 	public void onCreate(SQLiteDatabase _db) {
@@ -45,7 +41,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		_db.execSQL(BABYGROWTH_CREATE);
 		_db.execSQL(ITEM_CREATE);
 		_db.execSQL(CATEGORY_CREATE);
-		
+
 	}
 
 	// 버젼관리 할 때 호출됨[버젼이 일치하지 않을 때]
