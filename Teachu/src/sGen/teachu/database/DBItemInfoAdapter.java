@@ -1,5 +1,9 @@
 package sGen.teachu.database;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import sGen.teachu.DTO.BabyInfoDTO;
 import sGen.teachu.DTO.ItemInfoDTO;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +15,7 @@ import android.database.sqlite.SQLiteException;
 public class DBItemInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
 	private static final int DATABASE_VERSION = 1;
+	private static final String DATABASE_TABLE = "ITEM_INFO";
 
 	public static final int TASK_COLUMN = 1;
 
@@ -41,27 +46,59 @@ public class DBItemInfoAdapter {
 	public long additem(ItemInfoDTO _item) {
 		ContentValues values = new ContentValues();
 
-		return 0;
+		values.put("ITEM_ID", _item.getItemId());
+		values.put("CATE_ID", _item.getCateId());
+		values.put("ITEM_NAME", _item.getItemName());
+		values.put("ITEM_FILENAME", _item.getItemFileName());
+
+		return db.insert(DATABASE_TABLE, null, values);
 	}
 
-	public boolean deleteitem(long _itemIndex) {
-		return false;
+	public boolean deleteitem(long _itemId) {
+		return db.delete(DATABASE_TABLE, "ITEM_ID" + "=" + _itemId, null) > 0;
 	}
 
-	public boolean updateitem(long _itemIndex, ItemInfoDTO _item) {
-		return false;
+	public int updateitem(long _itemId, ItemInfoDTO _item) {
+		ContentValues values = new ContentValues();
+
+		values.put("ITEM_ID", _item.getItemId());
+		values.put("CATE_ID", _item.getCateId());
+		values.put("ITEM_NAME", _item.getItemName());
+		values.put("ITEM_FILENAME", _item.getItemFileName());
+		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null);
 	}
 
 	public Cursor getAllitemCursor() {
-		return null;
+		return db.query("ITEM_INFO", new String[] { "ITEM_ID",
+				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME" }, null, null, null, null, null);
 	}
 
-	public Cursor setCursoritemInfo(long _itemIndex) throws SQLException {
-		return null;
+	public Cursor setCursoritemInfo(long _itemId) throws SQLException {
+		Cursor result = db.query(true, "ITEM_INFO", new String[] { "ITEM_ID",
+				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"},
+				"ITEM_ID" + "=" + _itemId, null, null, null, null, null);
+
+		if ((result.getCount() == 0) || !result.moveToFirst()) {
+			throw new SQLException("No Todo items found for row: " + _itemId);
+		}
+
+		return result;
 	}
 
-	public ItemInfoDTO getitemInfo(long _itemIndex) throws SQLException {
-		return null;
+	public ItemInfoDTO getitemInfo(long _itemId) throws SQLException {
+		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where ITEM_ID="
+				+ _itemId;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+
+		ItemInfoDTO item = new ItemInfoDTO();
+		item.setItemId(cursor.getInt(0));
+		item.setCateId(cursor.getInt(1));
+		item.setItemName(cursor.getString(2));
+		item.setItemFileName(cursor.getString(3));
+
+		return item;
 	}
 
 }
