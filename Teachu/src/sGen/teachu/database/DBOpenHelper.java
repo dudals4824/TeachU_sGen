@@ -28,12 +28,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	// ITEMINFO TABLE DDL
 	private static final String ITEM_CREATE = "create table ITEM("
 			+ "ITEM_ID integer primary key autoincrement,"
-			+ "CATE_ID integer not null," + "ITEM_NAME text not null);";
+			+ "CATE_ID integer not null," + "ITEM_NAME text not null,"
+			+ "ITEM_FILENAME text not null);";
 
 	// CATEGORY TABLE DDL
 	private static final String CATEGORY_CREATE = "create table CATEGORY("
 			+ "CATE_ID integer primary key autoincrement,"
-			+ "NAME text not null," + "PAID boolean not null);";
+			+ "CATE_NAME text not null," + "PAID boolean not null);";
 
 	// DB 파일이 생성될 때 호출됨
 	public void onCreate(SQLiteDatabase _db) {

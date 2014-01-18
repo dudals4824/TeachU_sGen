@@ -89,9 +89,6 @@ public class DBItemInfoAdapter {
 		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
-
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-
 		ItemInfoDTO item = new ItemInfoDTO();
 		item.setItemId(cursor.getInt(0));
 		item.setCateId(cursor.getInt(1));
