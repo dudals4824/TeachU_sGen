@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import sGen.teachu.DTO.BabyInfoDTO;
+import sGen.teachu.DTO.CategoryDTO;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteException;
 public class DBCategoryAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_TABLE = "BABY_INFO";
+	private static final String DATABASE_TABLE = "CATEGORY";
 
 	public static final int TASK_COLUMN = 1;
 
@@ -44,7 +44,7 @@ public class DBCategoryAdapter {
 		db.close();
 	}
 
-	public long addBaby(BabyInfoDTO _baby) {
+	public long addCate(CategoryDTO _cate) {
 		// 참고
 		// http://blog.daum.net/gunsu0j/252
 
@@ -52,68 +52,62 @@ public class DBCategoryAdapter {
 		ContentValues values = new ContentValues();
 
 		// 각 열에 값 할당
-		values.put("BABY_ID", _baby.getBabyId());
-		values.put("NAME", _baby.getName());
-		values.put("PASSWORD", _baby.getPassword());
-		values.put("BIRTH", _baby.getBirth().toString());
-		values.put("SEX", _baby.getSex());
+		values.put("CATE_ID", _cate.getCateId());
+		values.put("CATE_NAME", _cate.getCateName());
+		values.put("PAID", _cate.isPaid());
 
 		// 열삽입
 		return db.insert(DATABASE_TABLE, null, values);
 	}
 
-	public boolean deleteBaby(long _babyId) {
-		return db.delete(DATABASE_TABLE, "BABY_ID" + "=" + _babyId, null) > 0;
+	public boolean deleteCate(long _cateId) {
+		return db.delete(DATABASE_TABLE, "CATE_ID" + "=" + _cateId, null) > 0;
 	}
 
-	public int updateBaby(long _babyId, BabyInfoDTO _baby) {
+	public int updateCate(long _cateId, CategoryDTO _cate) {
 		// Make row
 		ContentValues values = new ContentValues();
 
 		// 각 열에 값 할당
-		values.put("BABY_ID", _baby.getBabyId());
-		values.put("NAME", _baby.getName());
-		values.put("PASSWORD", _baby.getPassword());
-		values.put("BIRTH", _baby.getBirth().toString());
-		values.put("SEX", _baby.getSex());
+		values.put("CATE_ID", _cate.getCateId());
+		values.put("CATE_NAME", _cate.getCateName());
+		values.put("PAID", _cate.isPaid());
 
-		return db.update(DATABASE_TABLE, values, "BABY_ID=" + _babyId, null);
+		return db.update(DATABASE_TABLE, values, "CATE_ID=" + _cateId, null);
 	}
 
-	public Cursor getAllBabyCursor() {
-		return db.query("BABY_INFO", new String[] { "BABY_ID", "NAME",
-				"PASSWORD", "SEX", "BIRTH" }, null, null, null, null, null);
+	public Cursor getAllCateCursor() {
+		return db.query("CATE_INFO", new String[] { "CATE_ID", "CATE_NAME",
+				"PAID" }, null, null, null, null, null);
 	}
 
-	public Cursor setCursorBabyInfo(long _babyId) throws SQLException {
-		Cursor result = db.query(true, "BABY_INFO", new String[] { "BABY_ID",
-				"NAME", "PASSWORD", "SEX", "BIRTH" },
-				"BABY_ID" + "=" + _babyId, null, null, null, null, null);
+	public Cursor setCursorCategory(long _cateId) throws SQLException {
+		Cursor result = db.query(true, DATABASE_TABLE, new String[] {
+				"CATE_ID", "CATE_NAME", "PAID" }, "CATE_ID" + "=" + _cateId,
+				null, null, null, null, null);
 
 		if ((result.getCount() == 0) || !result.moveToFirst()) {
-			throw new SQLException("No Todo items found for row: " + _babyId);
+			throw new SQLException("No Category found for id: " + _cateId);
 		}
 
 		return result;
 	}
 
 	@SuppressLint("SimpleDateFormat")
-	public BabyInfoDTO getBabyInfo(long _babyId) throws SQLException,
+	public CategoryDTO getCategory(long _cateId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where BABY_ID="
-				+ _babyId;
+		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where CATE_ID="
+				+ _cateId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+		CategoryDTO cate = new CategoryDTO();
+		cate.setCateId(cursor.getInt(0));
+		cate.setCateName(cursor.getString(1));
 
-		BabyInfoDTO Baby = new BabyInfoDTO();
-		Baby.setBabyId(cursor.getInt(0)); // babyId
-		Baby.setName(cursor.getString(1));
-		Baby.setPassword(cursor.getString(2));
-		Baby.setSex(cursor.getInt(3));
-		Baby.setBirth(formatter.parse(cursor.getString(4)));
+		boolean value = cursor.getInt(2) > 0;
+		cate.setPaid(value);
 
-		return Baby;
+		return cate;
 	}
 
 }
