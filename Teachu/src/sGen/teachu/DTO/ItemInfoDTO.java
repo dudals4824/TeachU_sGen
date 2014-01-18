@@ -2,15 +2,9 @@ package sGen.teachu.DTO;
 
 public class ItemInfoDTO {
 	private int itemId;
-	private String itemName; //korean name
+	private int cateId;
+	private String itemName; // korean name
 	private String itemFileName; // file name stored in application
-
-	public ItemInfoDTO(int itemId, String itemName, String itemFileName) {
-		super();
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.itemFileName = itemFileName;
-	}
 
 	public int getItemId() {
 		return itemId;
@@ -18,6 +12,14 @@ public class ItemInfoDTO {
 
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+
+	public int getCateId() {
+		return cateId;
+	}
+
+	public void setCateId(int cateId) {
+		this.cateId = cateId;
 	}
 
 	public String getItemName() {
@@ -28,7 +30,7 @@ public class ItemInfoDTO {
 		this.itemName = itemName;
 	}
 
-	public String getItemitemFileName() {
+	public String getItemFileName() {
 		return itemFileName;
 	}
 
@@ -38,9 +40,9 @@ public class ItemInfoDTO {
 
 	@Override
 	public String toString() {
-		return "ItemInfo [itemId=" + itemId + ", itemName=" + itemName
-				+ ", itemPron=" + itemFileName + "]";
+		return "ItemInfoDTO [itemId=" + itemId + ", cateId=" + cateId
+				+ ", itemName=" + itemName + ", itemFileName=" + itemFileName
+				+ "]";
 	}
 
-	
 }
