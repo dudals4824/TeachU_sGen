@@ -100,7 +100,7 @@ public class DBBabyInfoAdapter {
 	@SuppressLint("SimpleDateFormat")
 	public BabyInfoDTO getBabyInfo(long _babyId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where BABY_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where BABY_ID="
 				+ _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 
