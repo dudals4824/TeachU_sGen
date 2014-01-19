@@ -1,12 +1,8 @@
 package sGen.teachu.database;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import sGen.teachu.DTO.BabyGrowthDTO;
-import sGen.teachu.DTO.BabyInfoDTO;
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -104,7 +100,7 @@ public class DBBabyGrowthAdapter {
 
 	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where ITEM_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 

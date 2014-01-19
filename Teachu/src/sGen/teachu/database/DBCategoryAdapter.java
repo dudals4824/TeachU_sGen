@@ -1,8 +1,6 @@
 package sGen.teachu.database;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import sGen.teachu.DTO.CategoryDTO;
 import android.annotation.SuppressLint;
@@ -96,7 +94,7 @@ public class DBCategoryAdapter {
 	@SuppressLint("SimpleDateFormat")
 	public CategoryDTO getCategory(long _cateId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where CATE_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where CATE_ID="
 				+ _cateId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 

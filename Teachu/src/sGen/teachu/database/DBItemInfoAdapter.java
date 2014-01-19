@@ -1,9 +1,5 @@
 package sGen.teachu.database;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import sGen.teachu.DTO.BabyInfoDTO;
 import sGen.teachu.DTO.ItemInfoDTO;
 import android.content.ContentValues;
 import android.content.Context;
@@ -86,7 +82,7 @@ public class DBItemInfoAdapter {
 	}
 
 	public ItemInfoDTO getitemInfo(long _itemId) throws SQLException {
-		String selectSQL = "SELECT *from " + DATABASE_TABLE + "where ITEM_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		ItemInfoDTO item = new ItemInfoDTO();
