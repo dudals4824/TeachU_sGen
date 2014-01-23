@@ -1,6 +1,7 @@
 package sGen.teachu;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import sGen.teachu.R;
 import android.app.Activity;
@@ -42,32 +43,12 @@ public class AddBaby extends Activity {
 
 		final EditText babyNameEdit = (EditText) findViewById(R.id.name);
 		final EditText babypassword = (EditText) findViewById(R.id.password);
-		final DatePicker babyBrithday = (DatePicker) findViewById(R.id.babyBirthday);
+		
 		// final EditText babyAgeEdit = (EditText) findViewById(R.id.age);
 		final RadioGroup rg = (RadioGroup) findViewById(R.id.sexradiogroup);
 
-		long now = System.currentTimeMillis();
-		Date date = new Date(now);
-		
-		
-		OnDateSetListener listener = new OnDateSetListener() {
-			@Override
-			public void onDateSet(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
-				Toast.makeText(getApplicationContext(),
-						year + "년" + monthOfYear + "월" + dayOfMonth + "일",
-						Toast.LENGTH_SHORT).show();
-			}
-		};
-		
-		DatePickerDialog dialog = new DatePickerDialog(this, listener, 2013,
-				10, 22);
-		dialog.show();
-
-		
 		Button okayButton = (Button) findViewById(R.id.addbutton);
 		okayButton.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// press enroll button
@@ -81,18 +62,23 @@ public class AddBaby extends Activity {
 
 				final String babyName = babyNameEdit.getText().toString();
 				final String password = babypassword.getText().toString();
-				final int birthdayM = babyBrithday.getMonth();
-				final int birthdayY = babyBrithday.getYear();
-				final int birthdayD = babyBrithday.getDayOfMonth();
-				// Date birthday = new Date()
+		
+				DatePicker babyBirthday = (DatePicker) findViewById(R.id.babyBirthday);
+				
+				int YYY = babyBirthday.getYear();
+				int MMM = babyBirthday.getMonth()+1;
+				int DDD = babyBirthday.getDayOfMonth();
+				Log.e("생일날짜!!!3", "Y-M-D = " + YYY+MMM+DDD);
+				
+				//Date birthday = new Date();
 				// final String babyAge = babyAgeEdit.getText().toString();
 
 				Baby.setBabyId(1);
 				Baby.setName(babyName);
 				Baby.setPassword(password);
-				// Baby.setBirth(babyAge);
+				//Baby.setBirth(birthday);
 				Baby.setSex(sex);
-				Context _context = null;
+				
 				// DB추가
 
 				mAdapter.open();

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sGen.teachu"
+    android:versionCode="1"
+    android:versionName="1.0" 
+    android:theme="@android:style/Theme.NoTitleBar">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <activity
+            android:name="sGen.teachu.MainActivity">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+            android:name="sGen.teachu.AddBaby"></activity>
+        <activity 
+          	android:name = "sGen.teachu.CategoryTree"></activity>
+        <activity
+            android:name ="sGen.teachu.Play"></activity>
+        <activity
+            android:name="sGen.teachu.forPlay.PlayMic"></activity>
+        <activity
+            android:name="sGen.teachu.forSettingPage.Settings"></activity>
+    </application>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+</manifest>
