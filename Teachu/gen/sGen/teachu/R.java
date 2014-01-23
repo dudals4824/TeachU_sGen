@@ -21,13 +21,69 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int apple=0x7f020000;
+        public static final int background=0x7f020001;
+        public static final int banana=0x7f020002;
+        public static final int carrot=0x7f020003;
+        public static final int cate_back_basic=0x7f020004;
+        public static final int fruit=0x7f020005;
+        public static final int grape=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int lemon=0x7f020008;
+        public static final int mic=0x7f020009;
+        public static final int peach=0x7f02000a;
+        public static final int people=0x7f02000b;
+        public static final int persimmon=0x7f02000c;
+        public static final int strawberry=0x7f02000d;
+        public static final int tomato=0x7f02000e;
+        public static final int verygood=0x7f02000f;
+        public static final int volume_left_1=0x7f020010;
+        public static final int volume_left_2=0x7f020011;
+        public static final int volume_left_3=0x7f020012;
+        public static final int volume_right_1=0x7f020013;
+        public static final int volume_right_2=0x7f020014;
+        public static final int volume_right_3=0x7f020015;
+        public static final int watermelon=0x7f020016;
     }
     public static final class id {
-        public static final int action_settings=0x7f080000;
+        public static final int Fruit=0x7f08000d;
+        public static final int action_settings=0x7f08001d;
+        public static final int addbutton=0x7f08000b;
+        public static final int babyBirthday=0x7f080006;
+        public static final int babyName=0x7f08001c;
+        public static final int babyNameTextView=0x7f080001;
+        public static final int babyPassword=0x7f080003;
+        public static final int correct=0x7f080011;
+        public static final int correctCnt=0x7f08000e;
+        public static final int goCateTree=0x7f080000;
+        public static final int imagescroll=0x7f08000c;
+        public static final int itemNumber=0x7f08000f;
+        public static final int mic=0x7f080015;
+        public static final int name=0x7f080002;
+        public static final int password=0x7f080004;
+        public static final int progress=0x7f080013;
+        public static final int radio_boys=0x7f080009;
+        public static final int radio_girls=0x7f08000a;
+        public static final int result=0x7f080012;
+        public static final int sexradiogroup=0x7f080008;
+        public static final int stt_ui=0x7f080014;
+        public static final int textView1=0x7f080007;
+        public static final int textView3=0x7f080005;
+        public static final int volume_left_1=0x7f080016;
+        public static final int volume_left_2=0x7f080017;
+        public static final int volume_left_3=0x7f080018;
+        public static final int volume_right_1=0x7f080019;
+        public static final int volume_right_2=0x7f08001a;
+        public static final int volume_right_3=0x7f08001b;
+        public static final int wordCard=0x7f080010;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int addbaby=0x7f030001;
+        public static final int category_tree=0x7f030002;
+        public static final int play_main=0x7f030003;
+        public static final int play_mic=0x7f030004;
+        public static final int setting_page=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -35,7 +91,10 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050002;
+        public static final int babyAge=0x7f050003;
+        public static final int babyName=0x7f050002;
+        public static final int baby_boys=0x7f050004;
+        public static final int baby_girls=0x7f050005;
     }
     public static final class style {
         /** 

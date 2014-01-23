@@ -115,5 +115,9 @@ public class DBBabyInfoAdapter {
 
 		return Baby;
 	}
+	public int getBabyCount(){
+		Cursor cursor = db.rawQuery("SELECT * from " + DATABASE_TABLE, null);
+		return cursor.getCount();
+	}
 
 }

@@ -46,7 +46,6 @@ public class DBItemInfoAdapter {
 		values.put("CATE_ID", _item.getCateId());
 		values.put("ITEM_NAME", _item.getItemName());
 		values.put("ITEM_FILENAME", _item.getItemFileName());
-
 		return db.insert(DATABASE_TABLE, null, values);
 	}
 
@@ -66,7 +65,7 @@ public class DBItemInfoAdapter {
 
 	public Cursor getAllitemCursor() {
 		return db.query("ITEM_INFO", new String[] { "ITEM_ID",
-				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME" }, null, null, null, null, null);
+				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"}, null, null, null, null, null);
 	}
 
 	public Cursor setCursoritemInfo(long _itemId) throws SQLException {
@@ -90,7 +89,7 @@ public class DBItemInfoAdapter {
 		item.setCateId(cursor.getInt(1));
 		item.setItemName(cursor.getString(2));
 		item.setItemFileName(cursor.getString(3));
-
+		
 		return item;
 	}
 

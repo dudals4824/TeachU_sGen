@@ -59,8 +59,8 @@ public class BabyInfoDTO {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
+	public void setBirth(Date babyBirth) {
+		this.birth = babyBirth;
 	}
 
 	@Override

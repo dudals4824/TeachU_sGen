@@ -5,6 +5,18 @@ public class ItemInfoDTO {
 	private int cateId;
 	private String itemName; // korean name
 	private String itemFileName; // file name stored in application
+	private int fileName;
+
+	public ItemInfoDTO(int _itemId, int _cateId, String _itemName, String _itemFileName){
+		itemId = _itemId;
+		cateId = _cateId;
+		itemName = _itemName;
+		itemFileName = _itemFileName;
+	}
+	
+	public ItemInfoDTO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getItemId() {
 		return itemId;
