@@ -8,7 +8,7 @@ import sGen.teachu.DTO.*;
 import sGen.teachu.database.*;
 
 public class Fruit {
-	public ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
+	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
 	public Fruit(){
 		itemList.add(new ItemInfoDTO(0, 1, "사과", "apple"));	
 		itemList.add(new ItemInfoDTO(1, 1, "바나나", "banana"));
@@ -26,7 +26,5 @@ public class Fruit {
 	public ArrayList<ItemInfoDTO> getItemList(){
 		return itemList;
 	}
-	
-	
 
 }
