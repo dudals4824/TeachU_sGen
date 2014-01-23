@@ -1,7 +1,8 @@
 package sGen.teachu;
 
-import java.sql.Date;
+
 import java.util.Calendar;
+import java.util.Date;
 
 import sGen.teachu.R;
 import android.app.Activity;
@@ -44,7 +45,7 @@ public class AddBaby extends Activity {
 		final EditText babyNameEdit = (EditText) findViewById(R.id.name);
 		final EditText babypassword = (EditText) findViewById(R.id.password);
 		
-		// final EditText babyAgeEdit = (EditText) findViewById(R.id.age);
+		//final EditText babyAgeEdit = (EditText) findViewById(R.id.age);
 		final RadioGroup rg = (RadioGroup) findViewById(R.id.sexradiogroup);
 
 		Button okayButton = (Button) findViewById(R.id.addbutton);
@@ -65,18 +66,19 @@ public class AddBaby extends Activity {
 		
 				DatePicker babyBirthday = (DatePicker) findViewById(R.id.babyBirthday);
 				
-				int YYY = babyBirthday.getYear();
-				int MMM = babyBirthday.getMonth()+1;
-				int DDD = babyBirthday.getDayOfMonth();
-				Log.e("생일날짜!!!3", "Y-M-D = " + YYY+MMM+DDD);
+				int year = babyBirthday.getYear();
+				int month = babyBirthday.getMonth();
+				int day = babyBirthday.getDayOfMonth();
+				Log.e("생일날짜!!!3", "Y-M-D = " + year + month+day);
 				
-				//Date birthday = new Date();
+				@SuppressWarnings("deprecation")
+				Date birthday  = new Date(year, month, day);
 				// final String babyAge = babyAgeEdit.getText().toString();
 
 				Baby.setBabyId(1);
 				Baby.setName(babyName);
 				Baby.setPassword(password);
-				//Baby.setBirth(birthday);
+				Baby.setBirth(birthday);
 				Baby.setSex(sex);
 				
 				// DB추가
@@ -89,7 +91,7 @@ public class AddBaby extends Activity {
 
 				Log.e("MINKA", "이름 : " + babyName);
 				Log.e("MINKA", "비밀번호 : " + password);
-				// Log.e("MINKA", "나이: " + babyAge);
+				Log.e("MINKA", "생일 : " + birthday);
 				Log.e("MINKA", "성별 : " + sex);
 				// activity return
 				Intent MainActivity = new Intent(AddBaby.this,
