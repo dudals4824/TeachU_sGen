@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import sGen.teachu.database.*;
+import sGen.teachu.forPlay.Compareword;
 import sGen.teachu.forPlay.PlayMic;
 import sGen.teachu.forSettingPage.Settings;
 import sGen.teachu.DTO.*;
@@ -156,7 +157,7 @@ public class Play extends Activity implements OnClickListener {
 				break;
 			}
 		}
-
+		// 5개 중에 정답이 있는 경우
 		if (correctFlag == true) {
 			mCorrect.setVisibility(View.VISIBLE);
 			mResultTextView.setText("정답 :" + item.getItemName());
@@ -186,8 +187,22 @@ public class Play extends Activity implements OnClickListener {
 				}
 			}.start();
 
-		} else
-			mResultTextView.setText("틀림");
+		} else{
+			// 5개 중에 정답이 없는 경우
+			// 5개 중에서 비교하여 70% 넘는 것이 있으면 맞음처리
+			Compareword [] word=new Compareword[mResult.size()];
+			for (int i = 0; i < mResult.size(); i++) {
+				word[i]=new Compareword(item.getItemName(), mResult.get(i));
+				double correctionrate = word[i].getCorrectionrate(word[i].analysis_word_array);
+				if(correctionrate>=70){
+					mResultTextView.setText("맞음");
+					break;
+				}
+				else
+					mResultTextView.setText("틀림");
+			}
+			
+		}
 
 	}
 
@@ -198,6 +213,7 @@ public class Play extends Activity implements OnClickListener {
 	public void setCategoryID(int categoryID) {
 		CategoryID = categoryID;
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -206,23 +222,21 @@ public class Play extends Activity implements OnClickListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		switch(item.getItemId()){
-		case 1 :
-			//DB initializing : for testing
+		switch (item.getItemId()) {
+		case 1:
+			// DB initializing : for testing
 			DBBabyInfoAdapter mAdapter = new DBBabyInfoAdapter(this);
 			mAdapter.open();
 			mAdapter.deleteBaby(1);
 			int babyInt = mAdapter.getBabyCount();
-	        mAdapter.close();
-	        
-	        Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
-			
-		case 2 :
+			mAdapter.close();
+
+			Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
+
+		case 2:
 			Intent Settings = new Intent(Play.this, Settings.class);
 			startActivity(Settings);
 		}
