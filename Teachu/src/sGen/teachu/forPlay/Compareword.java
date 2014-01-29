@@ -12,8 +12,8 @@ public class Compareword {
 
 	public Compareword(String word, String inputword) {
 		super();
-		this.correctword = word;
-		this.inputword = inputword;
+		this.correctword = eraseSpace(word);
+		this.inputword = eraseSpace(inputword);
 
 		// 정답단어 분석
 		syllable_word_array = getSyllablewordarray(correctword);
@@ -26,6 +26,10 @@ public class Compareword {
 		analysis_word_array = compare(phoneme_word_array,
 				phoneme_inputword_array);
 
+	}
+
+	private String eraseSpace(String word) {
+		return word.replace(" ", "");
 	}
 
 	// 음절의 유니코드 배열을 얻는 함수
@@ -127,44 +131,83 @@ public class Compareword {
 		// 비교하기
 		// 음소 배열 비교 후, 다른 경우에는 isSimilar로 넘어감. 초성: 0.3 중성: 0.4 종성: 0.3
 		int i = 0;
-		for (int j = 0; j < syllable_word_array.length; j++) {
-			// 인덱스 0~2까지, 3~5까지 반복
-			for (; i < (j + 1) * 3; i++) {
-				if (i % 3 == 0) {
-					if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
-						analysis_word_array[i] = 0.3;
-					else {
-						if (isSimilarConsonant(phoneme_word_array[i],
-								phoneme_inputword_array[i]) != -1)
-							analysis_word_array[i] = 0.2;
-						else
-							analysis_word_array[i] = 0.1;
-					}
-				} else if (i % 3 == 1) {
-					// System.out.println("i : " + i);
-					if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
-						analysis_word_array[i] = 0.3;
-					else {
-						if (isSimilarVowel(phoneme_word_array[i],
-								phoneme_inputword_array[i]) != -1)
-							analysis_word_array[i] = 0.2;
-						else
-							analysis_word_array[i] = 0.1;
-					}
+		int n = 0, k = 0;
+		if (syllable_word_array.length == syllable_inputword_array.length) {
+			for (int j = 0; j < syllable_word_array.length; j++) {
+				// 인덱스 0~2까지, 3~5까지 반복
+				for (; i < (j + 1) * 3; i++) {
+					if (i % 3 == 0) {
+						if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
+							analysis_word_array[i] = 0.3;
+						else {
+							if (isSimilarConsonant(phoneme_word_array[i],
+									phoneme_inputword_array[i]) != -1)
+								analysis_word_array[i] = 0.2;
+							else
+								analysis_word_array[i] = 0.1;
+						}
+					} else if (i % 3 == 1) {
+						// System.out.println("i : " + i);
+						if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
+							analysis_word_array[i] = 0.3;
+						else {
+							if (isSimilarVowel(phoneme_word_array[i],
+									phoneme_inputword_array[i]) != -1)
+								analysis_word_array[i] = 0.2;
+							else
+								analysis_word_array[i] = 0.1;
+						}
 
-				} else if (i % 3 == 2) {
-					// System.out.println("i : " + i);
-					if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
-						analysis_word_array[i] = 0.3;
-					else {
-						if (isSimilarConsonant(phoneme_word_array[i],
-								phoneme_inputword_array[i]) != -1)
-							analysis_word_array[i] = 0.2;
-						else
-							analysis_word_array[i] = 0.1;
+					} else if (i % 3 == 2) {
+						// System.out.println("i : " + i);
+						if (phoneme_word_array[i] == (phoneme_inputword_array[i]))
+							analysis_word_array[i] = 0.3;
+						else {
+							if (isSimilarConsonant(phoneme_word_array[i],
+									phoneme_inputword_array[i]) != -1)
+								analysis_word_array[i] = 0.2;
+							else
+								analysis_word_array[i] = 0.1;
+						}
 					}
 				}
 			}
+		} else if (syllable_word_array.length < syllable_inputword_array.length) {
+			for (n = 0; n < phoneme_word_array.length; n++) {
+				for (k = 0; k < phoneme_inputword_array.length; k++) {
+					if (n % 3 == 0)
+						if (phoneme_word_array[n] == phoneme_inputword_array[k])
+							analysis_word_array[n] = 0.3;
+
+						else if (n % 3 == 1)
+							if (phoneme_word_array[n] == phoneme_inputword_array[k])
+								analysis_word_array[n] = 0.4;
+
+							else if (n % 3 == 2)
+								if (phoneme_word_array[n] == phoneme_inputword_array[k])
+									analysis_word_array[n] = 0.3;
+
+				}
+			}
+		} else { // 정답 단어 음절 수 > 입력 단어 음절 수
+			for (n = 0; n < phoneme_inputword_array.length; n++) {
+				for (k = 0; k < phoneme_inputword_array.length; k++) {
+					if (n % 3 == 0)
+						if (phoneme_word_array[n] == phoneme_inputword_array[k])
+							analysis_word_array[n] = 0.3;
+
+						else if (n % 3 == 1)
+							if (phoneme_word_array[n] == phoneme_inputword_array[k])
+								analysis_word_array[n] = 0.4;
+
+							else if (n % 3 == 2)
+								if (phoneme_word_array[n] == phoneme_inputword_array[k])
+									analysis_word_array[n] = 0.3;
+				}
+
+			}
+			for (i = n + 1; i < phoneme_word_array.length; i++)
+				analysis_word_array[i] = 0;
 		}
 		return analysis_word_array;
 	}
@@ -229,9 +272,9 @@ public class Compareword {
 		correct_ration = (point_sum) / (syllable_word_array.length) * 100;
 		return correct_ration;
 	}
-
-	public static void main(String[] args) {
-		Compareword analy = new Compareword("사과", "사기");
+/*
+ *	public static void main(String[] args) {
+		Compareword analy = new Compareword("중급", "좋은 것");
 		// analy.compare(analy.phoneme_word_array,
 		// analy.phoneme_inputword_array);
 		for (int i = 0; i < analy.analysis_word_array.length; i++) {
@@ -247,10 +290,9 @@ public class Compareword {
 		}
 
 		System.out.println(analy.getCorrectionrate(analy.analysis_word_array));
-		/*
-		 * for (int i = 0; i < analy.phoneme_word_array.length; i++) {
-		 * System.out.println(analy.phoneme_word_array[i]); }
-		 */
+
 		// System.out.println(analy.isSimilar(4, 7));
 	}
+ * */
+
 }
