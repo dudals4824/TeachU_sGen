@@ -1,0 +1,104 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layout_babyinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/pic_baby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="100dp"
+                android:maxWidth="150dp"
+                android:src="@drawable/yoonhoo" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="2"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:useDefaultMargins="true" >
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:layout_row="0"
+                    android:text="윤후"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:text="남자" />
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:text="8" />
+            </GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_graphview"
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:background="#ffffff"
+            android:dividerPadding="10dp"
+            android:orientation="vertical" />
+
+        <GridLayout
+            android:id="@+id/layout_correctionrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:useDefaultMargins="true"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3" >
+
+            <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="0"/>
+
+            <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_column="1"
+                 android:layout_row="0" />
+
+            <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_column="2"
+                 android:layout_row="0" />
+
+        </GridLayout>
+    </LinearLayout>
+
+</ScrollView>
