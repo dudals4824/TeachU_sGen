@@ -16,7 +16,7 @@ public class Setting extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_setting);
+		setContentView(R.layout.setting);
 		layout_graphview = (LinearLayout) findViewById(R.id.layout_graphview);
 		layout_background = (ScrollView) findViewById(R.id.layout_background);
 		layout_correctionrate = (GridLayout) findViewById(R.id.layout_correctionrate);
