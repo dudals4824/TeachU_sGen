@@ -8,7 +8,7 @@ public class Compareword {
 	// 음소 유니코드 배열
 	private int[] phoneme_word_array, phoneme_inputword_array;
 
-	private double[] analysis_word_array;
+	public double[] analysis_word_array;
 
 	public Compareword(String word, String inputword) {
 		super();
@@ -256,7 +256,7 @@ public class Compareword {
 		return finalcode;
 	}
 
-	double getCorrectionrate(double[] analysis_word_array) {
+	public double getCorrectionrate(double[] analysis_word_array) {
 		double point_sum = 0;
 		double correct_ration;
 		for (int i = 0; i < analysis_word_array.length; i++) {
