@@ -105,8 +105,10 @@ public class DBBabyGrowthAdapter {
 		return result;
 	}
 
+	
+	//return Growth of selected category
+	//used in baby information page
 	public float getCategoryGrowth(int _cateId, int _babyId) {
-		// TODO
 		String selectSQL = "SELECET * from " + DATABASE_TABLE
 				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
