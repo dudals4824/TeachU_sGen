@@ -13,7 +13,13 @@ import android.database.sqlite.SQLiteException;
 public class DBBabyGrowthAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_TABLE = "BABY_Growth";
+	private static final String DATABASE_TABLE = "BABY_GROWTH";
+
+	private static final int COLUMN_CATEID = 0;
+	private static final int COLUMN_ITEMID = 1;
+	private static final int COLUMN_BABYID = 2;
+	private static final int COLUMN_SHOWCNT = 3;
+	private static final int COLUMN_CORRECT = 4;
 
 	public static final int TASK_COLUMN = 1;
 
@@ -62,7 +68,7 @@ public class DBBabyGrowthAdapter {
 	public boolean deleteBabyGrowth_byItem(long _itemId) {
 		return db.delete(DATABASE_TABLE, "ITEM_ID" + "=" + _itemId, null) > 0;
 	}
-	
+
 	public boolean deleteBabyGrowth_byBaby(long _babyId) {
 		return db.delete(DATABASE_TABLE, "BABY_ID" + "=" + _babyId, null) > 0;
 	}
@@ -83,19 +89,42 @@ public class DBBabyGrowthAdapter {
 
 	public Cursor getAllBabyGrowthCursor() {
 		return db.query("BABY_GROWTH", new String[] { "ITEM_ID", "CATE_ID",
-				"BABY_ID", "SHOW_CNT", "CORRECT_ANS" }, null, null, null, null, null);
+				"BABY_ID", "SHOW_CNT", "CORRECT_ANS" }, null, null, null, null,
+				null);
 	}
 
 	public Cursor setCursorBabyGrowth(long _itemId) throws SQLException {
-		Cursor result = db.query(true, "BABY_GROWTH", new String[] { "ITEM_ID", "CATE_ID",
-				"BABY_ID", "SHOW_CNT", "CORRECT_ANS" },
-				"ITEM_ID" + "=" + _itemId, null, null, null, null, null);
+		Cursor result = db.query(true, "BABY_GROWTH", new String[] { "ITEM_ID",
+				"CATE_ID", "BABY_ID", "SHOW_CNT", "CORRECT_ANS" }, "ITEM_ID"
+				+ "=" + _itemId, null, null, null, null, null);
 
 		if ((result.getCount() == 0) || !result.moveToFirst()) {
 			throw new SQLException("No growth found for item: " + _itemId);
 		}
 
 		return result;
+	}
+
+	public float getCategoryGrowth(int _cateId, int _babyId) {
+		// TODO
+		String selectSQL = "SELECET * from " + DATABASE_TABLE
+				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
+		float showCnt = 0, correctCnt = 0;
+		float correctRate = 0, correctRateSum = 0;
+		int totalItemCnt = 0;
+
+		while (!cursor.isLast()) {
+			showCnt = cursor.getInt(COLUMN_SHOWCNT);
+			correctCnt = cursor.getInt(COLUMN_SHOWCNT);
+			correctRate = (float) (correctCnt / showCnt);
+			correctRateSum += correctRate;
+			totalItemCnt++;
+			cursor.moveToNext();
+		}
+
+		return correctRateSum/totalItemCnt;
 	}
 
 	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
@@ -105,12 +134,12 @@ public class DBBabyGrowthAdapter {
 		Cursor cursor = db.rawQuery(selectSQL, null);
 
 		BabyGrowthDTO babyGrowth = new BabyGrowthDTO();
-		babyGrowth.setItemId(cursor.getInt(0));
-		babyGrowth.setCateId(cursor.getInt(1));
-		babyGrowth.setBabyId(cursor.getInt(2));
-		babyGrowth.setShowCnt(cursor.getInt(3));
-		babyGrowth.setCorrectAns(cursor.getInt(4));
-		
+		babyGrowth.setItemId(cursor.getInt(COLUMN_ITEMID));
+		babyGrowth.setCateId(cursor.getInt(COLUMN_CATEID));
+		babyGrowth.setBabyId(cursor.getInt(COLUMN_BABYID));
+		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
+		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
+
 		return babyGrowth;
 	}
 
