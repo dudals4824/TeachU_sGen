@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 public class DBBabyGrowthAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
@@ -105,11 +106,10 @@ public class DBBabyGrowthAdapter {
 		return result;
 	}
 
-	
-	//return Growth of selected category
-	//used in baby information page
+	// return Growth of selected category
+	// used in baby information page
 	public float getCategoryGrowth(int _cateId, int _babyId) {
-		String selectSQL = "SELECET * from " + DATABASE_TABLE
+		String selectSQL = "SELECT * from " + DATABASE_TABLE
 				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
@@ -126,7 +126,36 @@ public class DBBabyGrowthAdapter {
 			cursor.moveToNext();
 		}
 
-		return correctRateSum/totalItemCnt;
+		return correctRateSum / totalItemCnt;
+	}
+
+	//
+	public int changeGrowthForItem(int _itemId, int _cateId, int _babyId,
+			boolean isCorrect) {
+		String selectSQL = "SELECT * from " + DATABASE_TABLE
+				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId
+				+ " and ITEM_ID = " + _itemId;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+
+		int currentShowCnt = cursor.getInt(COLUMN_SHOWCNT);
+		int currentCorrectCnt = cursor.getInt(COLUMN_CORRECT);
+
+		Log.e("KJK", "출제 횟수 :" + currentShowCnt + "정답 횟수 : "
+				+ currentCorrectCnt);
+
+		currentShowCnt++; // 문제 출제횟수 증가
+		if (isCorrect)
+			currentCorrectCnt++; // 정답일 경우 정답 횟수 증가
+
+		ContentValues values = new ContentValues();
+		// 각 열에 값 할당
+		values.put("ITEM_ID", _itemId);
+		values.put("CATE_ID", _cateId);
+		values.put("BABY_ID", _babyId);
+		values.put("SHOW_CNT", currentShowCnt); //updating
+		values.put("CORRECT_ANS", currentCorrectCnt);
+
+		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); //update to Database
 	}
 
 	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
