@@ -134,7 +134,6 @@ public class GraphView extends View {
 		}
 		setChartSettings(renderer, "학습 성장 그래프", "날짜",
 				"정답률", 0, 12, 0, 100, Color.BLACK, Color.BLACK);
-		//���� � ���̰� �Ҳ���
 
 
 		if (mChartView == null) {

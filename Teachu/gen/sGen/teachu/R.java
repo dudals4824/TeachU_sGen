@@ -51,11 +51,11 @@ public final class R {
     }
     public static final class id {
         public static final int Fruit=0x7f08000d;
-        public static final int action_settings=0x7f080025;
+        public static final int action_settings=0x7f080026;
         public static final int addbutton=0x7f08000b;
-        public static final int age=0x7f080021;
+        public static final int age=0x7f080022;
         public static final int babyBirthday=0x7f080006;
-        public static final int babyName=0x7f080024;
+        public static final int babyName=0x7f080025;
         public static final int babyNameTextView=0x7f080001;
         public static final int babyPassword=0x7f080003;
         public static final int btn_setting=0x7f08000e;
@@ -66,8 +66,8 @@ public final class R {
         public static final int itemNumber=0x7f080010;
         public static final int layout_babyinfo=0x7f08001e;
         public static final int layout_background=0x7f08001d;
-        public static final int layout_correctionrate=0x7f080023;
-        public static final int layout_graphview=0x7f080022;
+        public static final int layout_correctionrate=0x7f080024;
+        public static final int layout_graphview=0x7f080023;
         public static final int mic=0x7f080016;
         public static final int name=0x7f080002;
         public static final int password=0x7f080004;
@@ -76,11 +76,12 @@ public final class R {
         public static final int radio_boys=0x7f080009;
         public static final int radio_girls=0x7f08000a;
         public static final int result=0x7f080013;
-        public static final int sex=0x7f080020;
+        public static final int sex=0x7f080021;
         public static final int sexradiogroup=0x7f080008;
         public static final int stt_ui=0x7f080015;
         public static final int textView1=0x7f080007;
         public static final int textView3=0x7f080005;
+        public static final int text_name=0x7f080020;
         public static final int volume_left_1=0x7f080017;
         public static final int volume_left_2=0x7f080018;
         public static final int volume_left_3=0x7f080019;

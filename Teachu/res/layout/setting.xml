@@ -39,7 +39,7 @@
                 android:useDefaultMargins="true" >
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnSpan="2"
@@ -80,19 +80,19 @@
             android:orientation="horizontal"
             android:rowCount="3" >
 
-            <sGen.teachu.forSettingPage.ProgressView2
+            <sGen.teachu.forSettingPage.ProgressView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="0"/>
 
-            <sGen.teachu.forSettingPage.ProgressView2
+            <sGen.teachu.forSettingPage.ProgressView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  android:layout_column="1"
                  android:layout_row="0" />
 
-            <sGen.teachu.forSettingPage.ProgressView2
+            <sGen.teachu.forSettingPage.ProgressView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  android:layout_column="2"

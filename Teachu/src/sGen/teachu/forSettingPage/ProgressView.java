@@ -13,7 +13,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-public class ProgressView2 extends View {
+public class ProgressView extends View {
 	int percentage;
 	Display display;
 	Canvas Outercanvas;
@@ -22,7 +22,7 @@ public class ProgressView2 extends View {
 	Paint paint = new Paint();
 	int x = 90;
 
-	public ProgressView2(Context context) {
+	public ProgressView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		display = ((WindowManager) context
@@ -35,7 +35,7 @@ public class ProgressView2 extends View {
 
 	}
 
-	public ProgressView2(Context context, AttributeSet attrs) {
+	public ProgressView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		display = ((WindowManager) context
@@ -48,7 +48,7 @@ public class ProgressView2 extends View {
 
 	}
 
-	public ProgressView2(Context context, AttributeSet attrs, int defStyleAttr) {
+	public ProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		// TODO Auto-generated constructor stub
 		display = ((WindowManager) context
@@ -80,7 +80,6 @@ public class ProgressView2 extends View {
 				(float) (devicewidth * 0.13), (float) (devicewidth * 0.13),
 				paint);
 		Outercanvas = canvas;
-		Log.d("progress", x + "");
 		// 180-2x
 		paint.setColor(Color.YELLOW);
 		canvas.drawArc(new RectF((float) (devicewidth * 0.01),
