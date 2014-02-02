@@ -153,15 +153,17 @@ public class DBBabyGrowthAdapter {
 		values.put("ITEM_ID", _itemId);
 		values.put("CATE_ID", _cateId);
 		values.put("BABY_ID", _babyId);
-		values.put("SHOW_CNT", currentShowCnt); //updating
+		values.put("SHOW_CNT", currentShowCnt); // updating
 		values.put("CORRECT_ANS", currentCorrectCnt);
 
-		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); //update to Database
+		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); // update
+																				// to
+																				// Database
 	}
 
 	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
