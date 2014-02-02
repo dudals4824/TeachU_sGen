@@ -97,6 +97,7 @@ public class DBCategoryAdapter {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where CATE_ID="
 				+ _cateId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
 
 		CategoryDTO cate = new CategoryDTO();
 		cate.setCateId(cursor.getInt(0));

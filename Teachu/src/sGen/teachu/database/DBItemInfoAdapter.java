@@ -39,7 +39,7 @@ public class DBItemInfoAdapter {
 		db.close();
 	}
 
-	public long additem(ItemInfoDTO _item) {
+	public long addItem(ItemInfoDTO _item) {
 		ContentValues values = new ContentValues();
 
 		values.put("ITEM_ID", _item.getItemId());
@@ -49,11 +49,11 @@ public class DBItemInfoAdapter {
 		return db.insert(DATABASE_TABLE, null, values);
 	}
 
-	public boolean deleteitem(long _itemId) {
+	public boolean deleteItem(long _itemId) {
 		return db.delete(DATABASE_TABLE, "ITEM_ID" + "=" + _itemId, null) > 0;
 	}
 
-	public int updateitem(long _itemId, ItemInfoDTO _item) {
+	public int updateItem(long _itemId, ItemInfoDTO _item) {
 		ContentValues values = new ContentValues();
 
 		values.put("ITEM_ID", _item.getItemId());
@@ -63,12 +63,12 @@ public class DBItemInfoAdapter {
 		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null);
 	}
 
-	public Cursor getAllitemCursor() {
+	public Cursor getAllItemCursor() {
 		return db.query("ITEM_INFO", new String[] { "ITEM_ID",
 				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"}, null, null, null, null, null);
 	}
 
-	public Cursor setCursoritemInfo(long _itemId) throws SQLException {
+	public Cursor setCursorItemInfo(long _itemId) throws SQLException {
 		Cursor result = db.query(true, "ITEM_INFO", new String[] { "ITEM_ID",
 				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"},
 				"ITEM_ID" + "=" + _itemId, null, null, null, null, null);
@@ -80,10 +80,11 @@ public class DBItemInfoAdapter {
 		return result;
 	}
 
-	public ItemInfoDTO getitemInfo(long _itemId) throws SQLException {
+	public ItemInfoDTO getItemInfo(long _itemId) throws SQLException {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
 		ItemInfoDTO item = new ItemInfoDTO();
 		item.setItemId(cursor.getInt(0));
 		item.setCateId(cursor.getInt(1));

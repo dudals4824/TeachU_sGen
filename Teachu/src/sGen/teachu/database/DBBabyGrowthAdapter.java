@@ -136,6 +136,7 @@ public class DBBabyGrowthAdapter {
 				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId
 				+ " and ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
 
 		int currentShowCnt = cursor.getInt(COLUMN_SHOWCNT);
 		int currentCorrectCnt = cursor.getInt(COLUMN_CORRECT);
@@ -163,6 +164,7 @@ public class DBBabyGrowthAdapter {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
 
 		BabyGrowthDTO babyGrowth = new BabyGrowthDTO();
 		babyGrowth.setItemId(cursor.getInt(COLUMN_ITEMID));
