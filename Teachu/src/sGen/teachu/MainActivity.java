@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
         //Context _context=getApplicationContext();
         DBBabyInfoAdapter mAdapter = new DBBabyInfoAdapter(this);
         mAdapter.open();
+       
         int babyInt = mAdapter.getBabyCount();
         
         
@@ -46,12 +47,11 @@ public class MainActivity extends Activity {
     				startActivity(AddBabyActivity);
         	    }
         	});
-        	alert.setMessage("아기 추가해야함");
+        	alert.setMessage("아이를 등록하세요");
         	alert.show();
         }
         else{
         	//case :  add baby
-        	
         	Button goCateTree = (Button)findViewById(R.id.goCateTree);
         	goCateTree.setOnClickListener(new View.OnClickListener() {
 				@Override

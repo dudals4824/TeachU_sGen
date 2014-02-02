@@ -33,8 +33,11 @@ public class Setting extends Activity {
 		textview_name=(TextView)findViewById(R.id.text_name);
 		
 		mBabyAdapter.open();
+	//	Baby=mBabyAdapter.getBabyInfo(1);
 		try {
-			Baby.setName(mBabyAdapter.getBabyInfo(1).getName());
+			
+			Baby=mBabyAdapter.getBabyInfo(1);
+		//	Baby.setName(mBabyAdapter.getBabyInfo(1).getName());
 			Log.e("getBabyInfo",Baby.getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

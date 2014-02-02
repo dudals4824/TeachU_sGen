@@ -2,10 +2,8 @@ package sGen.teachu.MakeItem;
 
 import java.util.ArrayList;
 
+import sGen.teachu.DTO.ItemInfoDTO;
 import android.util.Log;
-import sGen.teachu.R;
-import sGen.teachu.DTO.*;
-import sGen.teachu.database.*;
 
 public class Fruit {
 	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();

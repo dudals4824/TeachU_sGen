@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 public class DBBabyInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
@@ -103,7 +104,10 @@ public class DBBabyInfoAdapter {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where BABY_ID = "
 				+ _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
-
+		Log.e("cursor2132",cursor.getCount()+"");
+		Log.e("cursor2132", cursor.getInt(0) + " " + cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getInt(3));
+		
+		Log.e("cursor","cursorrrr");
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
 
 		BabyInfoDTO Baby = new BabyInfoDTO();
@@ -111,8 +115,8 @@ public class DBBabyInfoAdapter {
 		Baby.setName(cursor.getString(1));
 		Baby.setPassword(cursor.getString(2));
 		Baby.setSex(cursor.getInt(3));
-		Baby.setBirth(formatter.parse(cursor.getString(4)));
-
+		//Baby.setBirth(formatter.parse(cursor.getString(4)));
+		Log.e("cursor","cursorrrr222");
 		return Baby;
 	}
 	public int getBabyCount(){

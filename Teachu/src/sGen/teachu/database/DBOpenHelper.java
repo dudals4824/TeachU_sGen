@@ -16,7 +16,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	// BABYINFO TABLE DDL
 	private static final String BABYINFO_CREATE = "create table BABY_INFO("
 			+ "BABY_ID integer primary key autoincrement,"
-			+ "NAME	text not null," + "PASSWORD text not null,"
+			+ "NAME text not null," + "PASSWORD text not null,"
 			+ "BIRTH DATE not null," + "SEX	integer not null);";
 
 	// BABYGROWTH TABLE DDL
