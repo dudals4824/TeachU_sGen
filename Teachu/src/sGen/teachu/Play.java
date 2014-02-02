@@ -195,11 +195,11 @@ public class Play extends Activity implements OnClickListener {
 				word[i]=new Compareword(item.getItemName(), mResult.get(i));
 				double correctionrate = word[i].getCorrectionrate(word[i].analysis_word_array);
 				if(correctionrate>=70){
-					mResultTextView.setText("맞음");
+					mResultTextView.setText("맞음e");
 					break;
 				}
 				else
-					mResultTextView.setText("틀림");
+					mResultTextView.setText("틀림e");
 			}
 			
 		}

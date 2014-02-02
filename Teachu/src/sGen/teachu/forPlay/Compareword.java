@@ -272,9 +272,8 @@ public class Compareword {
 		correct_ration = (point_sum) / (syllable_word_array.length) * 100;
 		return correct_ration;
 	}
-/*
- *	public static void main(String[] args) {
-		Compareword analy = new Compareword("중급", "좋은 것");
+	public static void main(String[] args) {
+		Compareword analy = new Compareword("사과", "요요");
 		// analy.compare(analy.phoneme_word_array,
 		// analy.phoneme_inputword_array);
 		for (int i = 0; i < analy.analysis_word_array.length; i++) {
@@ -293,6 +292,6 @@ public class Compareword {
 
 		// System.out.println(analy.isSimilar(4, 7));
 	}
- * */
+
 
 }
