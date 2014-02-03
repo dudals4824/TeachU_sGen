@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import sGen.teachu.database.*;
-import sGen.teachu.forSettingPage.Settings;
+import sGen.teachu.forSettingPage.Setting;
 import sGen.teachu.DTO.*;
 
 public class MainActivity extends Activity {
@@ -92,8 +92,8 @@ public class MainActivity extends Activity {
 	        Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
 			
 		case 2 :
-			Intent Settings = new Intent(MainActivity.this, Settings.class);
-			startActivity(Settings);
+			Intent Setting = new Intent(MainActivity.this, Setting.class);
+			startActivity(Setting);
 		}
 		return super.onOptionsItemSelected(item);
 	}

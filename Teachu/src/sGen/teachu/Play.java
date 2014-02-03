@@ -25,7 +25,7 @@ import android.widget.Toast;
 import sGen.teachu.database.*;
 import sGen.teachu.forPlay.Compareword;
 import sGen.teachu.forPlay.PlayMic;
-import sGen.teachu.forSettingPage.Settings;
+import sGen.teachu.forSettingPage.Setting;
 import sGen.teachu.DTO.*;
 import sGen.teachu.MakeItem.Fruit;
 
@@ -237,8 +237,8 @@ public class Play extends Activity implements OnClickListener {
 			Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
 
 		case 2:
-			Intent Settings = new Intent(Play.this, Settings.class);
-			startActivity(Settings);
+			Intent Setting = new Intent(Play.this, Setting.class);
+			startActivity(Setting);
 		}
 		return super.onOptionsItemSelected(item);
 	}

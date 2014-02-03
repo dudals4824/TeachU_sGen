@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import sGen.teachu.database.*;
 import sGen.teachu.forSettingPage.Setting;
-import sGen.teachu.forSettingPage.Settings;
 import sGen.teachu.DTO.*;
 
 public class CategoryTree extends Activity {
@@ -86,8 +85,8 @@ public class CategoryTree extends Activity {
 			Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
 
 		case 2:
-			Intent Settings = new Intent(CategoryTree.this, Settings.class);
-			startActivity(Settings);
+			Intent Setting = new Intent(CategoryTree.this, Setting.class);
+			startActivity(Setting);
 		}
 		return super.onOptionsItemSelected(item);
 	}
