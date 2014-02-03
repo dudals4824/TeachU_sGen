@@ -7,5 +7,7 @@
     <string name="babyAge">아기 나이</string>
     <string name="baby_boys">남자</string>
     <string name="baby_girls">여자</string>
+    <string name="title_activity_play">PlayActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
