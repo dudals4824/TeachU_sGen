@@ -38,9 +38,9 @@ public class GraphView extends View {
 		
 		renderer.setApplyBackgroundColor(true);
 		//표 색깔
-		renderer.setBackgroundColor(Color.rgb(255, 157, 0));
+		renderer.setBackgroundColor(Color.WHITE);
 		
-		renderer.setMarginsColor(Color.WHITE);
+		renderer.setMarginsColor(Color.rgb(255, 157, 0));
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
 		renderer.setYTitle(yTitle);
@@ -133,7 +133,7 @@ public class GraphView extends View {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
 					.setFillPoints(true);
 		}
-		setChartSettings(renderer, "학습 성장 그래프", "날짜",
+		setChartSettings(renderer, "", "날짜",
 				"정답률", 0, 12, 0, 100, Color.BLACK, Color.BLACK);
 
 

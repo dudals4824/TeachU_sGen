@@ -60,16 +60,23 @@ public class ProgressView2 extends View {
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-		mPaint.setColor(Color.rgb(255,80, 80));
+
 		int mPercent = 120;
-		RectF mArea = new RectF(30, 30, 100, 100);
+		RectF mArea = new RectF((float) (devicewidth * 0.01),
+				(float) (devicewidth * 0.01), (float) (devicewidth * 0.25),
+				(float) (devicewidth * 0.25));
 		final float startAngle = -90;
 		final float drawTo = startAngle + (mPercent * 360);
 		// Rotate the canvas around the center of the pie by 90 degrees
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
+		mPaint.setColor(Color.WHITE);
+		canvas.drawCircle((float) (devicewidth * 0.01),
+				(float) (devicewidth * 0.25),
+				(float)(devicewidth * 0.25), mPaint);
+		mPaint.setColor(Color.rgb(255, 80, 80));
 		canvas.drawArc(mArea, -90, percent, true, mPaint);
-		if (percent<90)
+		if (percent < 90)
 			delay();
 		else {
 			mPaint.setColor(Color.BLACK);

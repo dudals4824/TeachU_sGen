@@ -48,6 +48,7 @@ public class Setting extends Activity implements OnClickListener {
 		mBabyAdapter.open();
 		try {
 			Baby = mBabyAdapter.getBabyInfo(1);
+			// Log.e("baby", Baby.getBirth()+"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,17 +84,24 @@ public class Setting extends Activity implements OnClickListener {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							Log.e("delete", "비밀번호 틀림");
-							Log.e("delete", Baby.getPassword());
-							Log.e("delete","editpassword: "+ edit_password.getText().toString());
-							if(Baby.getPassword()==edit_password.getText().toString()){
-								Log.e("delete", "비밀번호 맞음");
+							String inputpwd=edit_password.getText().toString();
+							if (Baby.getPassword().equals(inputpwd)) {
 								mBabyAdapter.deleteBaby(1);
-								Intent mainActivity=new Intent(Setting.this, MainActivity.class);
+								Intent mainActivity = new Intent(Setting.this,
+										MainActivity.class);
 								startActivity(mainActivity);
+							} else {
+								Toast.makeText(Setting.this, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
 							}
 						}
 					});
+			alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
 			alert.show();
 		}
 		if (v.getId() == R.id.btn_setting_prev) {
