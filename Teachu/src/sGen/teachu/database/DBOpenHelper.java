@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	private static final String BABYINFO_CREATE = "create table BABY_INFO("
 			+ "BABY_ID integer primary key autoincrement,"
 			+ "NAME text not null," + "PASSWORD text not null,"
-			+ "BIRTH DATE not null," + "SEX	integer not null);";
+			+ "BIRTH string not null," + "SEX	integer not null);";
 
 	// BABYGROWTH TABLE DDL
 	private static final String BABYGROWTH_CREATE = "create table BABY_GROWTH("
@@ -52,6 +52,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
 		// 테이블 삭제 및 생성
 		_db.execSQL("DROP TABLE IF EXISTS BABY_INFO");
+		_db.execSQL("DROP TABLE IF EXISTS BABY_GROWTH");
+		_db.execSQL("DROP TABLE IF EXISTS ITEM");
+		_db.execSQL("DROP TABLE IF EXISTS CATEGORY");
 		onCreate(_db);
 	}
 }
