@@ -42,7 +42,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/btn_setting_trash"
-                android:text="delete" />
+                />
         </RelativeLayout>
 
         <LinearLayout
@@ -65,8 +65,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:orientation="vertical"
             android:background="@drawable/graphtext" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="학습 성장 그래프"
+                android:textColor="#060616" />
+
         </LinearLayout>
 
         <LinearLayout
