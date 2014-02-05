@@ -1,33 +1,23 @@
 package sGen.teachu;
 
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
-import sGen.teachu.R;
+import sGen.teachu.DTO.BabyInfoDTO;
+import sGen.teachu.database.DBBabyInfoAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.location.GpsStatus.Listener;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-import sGen.teachu.database.*;
-import sGen.teachu.DTO.*;
 
 public class AddBaby extends Activity {
 
@@ -44,12 +34,13 @@ public class AddBaby extends Activity {
 
 		final EditText babyNameEdit = (EditText) findViewById(R.id.name);
 		final EditText babypassword = (EditText) findViewById(R.id.password);
-		
-		//final EditText babyAgeEdit = (EditText) findViewById(R.id.age);
+
+		// final EditText babyAgeEdit = (EditText) findViewById(R.id.age);
 		final RadioGroup rg = (RadioGroup) findViewById(R.id.sexradiogroup);
 
 		Button okayButton = (Button) findViewById(R.id.addbutton);
 		okayButton.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SimpleDateFormat")
 			@Override
 			public void onClick(View v) {
 				// press enroll button
@@ -63,24 +54,26 @@ public class AddBaby extends Activity {
 
 				final String babyName = babyNameEdit.getText().toString();
 				final String password = babypassword.getText().toString();
-		
+
 				DatePicker babyBirthday = (DatePicker) findViewById(R.id.babyBirthday);
-				
+
 				int year = babyBirthday.getYear();
 				int month = babyBirthday.getMonth();
 				int day = babyBirthday.getDayOfMonth();
-				Log.e("생일날짜!!!3", "Y-M-D = " + year + month+day);
-				
-				@SuppressWarnings("deprecation")
-				Date birthday  = new Date(year, month, day);
-				// final String babyAge = babyAgeEdit.getText().toString();
+				Log.e("생일날짜!!!3", "Y-M-D = " + year + "년" + month + "월" + day
+						+ "일");
 
+				Calendar birthday = new GregorianCalendar();
+				birthday.set(year, month, day);
+				
 				Baby.setBabyId(1);
 				Baby.setName(babyName);
 				Baby.setPassword(password);
-				Baby.setBirth(birthday);
+				Baby.setBirth(birthday.getTimeInMillis());
 				Baby.setSex(sex);
-				
+
+				Log.e("KJK", Baby.toString());
+
 				// DB추가
 
 				mAdapter.open();
