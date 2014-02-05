@@ -19,7 +19,7 @@ public class Setting extends Activity {
 	LinearLayout layout_graphview, progress, test;
 	ScrollView layout_background;
 	GridLayout layout_correctionrate;
-	TextView textview_name;
+	TextView textview_name,textview_birth;
 	DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this); 
 	BabyInfoDTO Baby = new BabyInfoDTO(); 
 
@@ -30,15 +30,11 @@ public class Setting extends Activity {
 		layout_graphview = (LinearLayout) findViewById(R.id.layout_graphview);
 		layout_background = (ScrollView) findViewById(R.id.layout_background);
 		layout_correctionrate = (GridLayout) findViewById(R.id.layout_correctionrate);
-		textview_name=(TextView)findViewById(R.id.text_name);
+		textview_name=(TextView)findViewById(R.id.textview_name);
 		
 		mBabyAdapter.open();
-	//	Baby=mBabyAdapter.getBabyInfo(1);
 		try {
-			
 			Baby=mBabyAdapter.getBabyInfo(1);
-		//	Baby.setName(mBabyAdapter.getBabyInfo(1).getName());
-			Log.e("getBabyInfo",Baby.getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,9 +42,9 @@ public class Setting extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	//	Log.e("babyinfo", Baby.getName());
 		textview_name.setText(Baby.getName());
-		textview_name.setTextColor(Color.GREEN);
-
+		
 		GraphView graphview = new GraphView(this);
 		graphview.makeGraph(this, layout_graphview);
 	}
