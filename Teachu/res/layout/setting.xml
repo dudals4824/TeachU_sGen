@@ -3,21 +3,54 @@
     android:id="@+id/layout_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:fillViewport="true">
 
-     <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="0dp"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:background="#ededed" >
+
+            <Button
+                android:id="@+id/btn_setting_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_setting_prev" />
+
+            <TextView
+                android:id="@+id/textview_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="name"
+                android:textColor="#060616"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_setting_delete"
+                android:text="delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/btn_setting_trash" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_babyinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_weight="20"
+            android:background="#ff5050"
             android:orientation="horizontal" >
 
             <ImageView
@@ -25,49 +58,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:maxHeight="100dp"
-                android:maxWidth="150dp"
-                android:src="@drawable/yoonhoo" />
-
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:columnCount="2"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:useDefaultMargins="true" >
-
-                <TextView
-                    android:id="@+id/text_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:layout_row="0"
-                    android:text="윤후"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:text="남자" />
-
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:text="8" />
-            </GridLayout>
+                android:maxHeight="60dp"
+                android:src="@drawable/smileface" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_graphview"
             android:layout_width="match_parent"
             android:layout_height="194dp"
-            android:background="#ffffff"
+            android:layout_weight="35"
+            android:background="#ff9d00"
             android:dividerPadding="10dp"
             android:orientation="vertical" />
 
@@ -75,30 +75,31 @@
             android:id="@+id/layout_correctionrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:useDefaultMargins="true"
+            android:layout_weight="35"
+            android:background="#060616"
             android:columnCount="3"
             android:orientation="horizontal"
-            android:rowCount="3" >
+            android:rowCount="3"
+            android:useDefaultMargins="true" >
 
-            <sGen.teachu.forSettingPage.ProgressView
+            <sGen.teachu.forSettingPage.ProgressView2
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
-                android:layout_row="0"/>
+                android:layout_row="0" />
 
-            <sGen.teachu.forSettingPage.ProgressView
+            <sGen.teachu.forSettingPage.ProgressView2
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_column="1"
-                 android:layout_row="0" />
+                android:layout_column="1"
+                android:layout_row="0" />
 
-            <sGen.teachu.forSettingPage.ProgressView
+            <sGen.teachu.forSettingPage.ProgressView2
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_column="2"
-                 android:layout_row="0" />
-
+                android:layout_column="2"
+                android:layout_row="0" />
         </GridLayout>
-        </LinearLayout>
+    </LinearLayout>
 
 </ScrollView>
