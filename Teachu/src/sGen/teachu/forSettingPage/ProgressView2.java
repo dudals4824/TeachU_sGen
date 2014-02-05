@@ -71,12 +71,10 @@ public class ProgressView2 extends View {
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
 		mPaint.setColor(Color.WHITE);
-		canvas.drawCircle((float) (devicewidth * 0.01),
-				(float) (devicewidth * 0.25),
-				(float)(devicewidth * 0.25), mPaint);
+		canvas.drawCircle(143,143,129, mPaint);
 		mPaint.setColor(Color.rgb(255, 80, 80));
 		canvas.drawArc(mArea, -90, percent, true, mPaint);
-		if (percent < 90)
+		if (percent < 260)
 			delay();
 		else {
 			mPaint.setColor(Color.BLACK);
