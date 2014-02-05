@@ -83,6 +83,9 @@ public class Setting extends Activity implements OnClickListener {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
+							Log.e("delete", "비밀번호 틀림");
+							Log.e("delete", Baby.getPassword());
+							Log.e("delete","editpassword: "+ edit_password.getText().toString());
 							if(Baby.getPassword()==edit_password.getText().toString()){
 								Log.e("delete", "비밀번호 맞음");
 								mBabyAdapter.deleteBaby(1);

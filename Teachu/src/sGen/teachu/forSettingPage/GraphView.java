@@ -37,7 +37,8 @@ public class GraphView extends View {
 		// TODO Auto-generated method stub
 		
 		renderer.setApplyBackgroundColor(true);
-		renderer.setBackgroundColor(Color.WHITE);
+		//표 색깔
+		renderer.setBackgroundColor(Color.rgb(255, 157, 0));
 		
 		renderer.setMarginsColor(Color.WHITE);
 		renderer.setChartTitle(title);
@@ -78,7 +79,7 @@ public class GraphView extends View {
 		renderer.setLabelsTextSize(20);
 		renderer.setPointSize(5f);
 		//top left bottom right
-		renderer.setMargins(new int[] {80,55,20,55});
+		renderer.setMargins(new int[] {100,55,20,55});
 		int length = colors.length;
 		for (int i = 0; i < length; i++) {
 			XYSeriesRenderer r = new XYSeriesRenderer();
