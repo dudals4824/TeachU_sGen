@@ -1,8 +1,6 @@
 package sGen.teachu.database;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import sGen.teachu.DTO.BabyInfoDTO;
 import android.annotation.SuppressLint;
@@ -12,7 +10,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 
 public class DBBabyInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
@@ -51,12 +48,12 @@ public class DBBabyInfoAdapter {
 
 		// Make row
 		ContentValues values = new ContentValues();
-
+		
 		// 각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
 		values.put("PASSWORD", _baby.getPassword());
-		values.put("BIRTH", _baby.getBirth().toString());
+		values.put("BIRTH", _baby.getBirth());
 		values.put("SEX", _baby.getSex());
 
 		// 열삽입
@@ -75,7 +72,7 @@ public class DBBabyInfoAdapter {
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
 		values.put("PASSWORD", _baby.getPassword());
-		values.put("BIRTH", _baby.getBirth().toString());
+		values.put("BIRTH", _baby.getBirth());
 		values.put("SEX", _baby.getSex());
 
 		return db.update(DATABASE_TABLE, values, "BABY_ID=" + _babyId, null);
@@ -101,22 +98,22 @@ public class DBBabyInfoAdapter {
 	@SuppressLint("SimpleDateFormat")
 	public BabyInfoDTO getBabyInfo(long _babyId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where BABY_ID = "
-				+ _babyId;
+		String selectSQL = "SELECT * from " + DATABASE_TABLE
+				+ " where BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-		
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
 
 		BabyInfoDTO Baby = new BabyInfoDTO();
 		Baby.setBabyId(cursor.getInt(0)); // babyId
 		Baby.setName(cursor.getString(1));
 		Baby.setPassword(cursor.getString(2));
 		Baby.setSex(cursor.getInt(3));
-		Baby.setBirth(formatter.parse(cursor.getString(4)));
+		Baby.setBirth(cursor.getLong(4));
+
 		return Baby;
 	}
-	public int getBabyCount(){
+
+	public int getBabyCount() {
 		Cursor cursor = db.rawQuery("SELECT * from " + DATABASE_TABLE, null);
 		return cursor.getCount();
 	}
