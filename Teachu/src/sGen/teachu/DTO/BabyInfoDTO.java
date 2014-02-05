@@ -1,16 +1,15 @@
 package sGen.teachu.DTO;
 
-import java.util.Date;
 
 public class BabyInfoDTO {
 	private int babyId;
 	private String name;
 	private String password;
 	private int sex;
-	private Date birth;
+	private long birth;
 
 	public BabyInfoDTO(int babyId, String name, String password, int sex,
-			Date birth) {
+			long birth) {
 		super();
 		this.babyId = babyId;
 		this.name = name;
@@ -55,11 +54,11 @@ public class BabyInfoDTO {
 		this.sex = sex;
 	}
 
-	public Date getBirth() {
+	public long getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date babyBirth) {
+	public void setBirth(long babyBirth) {
 		this.birth = babyBirth;
 	}
 
