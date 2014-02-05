@@ -13,17 +13,27 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-public class ProgressView extends View {
-	int percentage;
-	Display display;
-	Canvas Outercanvas;
-	int deviceheight, devicewidth;
+public class ProgressView2 extends View {
 	Point point;
-	Paint paint = new Paint();
-	int x = 90;
+	int deviceheight, devicewidth;
+	Display display;
+	Paint mPaint = new Paint();
+	int percent = 0;
 
-	public ProgressView(Context context) {
+	public ProgressView2(Context context) {
 		super(context);
+		display = ((WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		point = new Point();
+		display.getSize(point);
+		devicewidth = point.x;
+		deviceheight = point.y;
+		setWillNotDraw(false);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProgressView2(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
 		// TODO Auto-generated constructor stub
 		display = ((WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -32,10 +42,9 @@ public class ProgressView extends View {
 		devicewidth = point.x;
 		deviceheight = point.y;
 		setWillNotDraw(false);
-
 	}
 
-	public ProgressView(Context context, AttributeSet attrs) {
+	public ProgressView2(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		display = ((WindowManager) context
@@ -45,72 +54,49 @@ public class ProgressView extends View {
 		devicewidth = point.x;
 		deviceheight = point.y;
 		setWillNotDraw(false);
-
-	}
-
-	public ProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		// TODO Auto-generated constructor stub
-		display = ((WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		point = new Point();
-		display.getSize(point);
-		devicewidth = point.x;
-		deviceheight = point.y;
-		setWillNotDraw(false);
-
-	}
-
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-		int w = resolveSize(290, widthMeasureSpec);
-		int h = resolveSize(290, heightMeasureSpec);
-		setMeasuredDimension(w, h);
-
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
-
 		super.onDraw(canvas);
-		// x가 90에서 45
-		paint.setColor(Color.BLUE);
-		canvas.drawCircle((float) (devicewidth * 0.13),
-				(float) (devicewidth * 0.13), (float) (devicewidth * 0.13),
-				paint);
-		Outercanvas = canvas;
-		// 180-2x
-		paint.setColor(Color.YELLOW);
-		canvas.drawArc(new RectF((float) (devicewidth * 0.01),
-				(float) (devicewidth * 0.01), (float) (devicewidth * 0.25),
-				(float) (devicewidth * 0.25)), x, 180 - (2 * x), false, paint);
-		// x는 항상 90부터 시작해서 원하는 각도까지 반복
-		if (x !=setPercentage(45))
+		mPaint.setColor(Color.rgb(255,80, 80));
+		int mPercent = 120;
+		RectF mArea = new RectF(30, 30, 100, 100);
+		final float startAngle = -90;
+		final float drawTo = startAngle + (mPercent * 360);
+		// Rotate the canvas around the center of the pie by 90 degrees
+		// counter clockwise so the pie stars at 12 o'clock.
+		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
+		canvas.drawArc(mArea, -90, percent, true, mPaint);
+		if (percent<90)
 			delay();
 		else {
-			paint.setColor(Color.BLACK);
-			paint.setTextSize(40);
-			canvas.drawText(x + "", (float) ((devicewidth * 0.1)),
-					(float) (devicewidth * 0.142), paint);
+			mPaint.setColor(Color.BLACK);
+			mPaint.setTextSize(40);
+			canvas.drawText(percent + "", (float) ((devicewidth * 0.1)),
+					(float) (devicewidth * 0.142), mPaint);
 		}
+		// Draw inner oval and text on top of the pie (or add any other
+		// decorations such as a stroke) here..
+		// Don't forget to rotate the canvas back if you plan to add text!
+	}
 
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+		int w = resolveSize(290, widthMeasureSpec);
+		int h = resolveSize(290, heightMeasureSpec);
+		setMeasuredDimension(w, h);
 	}
 
 	void delay() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				x--;
+				percent++;
 				invalidate();
 			}
 		}, 1);
 	}
-
-	int setPercentage(int p) {
-		double degree;
-		degree=90-((9/5)*p);
-		return (int)degree;
-	}
-
 }
