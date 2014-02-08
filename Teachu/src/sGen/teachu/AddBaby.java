@@ -1,5 +1,6 @@
 package sGen.teachu;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -11,7 +12,10 @@ import sGen.teachu.DTO.BabyInfoDTO;
 import sGen.teachu.database.DBBabyInfoAdapter;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -90,14 +94,22 @@ public class AddBaby extends Activity implements OnClickListener {
 
 			Calendar birthday = new GregorianCalendar();
 			birthday.set(year, month, day);
-
-			// Bitmap photo = new BitmapDrawable(res, filepath).getBitmap();
+			
+			
+			Bitmap myBitmap = null;
+			File imgFile = new  File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/img1.jpg");
+			if(imgFile.exists()){
+			    myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+			    Log.e("비트맵 로드", "성공");
+			}else
+				Log.e("비트맵 로드", "실패");
+			
 			Baby.setBabyId(1);
 			Baby.setName(babyName);
 			Baby.setPassword(password);
 			Baby.setBirth(birthday.getTimeInMillis());
 			Baby.setSex(sex);
-			// Baby.setPhoto(photo);
+			Baby.setPhoto(myBitmap);
 
 			Log.e("KJK", Baby.toString());
 
@@ -150,6 +162,7 @@ public class AddBaby extends Activity implements OnClickListener {
 				if (position == 0) {
 					Log.v(TAG, " 첫번째 인덱스가 선택되었습니다" +
 					"여기에 맞는 작업을 해준다.");
+					
 				}
 				else if (position == 1) {
 					Log.v(TAG, " 두번째 인덱스가 선택되었습니다" +
