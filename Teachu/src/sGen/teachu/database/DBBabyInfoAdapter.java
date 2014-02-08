@@ -52,15 +52,14 @@ public class DBBabyInfoAdapter {
 
 		// Make row
 		ContentValues values = new ContentValues();
-		
-		//convert baby photo bitmap to byte array
-		
-		//출력 스트링 생성, 압축 및 바이트로 변환
+
+		// convert baby photo bitmap to byte array
+
+		// 출력 스트링 생성, 압축 및 바이트로 변환
 		ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
 		_baby.getPhoto().compress(CompressFormat.PNG, 100, photoStream);
 		byte[] photoByte = photoStream.toByteArray();
-		
-		
+
 		// 각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
@@ -81,12 +80,18 @@ public class DBBabyInfoAdapter {
 		// Make row
 		ContentValues values = new ContentValues();
 
+		// 출력 스트링 생성, 압축 및 바이트로 변환
+		ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
+		_baby.getPhoto().compress(CompressFormat.PNG, 100, photoStream);
+		byte[] photoByte = photoStream.toByteArray();
+
 		// 각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
 		values.put("PASSWORD", _baby.getPassword());
 		values.put("BIRTH", _baby.getBirth());
 		values.put("SEX", _baby.getSex());
+		values.put("PHOTO", photoByte);
 
 		return db.update(DATABASE_TABLE, values, "BABY_ID=" + _babyId, null);
 	}
@@ -115,11 +120,11 @@ public class DBBabyInfoAdapter {
 				+ " where BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-		
+
 		byte[] photoByte = cursor.getBlob(5);
-		Bitmap photoBitmap = BitmapFactory.decodeByteArray(photoByte, 0, photoByte.length);
-		
-		
+		Bitmap photoBitmap = BitmapFactory.decodeByteArray(photoByte, 0,
+				photoByte.length);
+
 		BabyInfoDTO Baby = new BabyInfoDTO();
 		Baby.setBabyId(cursor.getInt(0)); // babyId
 		Baby.setName(cursor.getString(1));
@@ -127,7 +132,7 @@ public class DBBabyInfoAdapter {
 		Baby.setSex(cursor.getInt(3));
 		Baby.setBirth(cursor.getLong(4));
 		Baby.setPhoto(photoBitmap);
-		
+
 		return Baby;
 	}
 
