@@ -9,14 +9,14 @@
         android:layout_height="fill_parent"
         android:background="@drawable/background_regist"
         android:orientation="vertical" >
-
-        <Button
+        
+        <ImageView
             android:id="@+id/pictureBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="63.3dp"
-            android:background="@drawable/btn_addbaby_registpic" />
+            android:src="@drawable/btn_addbaby_registpic" />
 
         <EditText
             android:id="@+id/name"
