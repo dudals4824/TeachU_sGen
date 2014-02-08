@@ -3,13 +3,18 @@
     android:id="@+id/imagescroll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
+    android:background="@drawable/bg_categorytree"
     android:scrollbars="none">
 	<RelativeLayout
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:background="@drawable/longtree"
 	    >
-	    
+
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/pic_categorytree_light" />
+
 	    <Button 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
