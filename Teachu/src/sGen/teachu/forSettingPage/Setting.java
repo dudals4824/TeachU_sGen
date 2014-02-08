@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -26,11 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Setting extends Activity implements OnClickListener {
-	LinearLayout layout_graphview, progress, test;
-	ScrollView layout_background;
-	GridLayout layout_correctionrate;
-	TextView textview_name, textview_birth;
-	Button btn_setting_delete, btn_setting_prev;
+	private LinearLayout layout_graphview, progress, test;
+	private ScrollView layout_background;
+	private GridLayout layout_correctionrate;
+	private TextView textview_name, textview_birth;
+	private Button btn_setting_delete, btn_setting_prev;
+	private Bitmap pic_path;
 	DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this);
 	BabyInfoDTO Baby = new BabyInfoDTO();
 
@@ -48,7 +50,6 @@ public class Setting extends Activity implements OnClickListener {
 		mBabyAdapter.open();
 		try {
 			Baby = mBabyAdapter.getBabyInfo(1);
-			Log.e("babys", Baby.getBirth() + "");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,8 +57,8 @@ public class Setting extends Activity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Log.e("babyinfo", Baby.getName());
 		textview_name.setText(Baby.getName());
+		pic_path=Baby.getPhoto();
 
 		GraphView graphview = new GraphView(this);
 		graphview.makeGraph(this, layout_graphview);
