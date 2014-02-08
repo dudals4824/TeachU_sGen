@@ -18,7 +18,7 @@ public class ProgressView2 extends View {
 	int deviceheight, devicewidth;
 	Display display;
 	Paint mPaint = new Paint();
-	int percent = 0;
+	int degree = 0;
 
 	public ProgressView2(Context context) {
 		super(context);
@@ -62,29 +62,33 @@ public class ProgressView2 extends View {
 		super.onDraw(canvas);
 
 		int mPercent = 120;
-		RectF mArea = new RectF((float) (devicewidth * 0.01),
-				(float) (devicewidth * 0.01), (float) (devicewidth * 0.25),
-				(float) (devicewidth * 0.25));
+		RectF mArea = new RectF(0,0,170,170);
 		final float startAngle = -90;
 		final float drawTo = startAngle + (mPercent * 360);
 		// Rotate the canvas around the center of the pie by 90 degrees
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
 		mPaint.setColor(Color.WHITE);
-		canvas.drawCircle(143,143,129, mPaint);
+		canvas.drawCircle(85,85,85, mPaint);
 		mPaint.setColor(Color.rgb(255, 80, 80));
-		canvas.drawArc(mArea, -90, percent, true, mPaint);
-		if (percent < 260)
+		canvas.drawArc(mArea, -90, degree, true, mPaint);
+		double percent=0.8;
+		double a=((percent/50)*Math.PI)-((1/2)*Math.PI);
+		if (degree < 360*percent)
 			delay();
 		else {
-			mPaint.setColor(Color.BLACK);
-			mPaint.setTextSize(40);
-			canvas.drawText(percent + "", (float) ((devicewidth * 0.1)),
+			mPaint.setColor(Color.BLUE);
+			mPaint.setTextSize(20);
+			canvas.drawText(a + "", (float) ((devicewidth * 0.1)),
 					(float) (devicewidth * 0.142), mPaint);
 		}
 		// Draw inner oval and text on top of the pie (or add any other
 		// decorations such as a stroke) here..
 		// Don't forget to rotate the canvas back if you plan to add text!
+		
+		
+		mPaint.setColor(Color.rgb(06,06,15));
+		canvas.drawCircle(85,85,70, mPaint);
 	}
 
 	@Override
@@ -99,7 +103,7 @@ public class ProgressView2 extends View {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				percent++;
+				degree++;
 				invalidate();
 			}
 		}, 1);

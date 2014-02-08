@@ -48,7 +48,7 @@ public class Setting extends Activity implements OnClickListener {
 		mBabyAdapter.open();
 		try {
 			Baby = mBabyAdapter.getBabyInfo(1);
-			// Log.e("baby", Baby.getBirth()+"");
+			Log.e("babys", Baby.getBirth()+"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
