@@ -3,7 +3,7 @@
     package="sGen.teachu"
     android:versionCode="1"
     android:versionName="1.0" 
-    android:theme="@android:style/Theme.NoTitleBar">
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -11,9 +11,9 @@
 
     <application
         android:allowBackup="true"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity
-            android:name="sGen.teachu.MainActivity">
+            android:name="sGen.teachu.SplashActivity">
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,7 @@
         <activity
             android:name="sGen.teachu.forSettingPage.Settings"></activity>
         <activity android:name=".forSettingPage.Setting"></activity>
+
     </application>
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
