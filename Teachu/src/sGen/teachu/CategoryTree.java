@@ -44,7 +44,7 @@ public class CategoryTree extends Activity {
 				// TODO Auto-generated method stub
 				Intent TeachuSettingActivity = new Intent(CategoryTree.this,
 						Setting.class);
-				startActivity(TeachuSettingActivity);
+				startActivityForResult(TeachuSettingActivity, 1);
 
 			}
 		});
@@ -85,7 +85,6 @@ public class CategoryTree extends Activity {
 			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
 			mIsBackButtonTouched = true;
 		}
-
 		else if (mIsBackButtonTouched == true) {
 			finish();
 		}
