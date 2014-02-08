@@ -82,13 +82,11 @@ public class CategoryTree extends Activity {
 	@Override
 	public void onBackPressed() {
 		if (mIsBackButtonTouched == false) {
-			
 			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
 			mIsBackButtonTouched = true;
 		}
 
 		else if (mIsBackButtonTouched == true) {
-
 			finish();
 		}
 	}
