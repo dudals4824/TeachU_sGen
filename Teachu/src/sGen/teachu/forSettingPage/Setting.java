@@ -2,7 +2,7 @@ package sGen.teachu.forSettingPage;
 
 import java.text.ParseException;
 
-import sGen.teachu.MainActivity;
+import sGen.teachu.AddBaby;
 import sGen.teachu.R;
 import sGen.teachu.DTO.BabyInfoDTO;
 import sGen.teachu.database.DBBabyInfoAdapter;
@@ -87,9 +87,9 @@ public class Setting extends Activity implements OnClickListener {
 							String inputpwd=edit_password.getText().toString();
 							if (Baby.getPassword().equals(inputpwd)) {
 								mBabyAdapter.deleteBaby(1);
-								Intent mainActivity = new Intent(Setting.this,
-										MainActivity.class);
-								startActivity(mainActivity);
+								Intent addBabyActivity = new Intent(Setting.this,
+										AddBaby.class);
+								startActivity(addBabyActivity);
 							} else {
 								Toast.makeText(Setting.this, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
 							}
