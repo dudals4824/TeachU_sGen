@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity
-            android:name="sGen.teachu.SplashActivity">
+            android:name="sGen.teachu.MainActivity">
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
