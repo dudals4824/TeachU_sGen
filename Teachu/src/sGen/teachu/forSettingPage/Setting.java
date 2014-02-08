@@ -48,7 +48,7 @@ public class Setting extends Activity implements OnClickListener {
 		mBabyAdapter.open();
 		try {
 			Baby = mBabyAdapter.getBabyInfo(1);
-			Log.e("babys", Baby.getBirth()+"");
+			Log.e("babys", Baby.getBirth() + "");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,24 +84,30 @@ public class Setting extends Activity implements OnClickListener {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							String inputpwd=edit_password.getText().toString();
+							String inputpwd = edit_password.getText()
+									.toString();
 							if (Baby.getPassword().equals(inputpwd)) {
 								mBabyAdapter.deleteBaby(1);
-								Intent addBabyActivity = new Intent(Setting.this,
-										AddBaby.class);
+
+								Intent addBabyActivity = new Intent(
+										Setting.this, AddBaby.class);
 								startActivity(addBabyActivity);
+								finishActivity(1);
+								finish();
 							} else {
-								Toast.makeText(Setting.this, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
+								Toast.makeText(Setting.this, "비밀번호가 틀렸습니다",
+										Toast.LENGTH_SHORT).show();
 							}
 						}
 					});
-			alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					dialog.dismiss();
-				}
-			});
+			alert.setNegativeButton("취소",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
 			alert.show();
 		}
 		if (v.getId() == R.id.btn_setting_prev) {
