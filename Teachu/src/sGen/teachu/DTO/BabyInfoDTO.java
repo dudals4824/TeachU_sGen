@@ -1,5 +1,6 @@
 package sGen.teachu.DTO;
 
+import android.graphics.Bitmap;
 
 public class BabyInfoDTO {
 	private int babyId;
@@ -7,17 +8,19 @@ public class BabyInfoDTO {
 	private String password;
 	private int sex;
 	private long birth;
-
+	private Bitmap photo;
+	
 	public BabyInfoDTO(int babyId, String name, String password, int sex,
-			long birth) {
+			long birth, Bitmap photo) {
 		super();
 		this.babyId = babyId;
 		this.name = name;
 		this.password = password;
 		this.sex = sex;
 		this.birth = birth;
+		this.photo = photo;
 	}
-
+	
 	public BabyInfoDTO() {
 		super();
 	}
@@ -60,6 +63,14 @@ public class BabyInfoDTO {
 
 	public void setBirth(long babyBirth) {
 		this.birth = babyBirth;
+	}
+
+	public Bitmap getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Bitmap photo) {
+		this.photo = photo;
 	}
 
 	@Override

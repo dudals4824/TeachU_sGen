@@ -1,5 +1,6 @@
 package sGen.teachu.database;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 
 import sGen.teachu.DTO.BabyInfoDTO;
@@ -10,6 +11,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 
 public class DBBabyInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
@@ -49,12 +53,21 @@ public class DBBabyInfoAdapter {
 		// Make row
 		ContentValues values = new ContentValues();
 		
+		//convert baby photo bitmap to byte array
+		
+		//출력 스트링 생성, 압축 및 바이트로 변환
+		ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
+		_baby.getPhoto().compress(CompressFormat.PNG, 100, photoStream);
+		byte[] photoByte = photoStream.toByteArray();
+		
+		
 		// 각 열에 값 할당
 		values.put("BABY_ID", _baby.getBabyId());
 		values.put("NAME", _baby.getName());
 		values.put("PASSWORD", _baby.getPassword());
 		values.put("BIRTH", _baby.getBirth());
 		values.put("SEX", _baby.getSex());
+		values.put("PHOTO", photoByte);
 
 		// 열삽입
 		return db.insert(DATABASE_TABLE, null, values);
@@ -102,14 +115,19 @@ public class DBBabyInfoAdapter {
 				+ " where BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-
+		
+		byte[] photoByte = cursor.getBlob(5);
+		Bitmap photoBitmap = BitmapFactory.decodeByteArray(photoByte, 0, photoByte.length);
+		
+		
 		BabyInfoDTO Baby = new BabyInfoDTO();
 		Baby.setBabyId(cursor.getInt(0)); // babyId
 		Baby.setName(cursor.getString(1));
 		Baby.setPassword(cursor.getString(2));
 		Baby.setSex(cursor.getInt(3));
 		Baby.setBirth(cursor.getLong(4));
-
+		Baby.setPhoto(photoBitmap);
+		
 		return Baby;
 	}
 

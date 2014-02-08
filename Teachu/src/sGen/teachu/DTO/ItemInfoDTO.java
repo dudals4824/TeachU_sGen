@@ -5,7 +5,6 @@ public class ItemInfoDTO {
 	private int cateId;
 	private String itemName; // korean name
 	private String itemFileName; // file name stored in application
-	private int fileName;
 
 	public ItemInfoDTO(int _itemId, int _cateId, String _itemName, String _itemFileName){
 		itemId = _itemId;
