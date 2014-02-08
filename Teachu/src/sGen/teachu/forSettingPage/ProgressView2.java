@@ -60,10 +60,8 @@ public class ProgressView2 extends View {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 
-		int mPercent = 120;
 		mPaint.setAntiAlias(true);
 		RectF mArea = new RectF(0,0,170,170);
-		final float startAngle = -90;
 		// Rotate the canvas around the center of the pie by 90 degrees
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
