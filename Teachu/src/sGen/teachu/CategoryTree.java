@@ -42,9 +42,9 @@ public class CategoryTree extends Activity {
 
 				CategoryID_ = v.getId();
 
-				Intent TeachuPlayActivity = new Intent(CategoryTree.this,
+				Intent TeachuplayActivity = new Intent(CategoryTree.this,
 						Play.class);
-				startActivity(TeachuPlayActivity);
+				startActivity(TeachuplayActivity);
 
 			}
 		});
