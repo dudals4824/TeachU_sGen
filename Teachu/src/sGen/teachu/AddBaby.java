@@ -1,8 +1,6 @@
 package sGen.teachu;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import sGen.teachu.DTO.BabyInfoDTO;
@@ -10,6 +8,7 @@ import sGen.teachu.database.DBBabyInfoAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,11 +65,14 @@ public class AddBaby extends Activity {
 				Calendar birthday = new GregorianCalendar();
 				birthday.set(year, month, day);
 				
+				
+				//Bitmap photo = new BitmapDrawable(res, filepath).getBitmap();
 				Baby.setBabyId(1);
 				Baby.setName(babyName);
 				Baby.setPassword(password);
 				Baby.setBirth(birthday.getTimeInMillis());
 				Baby.setSex(sex);
+				//Baby.setPhoto(photo);
 
 				Log.e("KJK", Baby.toString());
 
@@ -87,9 +89,9 @@ public class AddBaby extends Activity {
 				Log.e("MINKA", "생일 : " + birthday);
 				Log.e("MINKA", "성별 : " + sex);
 				// activity return
-				Intent MainActivity = new Intent(AddBaby.this,
-						MainActivity.class);
-				startActivity(MainActivity);
+				Intent CategoryTree = new Intent(AddBaby.this,
+						CategoryTree.class);
+				startActivity(CategoryTree);
 
 			}
 
