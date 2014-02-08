@@ -8,7 +8,6 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -62,9 +61,9 @@ public class ProgressView2 extends View {
 		super.onDraw(canvas);
 
 		int mPercent = 120;
+		mPaint.setAntiAlias(true);
 		RectF mArea = new RectF(0,0,170,170);
 		final float startAngle = -90;
-		final float drawTo = startAngle + (mPercent * 360);
 		// Rotate the canvas around the center of the pie by 90 degrees
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
