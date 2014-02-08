@@ -78,18 +78,17 @@ public class CategoryTree extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+//백버튼 두번 누르면 종료시킴 플래그 바꿔서
 	@Override
 	public void onBackPressed() {
 		if (mIsBackButtonTouched == false) {
 			
 			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
 			mIsBackButtonTouched = true;
-			Log.e("finish", mIsBackButtonTouched+"");
 		}
 
 		else if (mIsBackButtonTouched == true) {
-			Log.e("finish", "finish");
+
 			finish();
 		}
 	}
