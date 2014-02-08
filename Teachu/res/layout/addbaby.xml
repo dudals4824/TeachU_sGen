@@ -1,106 +1,82 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFF"
-    tools:context=".AddBaby" >
+    android:scrollbars="none" >
 
-    <TextView
-        android:id="@+id/babyNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/babyName" 
-        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background_regist"
+        android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="41dp"
-        android:ems="10" >
-    </EditText>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="63.3dp"
+            android:background="@drawable/btn_addbaby_registpic" />
 
-    <TextView
-        android:id="@+id/babyPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="20dp"
-        android:text="비밀번호"/>
-    <EditText 
-        android:id="@+id/password"
-    	android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@id/babyPassword"
-       
-    	/>
-    
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/password"
-       
-        android:text="아기생일" />
-       <DatePicker
-       android:id="@+id/babyBirthday"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@id/textView3"
-       android:layout_alignParentLeft="true" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="23.3dp"
+            android:background="@drawable/edit_addbaby_name"
+            android:hint="이름을 입력하세요" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/babyBirthday"
-        android:text="성별" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_addbaby_pwd"
+            android:hint="비밀번호를 입력하세요"
+            android:inputType="textPassword" />
 
-   <RadioGroup
-       android:id="@+id/sexradiogroup"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_centerVertical="true"
-       android:layout_below="@id/textView1"
-       android:orientation="vertical" >
+        <DatePicker
+            android:id="@+id/babyBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
-       <RadioButton
-           android:id="@+id/radio_boys"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
-           android:layout_below="@+id/textView1"
-           android:layout_marginTop="14dp"
-           android:text="@string/baby_boys" 
-           android:textColor="#0000"/>
+        <RadioGroup
+            android:id="@+id/sexradiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-       <RadioButton
-           android:id="@+id/radio_girls"
-           android:layout_width="120dp"
-           android:layout_height="wrap_content"
-           android:layout_alignBaseline="@+id/radio_boys"
-           android:layout_alignBottom="@+id/radio_boys"
-           android:layout_toRightOf="@+id/radio_boys"
-           android:text="@string/baby_girls" />
-       
-   </RadioGroup>
-   <Button
-        android:id="@+id/addbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sexradiogroup"
-        android:layout_marginTop="16dp"
-        android:text="아기 추가하기" />
+            <RadioButton
+                android:id="@+id/radio_boys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:text="남자" />
 
+            <RadioButton
+                android:id="@+id/radio_girls"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="여자" />
+        </RadioGroup>
 
-   
-</RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/pic_addbaby_line" />
+
+        <Button
+            android:id="@+id/addbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_addbaby_add" />
+    </LinearLayout>
+
+</ScrollView>

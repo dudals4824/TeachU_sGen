@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="31.67dp"
             android:layout_weight="10"
             android:background="#ededed" >
 
@@ -24,13 +24,16 @@
                 android:id="@+id/btn_setting_prev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_setting_prev" />
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/__0004_gotomain" />
 
             <TextView
                 android:id="@+id/textview_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:text="name"
                 android:textColor="#060616"
                 android:textSize="20sp" />
@@ -39,16 +42,18 @@
                 android:id="@+id/btn_setting_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/btn_setting_trash"
+                android:background="@drawable/__0003_reset"
                 />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_babyinfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:layout_weight="20"
             android:background="#ff5050"
             android:orientation="horizontal" >
@@ -79,7 +84,7 @@
         <LinearLayout
             android:id="@+id/layout_graphview"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
+            android:layout_height="133.33dp"
             android:layout_weight="35"
             android:background="#ff9d00"
             android:dividerPadding="10dp"
