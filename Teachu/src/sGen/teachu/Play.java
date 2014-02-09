@@ -45,18 +45,19 @@ public class Play extends Activity implements OnClickListener {
 
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
-	//categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만 categoryID만들어놓음
+	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
+	// categoryID만들어놓음
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
-		
-		//correct image
+
+		// correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
-		
-		//item image
+
+		// item image
 		itemImage = (ImageView) findViewById(R.id.wordCard);
 		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
 
@@ -71,11 +72,13 @@ public class Play extends Activity implements OnClickListener {
 
 	// itemList 초기화
 	private void initItem(ArrayList<ItemInfoDTO> itemList) {
+		DBItemInfoAdapter mItemAdaper = new DBItemInfoAdapter(this);
 		// category 확인
 		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
-			Fruit mFruit = new Fruit();
-			itemList.addAll(mFruit.getItemList());// 깊은복사
+			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
+			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CategoryTree
+					.getCategoryID()));// 깊은복사
 			Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		}
 	}
@@ -148,9 +151,9 @@ public class Play extends Activity implements OnClickListener {
 		mResult.toArray(result); // list 배열로 변환
 
 		Log.e("minka", "mResult.size() = " + mResult.size());
-		for(int i = 0; i<mResult.size() ; i++)
+		for (int i = 0; i < mResult.size(); i++)
 			Log.e("minka", "mResult.get(i) = " + mResult.get(i));
-		
+
 		// 결과세트중에 맞는게 하나라도 있으면 정답처리
 		boolean correctFlag = false;
 
