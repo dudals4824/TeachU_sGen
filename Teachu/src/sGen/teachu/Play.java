@@ -27,12 +27,16 @@ import sGen.teachu.forPlay.Compareword;
 import sGen.teachu.forPlay.PlayMic;
 import sGen.teachu.forSettingPage.Setting;
 import sGen.teachu.DTO.*;
-import sGen.teachu.MakeItem.Fruit;
 
 public class Play extends Activity implements OnClickListener {
 
 	private final int GOOGLE_STT = 1000, MY_UI = 1001; // requestCode. 구글음성인식,
 														// 내가 만든 Activity
+
+	private static final int CATEGORY_FRUIT = 0; // 과일
+	private static final int CATEGORY_ANIMAL = 1; // 동물
+	private static final int CATEGORY_TRANSPORT = 2; // 탈것
+	
 	private ArrayList<String> mResult; // 음성인식 결과 저장할 list
 	private String mSelectedString; // 결과 list 중 사용자가 선택한 텍스트
 	private TextView mResultTextView; // 최종 결과 출력하는 텍스트 뷰
@@ -73,12 +77,12 @@ public class Play extends Activity implements OnClickListener {
 	// itemList 초기화
 	private void initItem(ArrayList<ItemInfoDTO> itemList) {
 		DBItemInfoAdapter mItemAdaper = new DBItemInfoAdapter(this);
+		mItemAdaper.open();
 		// category 확인
 		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
 			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
-			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CategoryTree
-					.getCategoryID()));// 깊은복사
+			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
 			Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		}
 	}
