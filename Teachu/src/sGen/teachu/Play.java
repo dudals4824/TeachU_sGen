@@ -71,7 +71,7 @@ public class Play extends Activity implements OnClickListener {
 		int i = 0;
 		// category 확인
 		switch (this.getCategoryID()) {
-		case R.id.Fruit:
+		case R.id.btn_categorytree_fruit:
 			Fruit mFruit = new Fruit();
 			itemList.addAll(mFruit.getItemList());// 깊은복사
 

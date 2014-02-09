@@ -17,11 +17,12 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,7 +37,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class AddBaby extends Activity implements OnClickListener {
-	final static String TAG = "KJK";
+	public final static String TAG = "KJK";
 
 	// object
 	private BabyInfoDTO Baby = new BabyInfoDTO();
@@ -55,12 +56,12 @@ public class AddBaby extends Activity implements OnClickListener {
 	// photo
 	private File imgFile;
 	private Bitmap mBitmap;
-	
+
 	private int photoAreaWidth;
 	private int photoAreaHeight;
 
 	// validation check
-	private boolean isEmpty = true;
+	private boolean isEmpty = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,18 +76,23 @@ public class AddBaby extends Activity implements OnClickListener {
 		// get mBitmap
 		mPictureBtn = (ImageView) findViewById(R.id.pictureBtn);
 		mPictureBtn.setOnClickListener(this);
-		
-		photoAreaWidth = mPictureBtn.getWidth();
-		photoAreaHeight = mPictureBtn.getHeight();
-		
+
+		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
+				R.drawable.btn_addbaby_registpic);
+
+		// photoAreaWidth = mPictureBtn.getWidth();
+		// photoAreaHeight = mPictureBtn.getHeight();
+		photoAreaWidth = bd.getBitmap().getWidth();
+		photoAreaHeight = bd.getBitmap().getHeight();
+		Log.e("DEBUG", "photo size = " + photoAreaWidth + ", "
+				+ photoAreaHeight);
+
 		// register baby
 		okayButton = (Button) findViewById(R.id.addbutton);
 		okayButton.setOnClickListener(this);
 
 		// TODO: after finishing add baby, unable backtraking button
-
 	}
-	
 
 	@Override
 	public void onClick(View v) {
@@ -94,6 +100,7 @@ public class AddBaby extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case (R.id.pictureBtn): {
 			Log.e("onClick", "click button picture dialog.......");
+
 			showListDialog();
 			break;
 		}
@@ -194,11 +201,8 @@ public class AddBaby extends Activity implements OnClickListener {
 	// to your Activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 		if (resultCode == RESULT_OK) {
-
 			if (requestCode == 1) {
-
 				// currImageURI is the global variable I'm using to hold the
 				// content:// URI of the image
 				currImageURI = data.getData();
@@ -212,18 +216,28 @@ public class AddBaby extends Activity implements OnClickListener {
 				if (imgFile.exists()) {
 					mBitmap = BitmapFactory.decodeFile(imgFile
 							.getAbsolutePath());
-					//getCroppedBitmap(mBitmap);
+					// getCroppedBitmap(mBitmap);
 					Log.e("비트맵 로드", "성공");
 				} else
 					Log.e("비트맵 디코딩", "실패");
-				mPictureBtn.setImageBitmap(getCroppedBitmap(mBitmap));
-			}
+				
+			//mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
+			BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(R.drawable.btn_addbaby_registmask);
+			Bitmap coverBitmap = bd.getBitmap();
+
+			//constructor
+			photoEditor photoEdit = new photoEditor(mBitmap, coverBitmap, photoAreaWidth, photoAreaHeight);
+			//resize
+			//crop roun
+			//overay cover
+			mPictureBtn.setImageBitmap(photoEdit.editPhotoAuto());
 			
+			}
 		}
 	}
 
 	// get real path
-	public String getRealPathFromURI(Uri contentUri) {
+	private String getRealPathFromURI(Uri contentUri) {
 		String path = null;
 		String[] proj = { MediaStore.MediaColumns.DATA };
 		Cursor cursor = getContentResolver().query(contentUri, proj, null,
@@ -236,27 +250,4 @@ public class AddBaby extends Activity implements OnClickListener {
 		cursor.close();
 		return path;
 	}
-
-	public Bitmap getCroppedBitmap(Bitmap bitmap) {
-		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-				bitmap.getHeight(), Config.ARGB_8888);
-		Canvas canvas = new Canvas(output);
-
-		final int color = 0xff424242;
-		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, photoAreaWidth , photoAreaHeight);
-
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-		// canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-		canvas.drawCircle(bitmap.getWidth() / 4, bitmap.getHeight() / 4,
-				mPictureBtn.getHeight() /2, paint);
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
-		// Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-		// return _bmp;
-		return output;
-	}
-
 }
