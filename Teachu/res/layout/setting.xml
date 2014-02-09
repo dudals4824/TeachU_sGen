@@ -24,8 +24,8 @@
                 android:id="@+id/btn_setting_prev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/btn_setting_prev" />
 
             <TextView
@@ -42,12 +42,11 @@
                 android:id="@+id/btn_setting_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/btn_setting_trash"
-                />
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_setting_trash" />
         </RelativeLayout>
 
         <LinearLayout
@@ -55,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_weight="20"
-            android:background="#ff5050"
+            android:background="#ef6565"
             android:orientation="horizontal" >
 
             <ImageView
@@ -70,15 +69,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/graphtext" >
+            android:background="@drawable/title_setting_graph"
+            android:orientation="vertical" >
 
             <TextView
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:text="학습 성장 그래프"
                 android:textColor="#060616" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -90,30 +90,45 @@
             android:dividerPadding="10dp"
             android:orientation="vertical" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_setting_correction" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="정답률" />
+
+        </LinearLayout>
+
         <GridLayout
             android:id="@+id/layout_correctionrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="35"
-            android:background="#060616"
+            android:background="#060615"
             android:columnCount="3"
             android:orientation="horizontal"
             android:rowCount="3"
             android:useDefaultMargins="true" >
 
             <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_marginLeft="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="0" />
 
             <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_row="0" />
 
             <sGen.teachu.forSettingPage.ProgressView2
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
