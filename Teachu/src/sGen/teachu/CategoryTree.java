@@ -34,6 +34,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		btn_categorytree_fruit = (Button) findViewById(R.id.btn_categorytree_fruit);
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
 
+		btn_categorytree_fruit.setOnClickListener(this);
 		btn_category_setting.setOnClickListener(this);
 	}
 
