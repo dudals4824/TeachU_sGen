@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -58,41 +59,41 @@ public class ProgressView2 extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
+		boolean isDrawn=false;
 		super.onDraw(canvas);
 
 		mPaint.setAntiAlias(true);
-		RectF mArea = new RectF(0,0,170,170);
+		float radius = (float) (devicewidth * 0.25);
+		RectF mArea = new RectF(0, 0, radius, radius);
 		// Rotate the canvas around the center of the pie by 90 degrees
 		// counter clockwise so the pie stars at 12 o'clock.
 		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
 		mPaint.setColor(Color.WHITE);
-		canvas.drawCircle(85,85,85, mPaint);
+
+		canvas.drawCircle(radius / 2, radius / 2, radius / 2, mPaint);
 		mPaint.setColor(Color.rgb(255, 80, 80));
 		canvas.drawArc(mArea, -90, degree, true, mPaint);
-		double percent=0.8;
-		double a=((percent/50)*Math.PI)-((1/2)*Math.PI);
-		if (degree < 360*percent)
+		double percent = 0.8;
+		if (degree < 360 * percent)
 			delay();
 		else {
-			mPaint.setColor(Color.BLUE);
-			mPaint.setTextSize(20);
-			canvas.drawText(a + "", (float) ((devicewidth * 0.1)),
-					(float) (devicewidth * 0.142), mPaint);
+			isDrawn=true;
+			
 		}
-		// Draw inner oval and text on top of the pie (or add any other
-		// decorations such as a stroke) here..
-		// Don't forget to rotate the canvas back if you plan to add text!
-		
-		
-		mPaint.setColor(Color.rgb(06,06,15));
-		canvas.drawCircle(85,85,70, mPaint);
+		mPaint.setColor(Color.rgb(06, 06, 15));
+		canvas.drawCircle(radius / 2, radius / 2, radius / 2 - 15, mPaint);
+		if(isDrawn){
+			mPaint.setColor(Color.WHITE);
+			mPaint.setTextSize(60);
+			canvas.drawText(percent * 100 + "",radius / 2-60,radius / 2, mPaint);
+		}
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// TODO Auto-generated method stub
-		int w = resolveSize(290, widthMeasureSpec);
-		int h = resolveSize(290, heightMeasureSpec);
+		int w = resolveSize((int) (devicewidth * 0.25), widthMeasureSpec);
+		int h = resolveSize((int) (devicewidth * 0.25), heightMeasureSpec);
 		setMeasuredDimension(w, h);
 	}
 
