@@ -40,7 +40,7 @@ public class GraphView extends View {
 		//표 색깔
 		renderer.setBackgroundColor(Color.WHITE);
 		
-		renderer.setMarginsColor(Color.rgb(255, 157, 0));
+		renderer.setMarginsColor(Color.rgb(249, 178, 51));
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
 		renderer.setYTitle(yTitle);
