@@ -55,15 +55,17 @@
             android:layout_height="75dp"
             android:layout_weight="20"
             android:background="#ef6565"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <ImageView
+                android:layout_marginTop="10dp"
                 android:id="@+id/pic_baby"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:maxHeight="60dp"
                 android:src="@drawable/smileface" />
+
         </LinearLayout>
 
         <LinearLayout
