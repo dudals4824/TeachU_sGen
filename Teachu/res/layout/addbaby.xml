@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:layout_marginTop="23.3dp"
             android:background="@drawable/edit_addbaby_name"
             android:hint="이름을 입력하세요" />
@@ -31,10 +32,22 @@
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_addbaby_pwd"
             android:hint="비밀번호를 입력하세요"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/password_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_addbaby_pwd"
+            android:hint="비밀번호를 재입력하세요"
             android:inputType="textPassword" />
 
         <DatePicker
@@ -43,14 +56,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
+        <ImageView
+            android:layout_marginTop="13.3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pic_addbaby_line" />
+
         <RadioGroup
             android:id="@+id/sexradiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <RadioButton
                 android:id="@+id/radio_boys"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
