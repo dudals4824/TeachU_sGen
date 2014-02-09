@@ -210,7 +210,6 @@ public class AddBaby extends Activity implements OnClickListener {
 	// to your Activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Boolean flagrotate=false;
 		if (requestCode == REQUEST_ALBUM) {
 			// currImageURI is the global variable I'm using to hold the
 			// content:// URI of the image
@@ -229,9 +228,8 @@ public class AddBaby extends Activity implements OnClickListener {
 				Log.e("비트맵 로드", "성공");
 			} else
 				Log.e("비트맵 디코딩", "실패");
-		} else if (requestCode == REQUEST_PICTURE) {
+		} else if (requestCode == REQUEST_PICTURE){
 			mBitmap = loadPicture();
-			flagrotate=true;
 		}
 		// mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
 		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
@@ -250,10 +248,6 @@ public class AddBaby extends Activity implements OnClickListener {
 
 		// 이거하면 이미지 셋됨
 		mBitmap = photoEdit.editPhotoAuto();
-		if(flagrotate=true) {
-			mBitmap=rotate(mBitmap, 90);
-			flagrotate=false;
-		}
 		mPictureBtn.setImageBitmap(mBitmap);
 
 	}
@@ -283,7 +277,7 @@ public class AddBaby extends Activity implements OnClickListener {
 				SAMPLEIMG);
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		option.inSampleSize = 4;
-		return BitmapFactory.decodeFile(file.getAbsolutePath(), option);
+		return rotate(BitmapFactory.decodeFile(file.getAbsolutePath(), option), 90);
 	}
 
 	// get real path
