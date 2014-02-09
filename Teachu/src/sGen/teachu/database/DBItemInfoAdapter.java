@@ -9,11 +9,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 public class DBItemInfoAdapter {
 	private static final String DATABASE_NAME = "teachu.db";
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_TABLE = "ITEM_INFO";
+	private static final String DATABASE_TABLE = "ITEM";
 
 	public static final int TASK_COLUMN = 1;
 
@@ -66,12 +67,12 @@ public class DBItemInfoAdapter {
 	}
 
 	public Cursor getAllItemCursor() {
-		return db.query("ITEM_INFO", new String[] { "ITEM_ID", "CATE_ID",
+		return db.query(DATABASE_TABLE, new String[] { "ITEM_ID", "CATE_ID",
 				"ITEM_NAME", "ITEM_FILENAME" }, null, null, null, null, null);
 	}
 
 	public Cursor setCursorItemInfo(long _itemId) throws SQLException {
-		Cursor result = db.query(true, "ITEM_INFO", new String[] { "ITEM_ID",
+		Cursor result = db.query(true, DATABASE_TABLE, new String[] { "ITEM_ID",
 				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME" }, "ITEM_ID" + "="
 				+ _itemId, null, null, null, null, null);
 
@@ -83,7 +84,7 @@ public class DBItemInfoAdapter {
 	}
 
 	public ItemInfoDTO getItemInfo(long _itemId) throws SQLException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where ITEM_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where ITEM_ID="
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
@@ -98,15 +99,20 @@ public class DBItemInfoAdapter {
 
 	public ArrayList<ItemInfoDTO> getItemInfoByCategoryId(int categoryId)
 			throws SQLException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where CATE_ID="
+		Log.e("GET ITEM CATE", "CATE CATE1");
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where CATE_ID="
 				+ categoryId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
+		Log.e("sdklafdf", cursor.getCount()+"");
+		Log.e("GET ITEM CATE", "CATE CATE2");
 		ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
 		for (int i = 0; i < cursor.getCount(); i++) {
-			cursor.move(i);
 			ItemInfoDTO item = new ItemInfoDTO(cursor.getInt(0),
 					cursor.getInt(1), cursor.getString(2), cursor.getString(3));
+			Log.e("GET ITEM CATE", item.toString());
 			itemList.add(item);
+			cursor.moveToNext();
 		}
 		return itemList;
 	}

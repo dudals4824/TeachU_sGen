@@ -13,9 +13,9 @@ import android.util.Log;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-	private static final int CATEGORY_FRUIT = 1; // 과일
-	private static final int CATEGORY_ANIMAL = 2; // 동물
-	private static final int CATEGORY_TRANSPORT = 3; // 탈것
+	private static final int CATEGORY_FRUIT = 0; // 과일
+	private static final int CATEGORY_ANIMAL = 1; // 동물
+	private static final int CATEGORY_TRANSPORT = 2; // 탈것
 	
 	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
 
