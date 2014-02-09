@@ -250,14 +250,15 @@ public class AddBaby extends Activity implements OnClickListener {
 
 		// 이거하면 이미지 셋됨
 		mBitmap = photoEdit.editPhotoAuto();
-		if(flagrotate=true)
+		if(flagrotate=true) {
 			mBitmap=rotate(mBitmap, 90);
+			flagrotate=false;
+		}
 		mPictureBtn.setImageBitmap(mBitmap);
 
 	}
 
 	public Bitmap rotate(Bitmap bitmap, int degrees) {
-		Log.e("c", "c");
 		if (degrees != 0 && bitmap != null) {
 			Matrix m = new Matrix();
 			m.setRotate(degrees);
