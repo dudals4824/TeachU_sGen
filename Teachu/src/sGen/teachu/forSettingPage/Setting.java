@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -33,7 +34,8 @@ public class Setting extends Activity implements OnClickListener {
 	private GridLayout layout_correctionrate;
 	private TextView textview_name, textview_birth;
 	private Button btn_setting_delete, btn_setting_prev;
-	private Bitmap pic_path;
+	private Bitmap mBitmap;
+	private ImageView pic_baby;
 	DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this);
 	BabyInfoDTO Baby = new BabyInfoDTO();
 
@@ -47,7 +49,9 @@ public class Setting extends Activity implements OnClickListener {
 		textview_name = (TextView) findViewById(R.id.textview_name);
 		btn_setting_delete = (Button) findViewById(R.id.btn_setting_delete);
 		btn_setting_prev = (Button) findViewById(R.id.btn_setting_prev);
-
+		pic_baby=(ImageView)findViewById(R.id.pic_baby);
+		
+		
 		mBabyAdapter.open();
 		try {
 			Baby = mBabyAdapter.getBabyInfo(1);
@@ -59,10 +63,12 @@ public class Setting extends Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 		textview_name.setText(Baby.getName());
-		pic_path = Baby.getPhoto();
+		mBitmap = Baby.getPhoto();
+		pic_baby.setImageBitmap(mBitmap);
 
 		GraphView graphview = new GraphView(this);
 		graphview.makeGraph(this, layout_graphview);
+		
 
 		btn_setting_delete.setOnClickListener(this);
 		btn_setting_prev.setOnClickListener(this);
