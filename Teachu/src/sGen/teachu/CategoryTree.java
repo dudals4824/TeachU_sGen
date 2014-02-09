@@ -16,12 +16,15 @@ public class CategoryTree extends Activity {
 
 	static int CategoryID_ = 0;
 	private boolean mIsBackButtonTouched = false;
-
+	//다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
+	public static Activity categorytree;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.category_tree);
 
+		categorytree=CategoryTree.this;
+		
 		Button fruit = (Button) findViewById(R.id.Fruit);
 		fruit.setOnClickListener(new View.OnClickListener() {
 
