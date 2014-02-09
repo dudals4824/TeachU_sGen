@@ -1,5 +1,7 @@
 package sGen.teachu.database;
 
+import java.util.ArrayList;
+
 import sGen.teachu.DTO.ItemInfoDTO;
 import android.content.ContentValues;
 import android.content.Context;
@@ -64,14 +66,14 @@ public class DBItemInfoAdapter {
 	}
 
 	public Cursor getAllItemCursor() {
-		return db.query("ITEM_INFO", new String[] { "ITEM_ID",
-				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"}, null, null, null, null, null);
+		return db.query("ITEM_INFO", new String[] { "ITEM_ID", "CATE_ID",
+				"ITEM_NAME", "ITEM_FILENAME" }, null, null, null, null, null);
 	}
 
 	public Cursor setCursorItemInfo(long _itemId) throws SQLException {
 		Cursor result = db.query(true, "ITEM_INFO", new String[] { "ITEM_ID",
-				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME"},
-				"ITEM_ID" + "=" + _itemId, null, null, null, null, null);
+				"CATE_ID", "ITEM_NAME", "ITEM_FILENAME" }, "ITEM_ID" + "="
+				+ _itemId, null, null, null, null, null);
 
 		if ((result.getCount() == 0) || !result.moveToFirst()) {
 			throw new SQLException("No Todo items found for row: " + _itemId);
@@ -90,8 +92,23 @@ public class DBItemInfoAdapter {
 		item.setCateId(cursor.getInt(1));
 		item.setItemName(cursor.getString(2));
 		item.setItemFileName(cursor.getString(3));
-		
+
 		return item;
+	}
+
+	public ArrayList<ItemInfoDTO> getItemInfoByCategoryId(int categoryId)
+			throws SQLException {
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + "where CATE_ID="
+				+ categoryId;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+		ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
+		for (int i = 0; i < cursor.getCount(); i++) {
+			cursor.move(i);
+			ItemInfoDTO item = new ItemInfoDTO(cursor.getInt(0),
+					cursor.getInt(1), cursor.getString(2), cursor.getString(3));
+			itemList.add(item);
+		}
+		return itemList;
 	}
 
 }
