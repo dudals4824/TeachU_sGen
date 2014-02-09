@@ -257,6 +257,7 @@ public class AddBaby extends Activity implements OnClickListener {
 	}
 
 	public Bitmap rotate(Bitmap bitmap, int degrees) {
+		Log.e("c", "c");
 		if (degrees != 0 && bitmap != null) {
 			Matrix m = new Matrix();
 			m.setRotate(degrees);
