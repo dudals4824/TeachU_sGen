@@ -42,18 +42,16 @@ public class Play extends Activity implements OnClickListener {
 
 	private ImageView itemImage, mCorrect;
 	private int itemNumber = 0;
-	private int CategoryID;
 
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
+	//categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만 categoryID만들어놓음
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
-
-		this.setCategoryID(CategoryTree.CategoryID_);
-
+		
 		//correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
@@ -66,17 +64,19 @@ public class Play extends Activity implements OnClickListener {
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
 		mCorrectCnt = (TextView) findViewById(R.id.correctCnt);
 
+		Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
+		Log.e("minka", "this.getCategoryID() = " + CategoryTree.getCategoryID());
 		initItem(itemList);
 	}
 
 	// itemList 초기화
 	private void initItem(ArrayList<ItemInfoDTO> itemList) {
 		// category 확인
-		switch (this.getCategoryID()) {
+		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
 			Fruit mFruit = new Fruit();
 			itemList.addAll(mFruit.getItemList());// 깊은복사
-
+			Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		}
 	}
 
@@ -147,11 +147,17 @@ public class Play extends Activity implements OnClickListener {
 														// 위해
 		mResult.toArray(result); // list 배열로 변환
 
+		Log.e("minka", "mResult.size() = " + mResult.size());
+		for(int i = 0; i<mResult.size() ; i++)
+			Log.e("minka", "mResult.get(i) = " + mResult.get(i));
+		
 		// 결과세트중에 맞는게 하나라도 있으면 정답처리
 		boolean correctFlag = false;
 
+		Log.e("minka", "itemList.size() = " + itemList.size());
 		ItemInfoDTO item = itemList.get(itemNumber);
 
+		Log.e("minka", "item.getItemName() 정답 = " + item.getItemName());
 		// 5개 음성인식 결과와 비교
 		for (int i = 0; i < mResult.size(); i++) {
 			if (item.getItemName().equals(mResult.get(i))) { // 비교
@@ -209,14 +215,6 @@ public class Play extends Activity implements OnClickListener {
 
 		}
 
-	}
-
-	public int getCategoryID() {
-		return CategoryID;
-	}
-
-	public void setCategoryID(int categoryID) {
-		CategoryID = categoryID;
 	}
 
 	@Override

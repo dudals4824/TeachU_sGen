@@ -17,7 +17,15 @@ import android.widget.Toast;
 
 public class CategoryTree extends Activity implements OnClickListener {
 
-	static int CategoryID_ = 0;
+	public static int CategoryID = 0;
+	public static int getCategoryID() {
+		return CategoryID;
+	}
+
+	public static void setCategoryID(int categoryID) {
+		CategoryID = categoryID;
+	}
+
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
@@ -41,6 +49,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		setCategoryID(v.getId());
 		if (v.getId() == R.id.btn_categorytree_fruit) {
 			Intent TeachuplayActivity = new Intent(CategoryTree.this,
 					Play.class);
