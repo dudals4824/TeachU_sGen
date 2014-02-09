@@ -3,6 +3,7 @@ package sGen.teachu.forSettingPage;
 import java.text.ParseException;
 
 import sGen.teachu.AddBaby;
+import sGen.teachu.CategoryTree;
 import sGen.teachu.R;
 import sGen.teachu.DTO.BabyInfoDTO;
 import sGen.teachu.database.DBBabyInfoAdapter;
@@ -58,7 +59,7 @@ public class Setting extends Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 		textview_name.setText(Baby.getName());
-		pic_path=Baby.getPhoto();
+		pic_path = Baby.getPhoto();
 
 		GraphView graphview = new GraphView(this);
 		graphview.makeGraph(this, layout_graphview);
@@ -93,8 +94,9 @@ public class Setting extends Activity implements OnClickListener {
 								Intent addBabyActivity = new Intent(
 										Setting.this, AddBaby.class);
 								startActivity(addBabyActivity);
-								finishActivity(1);
 								finish();
+								CategoryTree categorytree=(CategoryTree)CategoryTree.categorytree;
+								categorytree.finish();
 							} else {
 								Toast.makeText(Setting.this, "비밀번호가 틀렸습니다",
 										Toast.LENGTH_SHORT).show();
