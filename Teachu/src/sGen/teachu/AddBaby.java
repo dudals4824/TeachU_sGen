@@ -45,11 +45,12 @@ public class AddBaby extends Activity implements OnClickListener {
 	private String imagePath;
 
 	// view
-	private EditText babyNameEdit;
-	private EditText babypassword;
-	private ImageView mPictureBtn;
+	private EditText edit_name;
+	private EditText edit_password;
+	private EditText edit_passwordcheck;
+	private ImageView btn_picbtn;
 	private RadioGroup rg;
-	private Button okayButton;
+	private Button btn_regist;
 	private ListViewDialog mDialog;
 
 	// photo
@@ -68,13 +69,14 @@ public class AddBaby extends Activity implements OnClickListener {
 		setContentView(R.layout.addbaby);
 
 		// view initializing
-		babyNameEdit = (EditText) findViewById(R.id.name);
-		babypassword = (EditText) findViewById(R.id.password);
+		edit_name = (EditText) findViewById(R.id.name);
+		edit_password = (EditText) findViewById(R.id.password);
+		edit_passwordcheck = (EditText) findViewById(R.id.password_check);
 		rg = (RadioGroup) findViewById(R.id.sexradiogroup);
 
 		// get mBitmap
-		mPictureBtn = (ImageView) findViewById(R.id.pictureBtn);
-		mPictureBtn.setOnClickListener(this);
+		btn_picbtn = (ImageView) findViewById(R.id.pictureBtn);
+		btn_picbtn.setOnClickListener(this);
 
 		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
 				R.drawable.btn_addbaby_registpic);
@@ -87,8 +89,8 @@ public class AddBaby extends Activity implements OnClickListener {
 				+ photoAreaHeight);
 
 		// register baby
-		okayButton = (Button) findViewById(R.id.addbutton);
-		okayButton.setOnClickListener(this);
+		btn_regist = (Button) findViewById(R.id.addbutton);
+		btn_regist.setOnClickListener(this);
 
 		// TODO: after finishing add baby, unable backtraking button
 		isEmpty = false;
@@ -108,9 +110,23 @@ public class AddBaby extends Activity implements OnClickListener {
 		// addbutton
 
 		case (R.id.addbutton):
-			if (isEmpty) {
-				Log.e("KJK", "빈칸있음");
+			if (edit_name.getText().toString().equals("")
+					| edit_password.getText().toString().equals("")
+					| edit_passwordcheck.getText().toString().equals("")) {
+				Toast.makeText(AddBaby.this, "모든 항목을 입력하세요", Toast.LENGTH_SHORT)
+						.show();
+			} else if (mBitmap == null) {
+				Toast.makeText(AddBaby.this, "사진을 선택하세요", Toast.LENGTH_SHORT)
+						.show();
 			} else {
+				if (edit_password.getText().toString()
+						.equals(edit_passwordcheck.getText().toString())) {
+
+				} else {
+					Toast.makeText(AddBaby.this, "비밀번호를 정확하게 입력하세요",
+							Toast.LENGTH_SHORT).show();
+					break;
+				}
 				int sex = 0;
 				String babySex = null;
 				// press enroll button
@@ -122,8 +138,8 @@ public class AddBaby extends Activity implements OnClickListener {
 				else if (babySex.equals("여자"))
 					sex = 1;
 
-				final String babyName = babyNameEdit.getText().toString();
-				final String password = babypassword.getText().toString();
+				final String babyName = edit_name.getText().toString();
+				final String password = edit_password.getText().toString();
 
 				DatePicker babyBirthday = (DatePicker) findViewById(R.id.babyBirthday);
 
@@ -133,7 +149,7 @@ public class AddBaby extends Activity implements OnClickListener {
 				Log.e("생일날짜!!!3", "Y-M-D = " + year + "년" + month + "월" + day
 						+ "일");
 				Calendar birthday = new GregorianCalendar();
-				birthday.set(year, month, day);
+				birthday.set(year, month + 1, day);
 
 				Baby.setBabyId(1);
 				Baby.setName(babyName);
@@ -154,9 +170,10 @@ public class AddBaby extends Activity implements OnClickListener {
 						CategoryTree.class);
 				startActivity(CategoryTree);
 				Log.e("intent", "인텐트다음");
+				finish();
 
 			}
-			finish();
+
 			break;
 		}
 	}
@@ -228,7 +245,8 @@ public class AddBaby extends Activity implements OnClickListener {
 				Log.e("비트맵 로드", "성공");
 			} else
 				Log.e("비트맵 디코딩", "실패");
-		} else if (requestCode == REQUEST_PICTURE){
+		} else if (requestCode == REQUEST_PICTURE) {
+			Log.e("camera", "camera");
 			mBitmap = loadPicture();
 		}
 		// mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
@@ -248,7 +266,7 @@ public class AddBaby extends Activity implements OnClickListener {
 
 		// 이거하면 이미지 셋됨
 		mBitmap = photoEdit.editPhotoAuto();
-		mPictureBtn.setImageBitmap(mBitmap);
+		btn_picbtn.setImageBitmap(mBitmap);
 
 	}
 
@@ -272,12 +290,14 @@ public class AddBaby extends Activity implements OnClickListener {
 	}
 
 	Bitmap loadPicture() {
+		Log.e("camera", "load");
 		// TODO Auto-generated method stub
 		File file = new File(Environment.getExternalStorageDirectory(),
 				SAMPLEIMG);
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		option.inSampleSize = 4;
-		return rotate(BitmapFactory.decodeFile(file.getAbsolutePath(), option), 90);
+		return rotate(BitmapFactory.decodeFile(file.getAbsolutePath(), option),
+				90);
 	}
 
 	// get real path
