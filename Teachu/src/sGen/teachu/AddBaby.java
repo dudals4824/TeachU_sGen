@@ -14,17 +14,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -35,9 +30,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class AddBaby extends Activity implements OnClickListener {
 	public final static String TAG = "KJK";
+	static String SAMPLEIMG = "profile.png";
+	static final int REQUEST_ALBUM = 1;
+	static final int REQUEST_PICTURE = 2;
 
 	// object
 	private BabyInfoDTO Baby = new BabyInfoDTO();
@@ -92,6 +91,8 @@ public class AddBaby extends Activity implements OnClickListener {
 		okayButton.setOnClickListener(this);
 
 		// TODO: after finishing add baby, unable backtraking button
+		isEmpty = false;
+
 	}
 
 	@Override
@@ -105,6 +106,7 @@ public class AddBaby extends Activity implements OnClickListener {
 			break;
 		}
 		// addbutton
+
 		case (R.id.addbutton):
 			if (isEmpty) {
 				Log.e("KJK", "빈칸있음");
@@ -151,6 +153,7 @@ public class AddBaby extends Activity implements OnClickListener {
 				Intent CategoryTree = new Intent(AddBaby.this,
 						CategoryTree.class);
 				startActivity(CategoryTree);
+				Log.e("intent", "인텐트다음");
 
 			}
 			finish();
@@ -174,7 +177,6 @@ public class AddBaby extends Activity implements OnClickListener {
 
 		mDialog = new ListViewDialog(this,
 				getString(R.string.photo_change_title), itemArrayList);
-
 		mDialog.onOnSetItemClickListener(new ListViewDialogSelectListener() {
 
 			@Override
@@ -187,9 +189,16 @@ public class AddBaby extends Activity implements OnClickListener {
 					intent.setType("image/*");
 					intent.setAction(Intent.ACTION_GET_CONTENT);
 					startActivityForResult(
-							Intent.createChooser(intent, "Select Picture"), 1);
+							Intent.createChooser(intent, "Select Picture"),
+							REQUEST_ALBUM);
 				} else if (position == 1) {
+					// 여기서 부터 카메라 사용
 					Log.v(TAG, " 두번째 인덱스가 선택되었습니다" + "여기에 맞는 작업을 해준다.");
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					File file = new File(Environment
+							.getExternalStorageDirectory(), SAMPLEIMG);
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+					startActivityForResult(intent, REQUEST_PICTURE);
 				}
 				mDialog.dismiss();
 			}
@@ -201,39 +210,78 @@ public class AddBaby extends Activity implements OnClickListener {
 	// to your Activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			if (requestCode == 1) {
-				// currImageURI is the global variable I'm using to hold the
-				// content:// URI of the image
-				currImageURI = data.getData();
-				imagePath = getRealPathFromURI(currImageURI);
-				Log.e("KJK", "URI : " + currImageURI.toString());
-				Log.e("KJK", "Real Path : " + imagePath);
+		Boolean flagrotate=false;
+		if (requestCode == REQUEST_ALBUM) {
+			// currImageURI is the global variable I'm using to hold the
+			// content:// URI of the image
+			currImageURI = data.getData();
+			// 실제 절대주소를 받아옴
+			imagePath = getRealPathFromURI(currImageURI);
+			Log.e("KJK", "URI : " + currImageURI.toString());
+			Log.e("KJK", "Real Path : " + imagePath);
 
-				// image path 얻어왔으면 imgFile초기화.
-				imgFile = new File(imagePath);
-				// img file bitmap 변경
-				if (imgFile.exists()) {
-					mBitmap = BitmapFactory.decodeFile(imgFile
-							.getAbsolutePath());
-					// getCroppedBitmap(mBitmap);
-					Log.e("비트맵 로드", "성공");
-				} else
-					Log.e("비트맵 디코딩", "실패");
-				
-			//mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
-			BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(R.drawable.btn_addbaby_registmask);
-			Bitmap coverBitmap = bd.getBitmap();
+			// image path 얻어왔으면 imgFile초기화.
+			imgFile = new File(imagePath);
+			// img file bitmap 변경
+			if (imgFile.exists()) {
+				mBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+				// getCroppedBitmap(mBitmap);
+				Log.e("비트맵 로드", "성공");
+			} else
+				Log.e("비트맵 디코딩", "실패");
+		} else if (requestCode == REQUEST_PICTURE) {
+			mBitmap = loadPicture();
+			flagrotate=true;
+		}
+		// mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
+		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
+				R.drawable.btn_addbaby_registmask);
+		Bitmap coverBitmap = bd.getBitmap();
 
-			//constructor
-			photoEditor photoEdit = new photoEditor(mBitmap, coverBitmap, photoAreaWidth, photoAreaHeight);
-			//resize
-			//crop roun
-			//overay cover
-			mPictureBtn.setImageBitmap(photoEdit.editPhotoAuto());
-			
+		// constructor
+		// mBitmap에 찍은 사진 넣기
+		// cover은 그대로
+
+		photoEditor photoEdit = new photoEditor(mBitmap, coverBitmap,
+				photoAreaWidth, photoAreaHeight);
+		// resize
+		// crop roun
+		// overay cover
+
+		// 이거하면 이미지 셋됨
+		mBitmap = photoEdit.editPhotoAuto();
+		if(flagrotate=true)
+			mBitmap=rotate(mBitmap, 90);
+		mPictureBtn.setImageBitmap(mBitmap);
+
+	}
+
+	public Bitmap rotate(Bitmap bitmap, int degrees) {
+		if (degrees != 0 && bitmap != null) {
+			Matrix m = new Matrix();
+			m.setRotate(degrees);
+			try {
+				Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
+						bitmap.getWidth(), bitmap.getHeight(), m, true);
+				if (bitmap != converted) {
+					bitmap = null;
+					bitmap = converted;
+					converted = null;
+				}
+			} catch (OutOfMemoryError ex) {
+				Toast.makeText(getApplicationContext(), "메모리부족", 0).show();
 			}
 		}
+		return bitmap;
+	}
+
+	Bitmap loadPicture() {
+		// TODO Auto-generated method stub
+		File file = new File(Environment.getExternalStorageDirectory(),
+				SAMPLEIMG);
+		BitmapFactory.Options option = new BitmapFactory.Options();
+		option.inSampleSize = 4;
+		return BitmapFactory.decodeFile(file.getAbsolutePath(), option);
 	}
 
 	// get real path
