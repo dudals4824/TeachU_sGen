@@ -40,7 +40,7 @@ public class Play extends Activity implements OnClickListener {
 
 	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>(); // item
 
-	private ImageView mImage, mCorrect;
+	private ImageView itemImage, mCorrect;
 	private int itemNumber = 0;
 	private int CategoryID;
 
@@ -54,10 +54,13 @@ public class Play extends Activity implements OnClickListener {
 
 		this.setCategoryID(CategoryTree.CategoryID_);
 
+		//correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
-		mImage = (ImageView) findViewById(R.id.wordCard);
-		mImage.setOnClickListener(this); // 내가 만든activity 이용.
+		
+		//item image
+		itemImage = (ImageView) findViewById(R.id.wordCard);
+		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
@@ -68,7 +71,6 @@ public class Play extends Activity implements OnClickListener {
 
 	// itemList 초기화
 	private void initItem(ArrayList<ItemInfoDTO> itemList) {
-		int i = 0;
 		// category 확인
 		switch (this.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
@@ -169,39 +171,42 @@ public class Play extends Activity implements OnClickListener {
 				}
 
 				public void onFinish() {
-					
+
 					mCorrect.setVisibility(View.INVISIBLE);
 					mResultTextView.setText("");
 					itemNumber++;
 					if (itemNumber >= 9)
 						itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
 					itemList.get(itemNumber); // 새문제 로딩
-					
+
 					mItemNumber.setText(Integer.toString(itemNumber + 1)
 							+ " / 10");
 					mCorrectCnt.setText(Integer.toString(itemNumber));
-					ItemInfoDTO item = itemList.get(itemNumber); 
-					//mImage.setImageResource(item.getFileName());요기서 item이 final이여야 만해서
-					//여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
-					mImage.setImageResource(getResources().getIdentifier(item.getItemFileName(), "drawable", getPackageName()));
+					ItemInfoDTO item = itemList.get(itemNumber);
+					// itemImage.setImageResource(item.getFileName());요기서 item이
+					// final이여야 만해서
+					// 여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
+					itemImage.setImageResource(getResources().getIdentifier(
+							item.getItemFileName(), "drawable",
+							getPackageName()));
 				}
 			}.start();
 
-		} else{
+		} else {
 			// 5개 중에 정답이 없는 경우
 			// 5개 중에서 비교하여 70% 넘는 것이 있으면 맞음처리
-			Compareword [] word=new Compareword[mResult.size()];
+			Compareword[] word = new Compareword[mResult.size()];
 			for (int i = 0; i < mResult.size(); i++) {
-				word[i]=new Compareword(item.getItemName(), mResult.get(i));
-				double correctionrate = word[i].getCorrectionrate(word[i].analysis_word_array);
-				if(correctionrate>=70){
+				word[i] = new Compareword(item.getItemName(), mResult.get(i));
+				double correctionrate = word[i]
+						.getCorrectionrate(word[i].analysis_word_array);
+				if (correctionrate >= 70) {
 					mResultTextView.setText("맞음e");
 					break;
-				}
-				else
+				} else
 					mResultTextView.setText("틀림e");
 			}
-			
+
 		}
 
 	}
