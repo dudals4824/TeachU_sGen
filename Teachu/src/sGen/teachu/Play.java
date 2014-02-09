@@ -36,7 +36,7 @@ public class Play extends Activity implements OnClickListener {
 	private static final int CATEGORY_FRUIT = 0; // 과일
 	private static final int CATEGORY_ANIMAL = 1; // 동물
 	private static final int CATEGORY_TRANSPORT = 2; // 탈것
-	
+
 	private ArrayList<String> mResult; // 음성인식 결과 저장할 list
 	private String mSelectedString; // 결과 list 중 사용자가 선택한 텍스트
 	private TextView mResultTextView; // 최종 결과 출력하는 텍스트 뷰
@@ -57,6 +57,8 @@ public class Play extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
 
+		initItem(itemList);
+
 		// correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
@@ -64,6 +66,8 @@ public class Play extends Activity implements OnClickListener {
 		// item image
 		itemImage = (ImageView) findViewById(R.id.wordCard);
 		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
+		itemImage.setImageResource(getResources().getIdentifier(
+				itemList.get(0).getItemFileName(), "drawable", getPackageName()));
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
@@ -71,7 +75,7 @@ public class Play extends Activity implements OnClickListener {
 
 		Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		Log.e("minka", "this.getCategoryID() = " + CategoryTree.getCategoryID());
-		initItem(itemList);
+
 	}
 
 	// itemList 초기화
@@ -82,7 +86,8 @@ public class Play extends Activity implements OnClickListener {
 		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
 			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
-			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
+			itemList.addAll(mItemAdaper
+					.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
 			Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		}
 	}
