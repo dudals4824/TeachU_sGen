@@ -227,47 +227,49 @@ public class AddBaby extends Activity implements OnClickListener {
 	// to your Activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_ALBUM) {
-			// currImageURI is the global variable I'm using to hold the
-			// content:// URI of the image
-			currImageURI = data.getData();
-			// 실제 절대주소를 받아옴
-			imagePath = getRealPathFromURI(currImageURI);
-			Log.e("KJK", "URI : " + currImageURI.toString());
-			Log.e("KJK", "Real Path : " + imagePath);
+		if (resultCode == RESULT_OK) {
+			if (requestCode == REQUEST_ALBUM) {
+				// currImageURI is the global variable I'm using to hold the
+				// content:// URI of the image
+				currImageURI = data.getData();
+				// 실제 절대주소를 받아옴
+				imagePath = getRealPathFromURI(currImageURI);
+				Log.e("KJK", "URI : " + currImageURI.toString());
+				Log.e("KJK", "Real Path : " + imagePath);
 
-			// image path 얻어왔으면 imgFile초기화.
-			imgFile = new File(imagePath);
-			// img file bitmap 변경
-			if (imgFile.exists()) {
-				mBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-				// getCroppedBitmap(mBitmap);
-				Log.e("비트맵 로드", "성공");
-			} else
-				Log.e("비트맵 디코딩", "실패");
-		} else if (requestCode == REQUEST_PICTURE) {
-			Log.e("camera", "camera");
-			mBitmap = loadPicture();
+				// image path 얻어왔으면 imgFile초기화.
+				imgFile = new File(imagePath);
+				// img file bitmap 변경
+				if (imgFile.exists()) {
+					mBitmap = BitmapFactory.decodeFile(imgFile
+							.getAbsolutePath());
+					// getCroppedBitmap(mBitmap);
+					Log.e("비트맵 로드", "성공");
+				} else
+					Log.e("비트맵 디코딩", "실패");
+			} else if (requestCode == REQUEST_PICTURE) {
+				Log.e("camera", "camera");
+				mBitmap = loadPicture();
+			}
+			// mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
+			BitmapDrawable bd = (BitmapDrawable) this.getResources()
+					.getDrawable(R.drawable.btn_addbaby_registmask);
+			Bitmap coverBitmap = bd.getBitmap();
+
+			// constructor
+			// mBitmap에 찍은 사진 넣기
+			// cover은 그대로
+
+			photoEditor photoEdit = new photoEditor(mBitmap, coverBitmap,
+					photoAreaWidth, photoAreaHeight);
+			// resize
+			// crop roun
+			// overay cover
+
+			// 이거하면 이미지 셋됨
+			mBitmap = photoEdit.editPhotoAuto();
+			btn_picbtn.setImageBitmap(mBitmap);
 		}
-		// mPictureBtn.setImageBitmap(overlayCover(getCroppedBitmap(resizeBitmapToProfileSize(mBitmap))));
-		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
-				R.drawable.btn_addbaby_registmask);
-		Bitmap coverBitmap = bd.getBitmap();
-
-		// constructor
-		// mBitmap에 찍은 사진 넣기
-		// cover은 그대로
-
-		photoEditor photoEdit = new photoEditor(mBitmap, coverBitmap,
-				photoAreaWidth, photoAreaHeight);
-		// resize
-		// crop roun
-		// overay cover
-
-		// 이거하면 이미지 셋됨
-		mBitmap = photoEdit.editPhotoAuto();
-		btn_picbtn.setImageBitmap(mBitmap);
-
 	}
 
 	public Bitmap rotate(Bitmap bitmap, int degrees) {
