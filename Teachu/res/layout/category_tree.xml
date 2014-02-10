@@ -35,6 +35,37 @@
                 android:layout_margin="30dp"
                 android:background="@drawable/christmas_pudding" />
 
+            <ImageView
+                android:id="@+id/pic_categorytree_cloud3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/pic_categorytree_cloud3" />
+
+            <ImageView
+                android:id="@+id/pic_categorytree_cloud1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/pic_categorytree_cloud1" />
+
+            <ImageView
+                android:id="@+id/pic_categorytree_yellowplantet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="800dp"
+                android:src="@drawable/pic_categorytree_yellowplanet" />
+
+            <ImageView
+                android:id="@+id/pic_categorytree_cloud4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="650dp"
+                android:layout_marginLeft="90dp"
+                android:src="@drawable/pic_categorytree_cloud4"/>
         </RelativeLayout>
     </ScrollView>
 
