@@ -1,6 +1,7 @@
 package sGen.teachu;
 
 import sGen.teachu.R;
+import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -45,10 +46,11 @@ public class Play extends Activity implements OnClickListener {
 
 	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>(); // item
 
-	private ImageView itemImage, mCorrect;
+	private ImageView itemImage, mCorrect, mWrong;
 	private int itemNumber = 0;
 
 	public static int correctCnt_ = 0;
+
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
@@ -64,12 +66,16 @@ public class Play extends Activity implements OnClickListener {
 		// correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
+		// wrong imge
+		mWrong = (ImageView) findViewById(R.id.wrong);
+		mWrong.setVisibility(View.INVISIBLE);
 
 		// item image
 		itemImage = (ImageView) findViewById(R.id.wordCard);
 		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
-		itemImage.setImageResource(getResources().getIdentifier(
-				itemList.get(0).getItemFileName(), "drawable", getPackageName()));
+		itemImage.setImageResource(getResources()
+				.getIdentifier(itemList.get(0).getItemFileName(), "drawable",
+						getPackageName()));
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
@@ -90,7 +96,8 @@ public class Play extends Activity implements OnClickListener {
 			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
 			itemList.addAll(mItemAdaper
 					.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
-			Log.e("minka", "지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
+			Log.e("minka",
+					"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
 		}
 	}
 
@@ -174,10 +181,25 @@ public class Play extends Activity implements OnClickListener {
 		Log.e("minka", "item.getItemName() 정답 = " + item.getItemName());
 		// 5개 음성인식 결과와 비교
 		for (int i = 0; i < mResult.size(); i++) {
+			 Compareword mCompare = new Compareword(item.getItemName(), mResult.get(i));
+			 double correctionrate = mCompare
+						.getCorrectionrate(mCompare.analysis_word_array);
 			if (item.getItemName().equals(mResult.get(i))) { // 비교
+				Log.e("play", "결과물들중에 답이랑 똑같은게 잇어서 맞은경우");
 				correctFlag = true;
+				correctCnt_++;
 				break;
 			}
+			//compare 함수사용한경우
+			else if (correctionrate >= 70){
+				Log.e("play", "compare 함수를 써서 70 이상인경우");
+				correctFlag = true;
+				correctCnt_++;
+				break;
+			}
+			//틀린경우
+			else
+				correctFlag = false;
 		}
 		// 5개 중에 정답이 있는 경우
 		if (correctFlag == true) {
@@ -195,15 +217,50 @@ public class Play extends Activity implements OnClickListener {
 					mCorrect.setVisibility(View.INVISIBLE);
 					mResultTextView.setText("");
 					itemNumber++;
-					
-						
+					Log.e("play", "correctCnt_ = " + correctCnt_);
 					//itemList.get(itemNumber); // 새문제 로딩
-
+					
 					mItemNumber.setText(Integer.toString(itemNumber + 1)
 							+ " / 10");
-					mCorrectCnt.setText(Integer.toString(itemNumber));
+					mCorrectCnt.setText(Integer.toString(correctCnt_));
 					
+					Log.e("play", "mCorrectCnt.getText() = " + mCorrectCnt.getText());
 					
+					//ItemInfoDTO item = itemList.get(itemNumber);
+					// itemImage.setImageResource(item.getFileName());요기서 item이
+					// final이여야 만해서
+					// 여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
+					itemImage.setImageResource(getResources().getIdentifier(
+							itemList.get(itemNumber).getItemFileName(), "drawable",
+							getPackageName()));
+					if (itemNumber >= 10){
+						//itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
+						//Log.e("endQuiz", "mCorrectCnt.getText().toString() = " + mCorrectCnt.getText().toString());
+						//correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
+						Intent playResult = new Intent(Play.this, PlayResult.class);
+						startActivity(playResult);
+						
+					}
+				}
+			}.start();
+
+		} else {
+			mWrong.setVisibility(View.VISIBLE);
+			mResultTextView.setText("정답 :" + item.getItemName());
+			new CountDownTimer(2000, 2000) {
+
+				public void onTick(long millisUntilFinished) {
+					System.out.println("ontick");
+				}
+
+				public void onFinish() {
+
+					mWrong.setVisibility(View.INVISIBLE);
+					mResultTextView.setText("");
+					itemNumber++;
+					mItemNumber.setText(Integer.toString(itemNumber + 1)
+							+ " / 10");
+					mCorrectCnt.setText(Integer.toString(correctCnt_));
 					ItemInfoDTO item = itemList.get(itemNumber);
 					// itemImage.setImageResource(item.getFileName());요기서 item이
 					// final이여야 만해서
@@ -214,28 +271,13 @@ public class Play extends Activity implements OnClickListener {
 					if (itemNumber >= 10){
 						//itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
 						//Log.e("endQuiz", "mCorrectCnt.getText().toString() = " + mCorrectCnt.getText().toString());
-						correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
+						//correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
 						Intent playResult = new Intent(Play.this, PlayResult.class);
 						startActivity(playResult);
 						
 					}
 				}
 			}.start();
-
-		} else {
-			// 5개 중에 정답이 없는 경우
-			// 5개 중에서 비교하여 70% 넘는 것이 있으면 맞음처리
-			Compareword[] word = new Compareword[mResult.size()];
-			for (int i = 0; i < mResult.size(); i++) {
-				word[i] = new Compareword(item.getItemName(), mResult.get(i));
-				double correctionrate = word[i]
-						.getCorrectionrate(word[i].analysis_word_array);
-				if (correctionrate >= 70) {
-					mResultTextView.setText("맞음e");
-					break;
-				} else
-					mResultTextView.setText("틀림e");
-			}
 
 		}
 

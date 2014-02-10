@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PlayResult extends Activity implements OnClickListener {
@@ -21,6 +22,8 @@ public class PlayResult extends Activity implements OnClickListener {
 	private Button goToMainBtn;
 	private TextView showCorrectCnt;
 	private int totalCorrectCnt;
+	private ImageView star1, star2, star3, star4, star5;
+	private ImageView halfstar1, halfstar2, halfstar3, halfstar4, halfstar5;
 
 
 	@Override
@@ -32,11 +35,90 @@ public class PlayResult extends Activity implements OnClickListener {
 		//int totalCorrectCnt = Integer.parseInt(findViewById(R.id.correctCnt).toString());
 		totalCorrectCnt = Play.correctCnt_;
 		Log.e("resultPage", "totalCorrectCnt = " + totalCorrectCnt);
+		
 		showCorrectCnt = (TextView)findViewById(R.id.result_correctCnt);
 		showCorrectCnt.setText("" + totalCorrectCnt);
-		for (int i = 0; i < totalCorrectCnt / 2; i++) {
+		
+		star1 = (ImageView) findViewById(R.id.star4);
+		star1.setVisibility(View.INVISIBLE);
+		halfstar1 = (ImageView) findViewById(R.id.halfstar4);
+		halfstar1.setVisibility(View.INVISIBLE);
+		star2 = (ImageView)findViewById(R.id.star5);
+		star2.setVisibility(View.INVISIBLE);
+		halfstar2 = (ImageView) findViewById(R.id.halfstar5);
+		halfstar2.setVisibility(View.INVISIBLE);
+		star3 = (ImageView)findViewById(R.id.star3);
+		star3.setVisibility(View.INVISIBLE);
+		halfstar3 = (ImageView) findViewById(R.id.halfstar3);
+		halfstar3.setVisibility(View.INVISIBLE);
+		star4 = (ImageView)findViewById(R.id.star2);
+		star4.setVisibility(View.INVISIBLE);
+		halfstar4 = (ImageView) findViewById(R.id.halfstar2);
+		halfstar4.setVisibility(View.INVISIBLE);
+		star5 = (ImageView)findViewById(R.id.star1);
+		star5.setVisibility(View.INVISIBLE);
+		halfstar5 = (ImageView) findViewById(R.id.halfstar1);
+		halfstar5.setVisibility(View.INVISIBLE);
+		
+		switch(totalCorrectCnt){
+		case 10:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			star3.setVisibility(View.VISIBLE);
+			star4.setVisibility(View.VISIBLE);
+			star5.setVisibility(View.VISIBLE);
+			break;
 
+		case 8:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			star3.setVisibility(View.VISIBLE);
+			star4.setVisibility(View.VISIBLE);
+			break;
+		case 9:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			star3.setVisibility(View.VISIBLE);
+			star4.setVisibility(View.VISIBLE);
+			halfstar5.setVisibility(View.VISIBLE);
+			break;
+			
+		case 7:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			star3.setVisibility(View.VISIBLE);
+			halfstar4.setVisibility(View.VISIBLE);
+			break;
+			
+		case 6:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			star3.setVisibility(View.VISIBLE);
+			break;
+		case 5:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			halfstar3.setVisibility(View.VISIBLE);
+			break;
+		case 4:
+			star1.setVisibility(View.VISIBLE);
+			star2.setVisibility(View.VISIBLE);
+			break;
+		case 3:
+			star1.setVisibility(View.VISIBLE);
+			halfstar2.setVisibility(View.VISIBLE);
+			break;
+		case 2:
+			star1.setVisibility(View.VISIBLE);
+			break;
+		case 1:
+			halfstar1.setVisibility(View.VISIBLE);
+			break;
+		case 0:
+			break;
+			
 		}
+		
 		retrialBtn = (Button)findViewById(R.id.retrialbutton);
 		goToMainBtn = (Button)findViewById(R.id.goToMain);
 		retrialBtn.setOnClickListener(this);

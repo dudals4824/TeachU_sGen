@@ -51,6 +51,12 @@
             android:layout_height="348dp"
             android:src="@drawable/verygood" />
 
+        <ImageView
+            android:id="@+id/wrong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wrong" />
+
     </FrameLayout>
 
     <TextView
