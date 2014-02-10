@@ -31,7 +31,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
-	private ImageView pic_cloud1,pic_cloud3;
+	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4;
 	private Button btn_categorytree_fruit, btn_category_setting;
 
 	@Override
@@ -45,6 +45,8 @@ public class CategoryTree extends Activity implements OnClickListener {
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
 		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
 		pic_cloud3 = (ImageView) findViewById(R.id.pic_categorytree_cloud3);
+		pic_cloud4 = (ImageView) findViewById(R.id.pic_categorytree_cloud4);
+		pic_yellowplanet=(ImageView)findViewById(R.id.pic_categorytree_yellowplantet);
 
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_category_setting.setOnClickListener(this);
@@ -53,22 +55,38 @@ public class CategoryTree extends Activity implements OnClickListener {
 	}
 
 	public void onAnimateBackground() {
-		TranslateAnimation animation1 = new TranslateAnimation(
+		TranslateAnimation animation = new TranslateAnimation(
 				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
 				2.0f, Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF, 0.0f);
-		animation1.setDuration(10000);
-		animation1.setRepeatCount(-1);
-		animation1.setRepeatMode(Animation.REVERSE);
-		pic_cloud1.setAnimation(animation1);
+		animation.setDuration(10000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_cloud1.setAnimation(animation);
 		
-		animation1=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF,
-				1.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				-3.0f, Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF, 0.0f);
-		animation1.setDuration(5000);
-		animation1.setRepeatCount(-1);
-		animation1.setRepeatMode(Animation.REVERSE);
-		pic_cloud3.setAnimation(animation1);
+		animation.setDuration(10000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_cloud3.setAnimation(animation);
+		
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF,1.0f);
+		animation.setDuration(7000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_yellowplanet.setAnimation(animation);
+		
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				2.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF,0.0f);
+		animation.setDuration(8000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_cloud4.setAnimation(animation);
 	}
 
 	@Override
