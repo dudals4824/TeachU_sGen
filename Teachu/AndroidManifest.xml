@@ -32,6 +32,8 @@
         <activity
             android:name="sGen.teachu.forSettingPage.Settings"></activity>
         <activity android:name=".forSettingPage.Setting"></activity>
+        <activity
+            android:name="sGen.teachu.forPlay.PlayResult"></activity>
 
     </application>
 	<uses-permission android:name="android.permission.INTERNET"/>
