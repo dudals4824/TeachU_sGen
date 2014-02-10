@@ -81,11 +81,13 @@ public class ProgressView2 extends View {
 			
 		}
 		mPaint.setColor(Color.rgb(06, 06, 15));
-		canvas.drawCircle(radius / 2, radius / 2, radius / 2 - 15, mPaint);
+		canvas.drawCircle(radius / 2, radius / 2, radius / 2 - 25, mPaint);
 		if(isDrawn){
 			mPaint.setColor(Color.WHITE);
 			mPaint.setTextSize(60);
 			canvas.drawText(percent * 100 + "",radius / 2-60,radius / 2, mPaint);
+			mPaint.setTextSize(20);
+			canvas.drawText("분류" + "",radius / 2-20,radius / 2-60, mPaint);
 		}
 	}
 
