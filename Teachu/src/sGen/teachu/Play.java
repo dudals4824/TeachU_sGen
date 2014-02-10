@@ -25,6 +25,7 @@ import android.widget.Toast;
 import sGen.teachu.database.*;
 import sGen.teachu.forPlay.Compareword;
 import sGen.teachu.forPlay.PlayMic;
+import sGen.teachu.forPlay.PlayResult;
 import sGen.teachu.forSettingPage.Setting;
 import sGen.teachu.DTO.*;
 
@@ -47,6 +48,7 @@ public class Play extends Activity implements OnClickListener {
 	private ImageView itemImage, mCorrect;
 	private int itemNumber = 0;
 
+	public static int correctCnt_ = 0;
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
@@ -88,7 +90,7 @@ public class Play extends Activity implements OnClickListener {
 			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
 			itemList.addAll(mItemAdaper
 					.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
-			Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
+			Log.e("minka", "지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
 		}
 	}
 
@@ -193,13 +195,15 @@ public class Play extends Activity implements OnClickListener {
 					mCorrect.setVisibility(View.INVISIBLE);
 					mResultTextView.setText("");
 					itemNumber++;
-					if (itemNumber >= 9)
-						itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-					itemList.get(itemNumber); // 새문제 로딩
+					
+						
+					//itemList.get(itemNumber); // 새문제 로딩
 
 					mItemNumber.setText(Integer.toString(itemNumber + 1)
 							+ " / 10");
 					mCorrectCnt.setText(Integer.toString(itemNumber));
+					
+					
 					ItemInfoDTO item = itemList.get(itemNumber);
 					// itemImage.setImageResource(item.getFileName());요기서 item이
 					// final이여야 만해서
@@ -207,6 +211,14 @@ public class Play extends Activity implements OnClickListener {
 					itemImage.setImageResource(getResources().getIdentifier(
 							item.getItemFileName(), "drawable",
 							getPackageName()));
+					if (itemNumber >= 10){
+						//itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
+						//Log.e("endQuiz", "mCorrectCnt.getText().toString() = " + mCorrectCnt.getText().toString());
+						correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
+						Intent playResult = new Intent(Play.this, PlayResult.class);
+						startActivity(playResult);
+						
+					}
 				}
 			}.start();
 

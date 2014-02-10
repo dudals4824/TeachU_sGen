@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/play_result_bk"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/totalCnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="185dp"
+        android:text="      / 10"
+        android:textSize="15pt" />
+
+    <TextView
+        android:id="@+id/result_correctCnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/totalCnt"
+        android:layout_alignBottom="@+id/totalCnt"
+        android:layout_alignLeft="@+id/totalCnt"
+        android:text="0"
+        android:textColor="#ffff"
+        android:textSize="15pt" />
+
+    <Button
+        android:id="@+id/retrialbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40px"
+        android:layout_below="@id/result_correctCnt"
+        android:background="@drawable/replay" />
+
+    <Button
+        android:id="@+id/goToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/retrialbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20px"
+        android:background="@drawable/gotomain" />
+
+</RelativeLayout>
