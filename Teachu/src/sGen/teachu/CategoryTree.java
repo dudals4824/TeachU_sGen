@@ -13,11 +13,13 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class CategoryTree extends Activity implements OnClickListener {
 
 	public static int CategoryID = 0;
+
 	public static int getCategoryID() {
 		return CategoryID;
 	}
@@ -29,7 +31,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
-
+	private ImageView pic_cloud1,pic_cloud3;
 	private Button btn_categorytree_fruit, btn_category_setting;
 
 	@Override
@@ -41,9 +43,32 @@ public class CategoryTree extends Activity implements OnClickListener {
 
 		btn_categorytree_fruit = (Button) findViewById(R.id.btn_categorytree_fruit);
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
+		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
+		pic_cloud3 = (ImageView) findViewById(R.id.pic_categorytree_cloud3);
 
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_category_setting.setOnClickListener(this);
+		
+		onAnimateBackground();
+	}
+
+	public void onAnimateBackground() {
+		TranslateAnimation animation1 = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				2.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f);
+		animation1.setDuration(10000);
+		animation1.setRepeatCount(-1);
+		animation1.setRepeatMode(Animation.REVERSE);
+		pic_cloud1.setAnimation(animation1);
+		
+		animation1=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF,
+				1.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f);
+		animation1.setDuration(5000);
+		animation1.setRepeatCount(-1);
+		animation1.setRepeatMode(Animation.REVERSE);
+		pic_cloud3.setAnimation(animation1);
 	}
 
 	@Override
