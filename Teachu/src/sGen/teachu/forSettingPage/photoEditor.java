@@ -1,4 +1,4 @@
-package sGen.teachu;
+package sGen.teachu.forSettingPage;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

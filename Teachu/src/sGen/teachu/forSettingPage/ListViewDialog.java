@@ -1,7 +1,10 @@
-package sGen.teachu;
+package sGen.teachu.forSettingPage;
 
 import java.util.ArrayList;
 
+import sGen.teachu.R;
+import sGen.teachu.R.id;
+import sGen.teachu.R.layout;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
