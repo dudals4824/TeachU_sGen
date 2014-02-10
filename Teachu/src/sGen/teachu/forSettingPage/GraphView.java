@@ -10,6 +10,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer.FillOutsideLine;
 
 import sGen.teachu.R;
 import android.content.Context;
@@ -38,8 +39,8 @@ public class GraphView extends View {
 		
 		renderer.setApplyBackgroundColor(true);
 		//표 색깔
-		renderer.setBackgroundColor(Color.WHITE);
-		
+		renderer.setBackgroundColor(Color.rgb(249, 178, 51));
+	//	renderer.setBarWidth(40.0f);
 		renderer.setMarginsColor(Color.rgb(249, 178, 51));
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
@@ -50,14 +51,14 @@ public class GraphView extends View {
 		renderer.setYAxisMax(yMax);
 		renderer.setAxesColor(axesColor);
 		renderer.setLabelsColor(labelsColor);
-		renderer.setXLabels(10);
-		renderer.setYLabels(10);
+		renderer.setXLabels(5);
+	//	renderer.setYLabels(5);
 		renderer.setShowLegend(false);
-		renderer.setShowGrid(true);
+		renderer.setShowGrid(false);
 		renderer.setXLabelsAlign(Align.CENTER);
 		renderer.setYLabelsAlign(Align.CENTER);
 		renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
-		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
+	//	renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 		renderer.setInScroll(false);
 
 	}
@@ -73,13 +74,15 @@ public class GraphView extends View {
 	private void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors,
 			PointStyle[] styles) {
 		// TODO Auto-generated method stub
-		renderer.setBarWidth(10);
+	//	renderer.setBarWidth(100);
 		renderer.setAxisTitleTextSize(30);
 		renderer.setChartTitleTextSize(40);
 		renderer.setLabelsTextSize(20);
 		renderer.setPointSize(5f);
+	
+		
 		//top left bottom right
-		renderer.setMargins(new int[] {100,55,20,55});
+		renderer.setMargins(new int[] {20,55,20,55});
 		int length = colors.length;
 		for (int i = 0; i < length; i++) {
 			XYSeriesRenderer r = new XYSeriesRenderer();
@@ -124,7 +127,7 @@ public class GraphView extends View {
 		// }
 		List<double[]> values = new ArrayList<double[]>();
 		values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
-		int[] colors = new int[] { Color.BLUE };
+		int[] colors = new int[] { Color.WHITE };
 		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE };
 
 		renderer = buildRenderer(colors, styles);
@@ -134,8 +137,19 @@ public class GraphView extends View {
 					.setFillPoints(true);
 		}
 		setChartSettings(renderer, "", "날짜",
-				"정답률", 0, 12, 0, 100, Color.BLACK, Color.BLACK);
-
+				"정답률", 0, 100, 0, 100, Color.WHITE, Color.BLACK);
+		
+		for (int i = 0; i < length; i++) {
+		      XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(i);
+		      if (i == length - 1) {
+		        FillOutsideLine fill = new FillOutsideLine(FillOutsideLine.Type.BOUNDS_ALL);
+		        fill.setColor(Color.rgb(0, 255, 151));
+		        seriesRenderer.addFillOutsideLine(fill);
+		      }
+		      seriesRenderer.setLineWidth(3.5f);
+		    //  seriesRenderer.setDisplayChartValues(true);
+		    //  seriesRenderer.setChartValuesTextSize(10f);
+		    }
 
 		if (mChartView == null) {
 			mChartView = ChartFactory.getLineChartView(context,mDataset(titles, x, values), renderer);
