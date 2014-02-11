@@ -19,8 +19,9 @@ public class ProgressView2 extends View {
 	Display display;
 	Paint mPaint = new Paint();
 	int degree = 0;
+	double percent;
 
-	public ProgressView2(Context context) {
+	public ProgressView2(Context context, Double percent) {
 		super(context);
 		display = ((WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -28,6 +29,7 @@ public class ProgressView2 extends View {
 		display.getSize(point);
 		devicewidth = point.x;
 		deviceheight = point.y;
+		this.percent=percent;
 		setWillNotDraw(false);
 		// TODO Auto-generated constructor stub
 	}
@@ -65,15 +67,12 @@ public class ProgressView2 extends View {
 		mPaint.setAntiAlias(true);
 		float radius = (float) (devicewidth * 0.25);
 		RectF mArea = new RectF(0, 0, radius, radius);
-		// Rotate the canvas around the center of the pie by 90 degrees
-		// counter clockwise so the pie stars at 12 o'clock.
-		// canvas.rotate(-90f, mArea.centerX(), mArea.centerY());
 		mPaint.setColor(Color.WHITE);
 
 		canvas.drawCircle(radius / 2, radius / 2, radius / 2, mPaint);
 		mPaint.setColor(Color.rgb(255, 80, 80));
 		canvas.drawArc(mArea, -90, degree, true, mPaint);
-		double percent = 0.8;
+		//퍼센트에 정답률 넣으면 됨. 
 		if (degree < 360 * percent)
 			delay();
 		else {
@@ -98,7 +97,7 @@ public class ProgressView2 extends View {
 		int h = resolveSize((int) (devicewidth * 0.25), heightMeasureSpec);
 		setMeasuredDimension(w, h);
 	}
-
+//0에서 부터 원하는 각이 나올때 까지 onDraw 메소드 호출함
 	void delay() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
