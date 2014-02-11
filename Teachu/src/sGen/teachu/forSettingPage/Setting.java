@@ -10,6 +10,7 @@ import sGen.teachu.AddBaby;
 import sGen.teachu.CategoryTree;
 import sGen.teachu.R;
 import sGen.teachu.DTO.BabyInfoDTO;
+import sGen.teachu.database.DBBabyGrowthAdapter;
 import sGen.teachu.database.DBBabyInfoAdapter;
 import sGen.teachu.forSettingPage.ListViewDialog.ListViewDialogSelectListener;
 import android.app.Activity;
@@ -41,6 +42,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Setting extends Activity implements OnClickListener {
+	private static final int CATEGORY_FRUIT = 0; // 과일
+	private static final int CATEGORY_ANIMAL = 1; // 동물
+	private static final int CATEGORY_TRANSPORT = 2; // 탈것
+	
 	private LinearLayout layout_graphview, progress, test;
 	private ScrollView layout_background;
 	private GridLayout layout_correctionrate;
@@ -51,8 +56,9 @@ public class Setting extends Activity implements OnClickListener {
 	static String SAMPLEIMG = "profile.png";
 	static final int REQUEST_ALBUM = 1;
 	static final int REQUEST_PICTURE = 2;
-	DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this);
-	BabyInfoDTO Baby = new BabyInfoDTO();
+	private DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this);
+	private DBBabyGrowthAdapter mGrowthAdapter = new DBBabyGrowthAdapter(this);
+	private BabyInfoDTO Baby = new BabyInfoDTO();
 
 	private ListViewDialog mDialog;
 	private File imgFile;
@@ -73,10 +79,15 @@ public class Setting extends Activity implements OnClickListener {
 		btn_setting_prev = (Button) findViewById(R.id.btn_setting_prev);
 		pic_baby = (ImageView) findViewById(R.id.pic_baby);
 		
+		mGrowthAdapter.open();
+		double graph1 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_FRUIT, 1);
+		double graph2 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_ANIMAL, 1);
+		double graph3 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_TRANSPORT, 1);
+		
 		// 생성자에 퍼센트로 정답률 넣으면 됨
-		layout_correctionrate.addView(new ProgressView2(this, 0.5));
-		layout_correctionrate.addView(new ProgressView2(this, 0.8));
-		layout_correctionrate.addView(new ProgressView2(this, 0.6));
+		layout_correctionrate.addView(new ProgressView2(this, graph1));
+		layout_correctionrate.addView(new ProgressView2(this, graph2));
+		layout_correctionrate.addView(new ProgressView2(this, graph3));
 
 		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
 				R.drawable.btn_addbaby_registpic);
