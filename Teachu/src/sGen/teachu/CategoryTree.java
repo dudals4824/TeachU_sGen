@@ -31,7 +31,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
-	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4,pic_cloud5,pic_cloud2;
+	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4,pic_cloud5,pic_cloud2,pic_mintplanet;
 	private Button btn_categorytree_fruit, btn_category_setting;
 
 	@Override
@@ -49,6 +49,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_cloud5 = (ImageView) findViewById(R.id.pic_categorytree_cloud5);
 		pic_cloud2 = (ImageView) findViewById(R.id.pic_categorytree_cloud2);
 		pic_yellowplanet=(ImageView)findViewById(R.id.pic_categorytree_yellowplantet);
+		pic_mintplanet=(ImageView)findViewById(R.id.pic_categorytree_mintplanet);
 
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_category_setting.setOnClickListener(this);
@@ -75,7 +76,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_cloud3.setAnimation(animation);
 		
 		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				0.4f, Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF,1.0f);
 		animation.setDuration(7000);
 		animation.setRepeatCount(-1);
@@ -106,6 +107,14 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud2.setAnimation(animation);
+		
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.1f, Animation.RELATIVE_TO_SELF,
+				0.2f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF,1.0f);
+		animation.setDuration(2000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_mintplanet.setAnimation(animation);
 		
 	}
 
