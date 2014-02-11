@@ -168,7 +168,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "망고", "mango"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "배", "pear"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "메론", "melon"));// 수박
-		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "귤", "mandarin"));// 수박
+		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "귤", "tangerine"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "딸기", "strawberry"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "체리", "cherry"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "참외", "muskmelon"));// 수박
