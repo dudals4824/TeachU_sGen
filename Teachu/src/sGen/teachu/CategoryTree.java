@@ -75,10 +75,10 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud3.setAnimation(animation);
 		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.2f, Animation.RELATIVE_TO_SELF,
 				0.4f, Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF,1.0f);
-		animation.setDuration(7000);
+		animation.setDuration(3000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_yellowplanet.setAnimation(animation);
