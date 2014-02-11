@@ -31,8 +31,10 @@ public class CategoryTree extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
-	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4,pic_cloud5,pic_cloud2,pic_mintplanet;
-	private Button btn_categorytree_fruit, btn_category_setting;
+	private ImageView pic_cloud1, pic_cloud3, pic_yellowplanet, pic_cloud4,
+			pic_cloud5, pic_cloud2, pic_mintplanet;
+	private Button btn_categorytree_fruit, btn_category_setting,
+			btn_categorytree_animal, btn_categorytree_thing;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +44,20 @@ public class CategoryTree extends Activity implements OnClickListener {
 		categorytree = CategoryTree.this;
 
 		btn_categorytree_fruit = (Button) findViewById(R.id.btn_categorytree_fruit);
+		btn_categorytree_animal = (Button) findViewById(R.id.btn_categorytree_animal);
+		btn_categorytree_thing = (Button) findViewById(R.id.btn_categorytree_thing);
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
 		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
 		pic_cloud3 = (ImageView) findViewById(R.id.pic_categorytree_cloud3);
 		pic_cloud4 = (ImageView) findViewById(R.id.pic_categorytree_cloud4);
 		pic_cloud5 = (ImageView) findViewById(R.id.pic_categorytree_cloud5);
 		pic_cloud2 = (ImageView) findViewById(R.id.pic_categorytree_cloud2);
-		pic_yellowplanet=(ImageView)findViewById(R.id.pic_categorytree_yellowplantet);
-		pic_mintplanet=(ImageView)findViewById(R.id.pic_categorytree_mintplanet);
+		pic_yellowplanet = (ImageView) findViewById(R.id.pic_categorytree_yellowplantet);
+		pic_mintplanet = (ImageView) findViewById(R.id.pic_categorytree_mintplanet);
 
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_category_setting.setOnClickListener(this);
-		
+
 		onAnimateBackground();
 	}
 
@@ -66,56 +70,55 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud1.setAnimation(animation);
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				-3.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF, 0.0f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, -3.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
 		animation.setDuration(10000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud3.setAnimation(animation);
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.2f, Animation.RELATIVE_TO_SELF,
-				0.4f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF,1.0f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.2f,
+				Animation.RELATIVE_TO_SELF, 0.4f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
 		animation.setDuration(3000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_yellowplanet.setAnimation(animation);
-		
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				2.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF,0.0f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 2.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
 		animation.setDuration(8000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud4.setAnimation(animation);
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF,0.3f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.3f);
 		animation.setDuration(5000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud5.setAnimation(animation);
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-				0.2f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF,0.0f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
 		animation.setDuration(2000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud2.setAnimation(animation);
-		
-		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.1f, Animation.RELATIVE_TO_SELF,
-				0.2f, Animation.RELATIVE_TO_SELF, 0.0f,
-				Animation.RELATIVE_TO_SELF,1.0f);
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.1f,
+				Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
 		animation.setDuration(2000);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_mintplanet.setAnimation(animation);
-		
+
 	}
 
 	@Override
@@ -123,6 +126,14 @@ public class CategoryTree extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		setCategoryID(v.getId());
 		if (v.getId() == R.id.btn_categorytree_fruit) {
+			Intent TeachuplayActivity = new Intent(CategoryTree.this,
+					Play.class);
+			startActivity(TeachuplayActivity);
+		} else if (v.getId() == R.id.btn_categorytree_animal) {
+			Intent TeachuplayActivity = new Intent(CategoryTree.this,
+					Play.class);
+			startActivity(TeachuplayActivity);
+		} else if (v.getId() == R.id.btn_categorytree_thing) {
 			Intent TeachuplayActivity = new Intent(CategoryTree.this,
 					Play.class);
 			startActivity(TeachuplayActivity);
