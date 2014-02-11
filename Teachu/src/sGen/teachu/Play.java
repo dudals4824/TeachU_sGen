@@ -62,9 +62,8 @@ public class Play extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 
 	// 문제 랜덤으로 나오게 하기
-	// 시간지나면 다음 문제 나오게 하기
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
-	// categoryID만들어놓음
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -291,7 +290,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
-					if (itemNumber >= 2) {
+					if (itemNumber >= 9) {
 
 						finish();
 						Intent playResult = new Intent(Play.this,
@@ -325,7 +324,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
-					if (itemNumber >= 2) {
+					if (itemNumber >= 9) {
 						Intent playResult = new Intent(Play.this,
 								PlayResult.class);
 						finish();

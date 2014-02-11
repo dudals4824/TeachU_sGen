@@ -47,6 +47,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		btn_categorytree_animal = (Button) findViewById(R.id.btn_categorytree_animal);
 		btn_categorytree_thing = (Button) findViewById(R.id.btn_categorytree_thing);
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
+
 		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
 		pic_cloud3 = (ImageView) findViewById(R.id.pic_categorytree_cloud3);
 		pic_cloud4 = (ImageView) findViewById(R.id.pic_categorytree_cloud4);
@@ -56,6 +57,9 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_mintplanet = (ImageView) findViewById(R.id.pic_categorytree_mintplanet);
 
 		btn_categorytree_fruit.setOnClickListener(this);
+		btn_categorytree_animal.setOnClickListener(this);
+		btn_categorytree_thing.setOnClickListener(this);
+
 		btn_category_setting.setOnClickListener(this);
 
 		onAnimateBackground();
@@ -125,15 +129,9 @@ public class CategoryTree extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		setCategoryID(v.getId());
-		if (v.getId() == R.id.btn_categorytree_fruit) {
-			Intent TeachuplayActivity = new Intent(CategoryTree.this,
-					Play.class);
-			startActivity(TeachuplayActivity);
-		} else if (v.getId() == R.id.btn_categorytree_animal) {
-			Intent TeachuplayActivity = new Intent(CategoryTree.this,
-					Play.class);
-			startActivity(TeachuplayActivity);
-		} else if (v.getId() == R.id.btn_categorytree_thing) {
+		if ((v.getId() == R.id.btn_categorytree_fruit)
+				|| (v.getId() == R.id.btn_categorytree_animal)
+				|| (v.getId() == R.id.btn_categorytree_thing)) {
 			Intent TeachuplayActivity = new Intent(CategoryTree.this,
 					Play.class);
 			startActivity(TeachuplayActivity);
