@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 					});
 
 				} else {
-
+					
 					// TODO Auto-generated method stub
 					Intent CategoryTree = new Intent(MainActivity.this,
 							CategoryTree.class);

@@ -5,11 +5,15 @@ import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+
+import javax.security.auth.Destroyable;
 
 import android.app.Activity;
 import android.content.ClipData.Item;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -37,7 +41,7 @@ public class Play extends Activity implements OnClickListener {
 
 	private static final int CATEGORY_FRUIT = 0; // 과일
 	private static final int CATEGORY_ANIMAL = 1; // 동물
-	private static final int CATEGORY_TRANSPORT = 2; // 탈것
+	private static final int CATEGORY_THING = 2; // 물건
 
 	private ArrayList<String> mResult; // 음성인식 결과 저장할 list
 	private String mSelectedString; // 결과 list 중 사용자가 선택한 텍스트
@@ -52,7 +56,10 @@ public class Play extends Activity implements OnClickListener {
 	public static int correctCnt_;// 총 맞은 갯수
 	private DBBabyGrowthAdapter mBabyAdapter;
 
-	private ImageView teacherOn, teacherOff;
+	private ImageView teacherOn, teacherOff, goToMain;
+	private boolean teacherMode = false;
+
+	private boolean mIsBackButtonTouched = false;
 
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
@@ -87,7 +94,12 @@ public class Play extends Activity implements OnClickListener {
 		// teacherMode image
 		teacherOn = (ImageView) findViewById(R.id.teacherOn);
 		teacherOn.setVisibility(View.INVISIBLE);
+		teacherOn.setOnClickListener(this);
 		teacherOff = (ImageView) findViewById(R.id.teacherOff);
+		teacherOff.setOnClickListener(this);
+		// goToMain Image
+		goToMain = (ImageView) findViewById(R.id.goMainAtPlay);
+		goToMain.setOnClickListener(this);
 
 		Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		Log.e("minka", "this.getCategoryID() = " + CategoryTree.getCategoryID());
@@ -102,8 +114,14 @@ public class Play extends Activity implements OnClickListener {
 		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
 			// *************카테고리 아이디 별로 아이템가져와서 itemList에 깊은복사..******
+			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_FRUIT));// 깊은복사
+			break;
+		case R.id.btn_categorytree_animal:
 			itemList.addAll(mItemAdaper
 					.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
+			break;
+		case R.id.btn_categorytree_thing:
+			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_THING));// 깊은복사
 			Log.e("minka",
 					"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
 		}
@@ -116,7 +134,22 @@ public class Play extends Activity implements OnClickListener {
 		if (view == R.id.wordCard) {
 			startActivityForResult(new Intent(this, PlayMic.class), MY_UI); // 내가
 			// 실행
+		} else if (v.getId() == R.id.teacherOn) {
+			teacherMode = false;
+			teacherOff.setVisibility(View.VISIBLE);
+			teacherOn.setVisibility(View.INVISIBLE);
+		} else if (v.getId() == R.id.teacherOff) {
+			teacherMode = true;
+			teacherOff.setVisibility(View.INVISIBLE);
+			teacherOn.setVisibility(View.VISIBLE);
+
+		} else if (v.getId() == R.id.goMainAtPlay) {
+			Intent CategoryTreeActivity = new Intent(Play.this,
+					CategoryTree.class);
+			startActivity(CategoryTreeActivity);
+			this.finish();
 		}
+		Log.e("minka", "teacherMode = " + teacherMode);
 	}
 
 	@Override
@@ -210,37 +243,42 @@ public class Play extends Activity implements OnClickListener {
 			else
 				correctFlag = false;
 		}
+		// 제출된 item에 대해 출제 횟수 증가 및 정답여부에 따른 정답횟수 증가
+		Log.e("play", "item.getItemId() = " + item.getItemId());
+		mBabyAdapter = new DBBabyGrowthAdapter(this);
+		mBabyAdapter.open();
+		Log.e("play", "item.getItemId(),getCateId() =  " + item.getItemId()
+				+ "," + item.getCateId() + correctFlag);
+
+		Log.e("play", "mBabyAdapter.getAllBabyGrowthCursor().getCount() = "
+				+ mBabyAdapter.getAllBabyGrowthCursor().getCount());
+		if (mBabyAdapter.changeGrowthForItem(item.getItemId(),
+				item.getCateId(), 1, correctFlag) == 1) {
+			Log.e("minka", "1이나옴 .. 참! 오예");
+
+			try {
+				Log.e("증가 후 play Item",
+						"mBabyAdapter.getBabyGrowth(item.getItemId()).getShowCnt() = "
+								+ mBabyAdapter.getBabyGrowth(item.getItemId())
+										.getShowCnt());
+				Log.e("증가 후 play Item",
+						"mBabyAdapter.getBabyGrowth(item.getItemId()).getCorrectAns() = "
+								+ mBabyAdapter.getBabyGrowth(item.getItemId())
+										.getCorrectAns());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
 		// 5개 중에 정답이 있는 경우
 		if (correctFlag == true) {
 			mCorrect.setVisibility(View.VISIBLE);
 			mResultTextView.setText("정답 :" + item.getItemName());
-			mBabyAdapter = new DBBabyGrowthAdapter(this);
-			// mBabyAdapter.changeGrowthForItem(mI, _cateId, _babyId, isCorrect)
-			// mItemNumber.getId()
-			new CountDownTimer(2000, 2000) {
-				@Override
-				public void onFinish() {
-					// TODO Auto-generated method stub
-					if (itemNumber >= 2) {
-						// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-						// Log.e("endQuiz",
-						// "mCorrectCnt.getText().toString() = " +
-						// mCorrectCnt.getText().toString());
-						// correctCnt_ =
-						// Integer.parseInt(mCorrectCnt.getText().toString());
-						Intent playResult = new Intent(Play.this,
-								PlayResult.class);
-						startActivity(playResult);
-						// correctCnt_ = 0;
-					}
-				}
-
-				@Override
-				public void onTick(long millisUntilFinished) {
-					// TODO Auto-generated method stub
-				}
-
-			}.start();
 
 			new CountDownTimer(2000, 2000) {
 				public void onTick(long millisUntilFinished) {
@@ -252,55 +290,28 @@ public class Play extends Activity implements OnClickListener {
 					mCorrect.setVisibility(View.INVISIBLE);
 					mResultTextView.setText("");
 					itemNumber++;
-					Log.e("play", "correctCnt_ = " + correctCnt_);
-					// itemList.get(itemNumber); // 새문제 로딩
+					// TODO Auto-generated method stub
+					if (itemNumber >= 2) {
 
-					mItemNumber.setText(Integer.toString(itemNumber + 1)
-							+ " / 10");
-					// mCorrectCnt.setText(Integer.toString(correctCnt_));
-
-					// Log.e("play", "mCorrectCnt.getText() = " +
-					// mCorrectCnt.getText());
-
-					// ItemInfoDTO item = itemList.get(itemNumber);
-					// itemImage.setImageResource(item.getFileName());요기서 item이
-					// final이여야 만해서
-					// 여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
-					itemImage.setImageResource(getResources().getIdentifier(
-							itemList.get(itemNumber).getItemFileName(),
-							"drawable", getPackageName()));
-
+						finish();
+						Intent playResult = new Intent(Play.this,
+								PlayResult.class);
+						startActivity(playResult);
+					} else {
+						mItemNumber.setText(Integer.toString(itemNumber + 1)
+								+ " / 10");
+						itemImage.setImageResource(getResources()
+								.getIdentifier(
+										itemList.get(itemNumber)
+												.getItemFileName(), "drawable",
+										getPackageName()));
+					}
 				}
 			}.start();
 
 		} else {
 			mWrong.setVisibility(View.VISIBLE);
 			mResultTextView.setText("정답 :" + item.getItemName());
-
-			new CountDownTimer(2000, 2000) {
-				@Override
-				public void onFinish() {
-					// TODO Auto-generated method stub
-					if (itemNumber >= 2) {
-						// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-						// Log.e("endQuiz",
-						// "mCorrectCnt.getText().toString() = " +
-						// mCorrectCnt.getText().toString());
-						// correctCnt_ =
-						// Integer.parseInt(mCorrectCnt.getText().toString());
-						Intent playResult = new Intent(Play.this,
-								PlayResult.class);
-						startActivity(playResult);
-						// correctCnt_ = 0;
-					}
-				}
-
-				@Override
-				public void onTick(long millisUntilFinished) {
-					// TODO Auto-generated method stub
-				}
-
-			}.start();
 
 			new CountDownTimer(2000, 2000) {
 
@@ -313,27 +324,20 @@ public class Play extends Activity implements OnClickListener {
 					mWrong.setVisibility(View.INVISIBLE);
 					mResultTextView.setText("");
 					itemNumber++;
-					mItemNumber.setText(Integer.toString(itemNumber + 1)
-							+ " / 10");
-					// mCorrectCnt.setText(Integer.toString(correctCnt_));
-					ItemInfoDTO item = itemList.get(itemNumber);
-					// itemImage.setImageResource(item.getFileName());요기서 item이
-					// final이여야 만해서
-					// 여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
-					itemImage.setImageResource(getResources().getIdentifier(
-							item.getItemFileName(), "drawable",
-							getPackageName()));
-					// if (itemNumber >= 10){
-					// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-					// Log.e("endQuiz", "mCorrectCnt.getText().toString() = " +
-					// mCorrectCnt.getText().toString());
-					// correctCnt_ =
-					// Integer.parseInt(mCorrectCnt.getText().toString());
-					// Intent playResult = new Intent(Play.this,
-					// PlayResult.class);
-					// startActivity(playResult);
-
-					// }
+					// TODO Auto-generated method stub
+					if (itemNumber >= 2) {
+						Intent playResult = new Intent(Play.this,
+								PlayResult.class);
+						finish();
+						startActivity(playResult);
+					} else {
+						mItemNumber.setText(Integer.toString(itemNumber + 1)
+								+ " / 10");
+						ItemInfoDTO item = itemList.get(itemNumber);
+						itemImage.setImageResource(getResources()
+								.getIdentifier(item.getItemFileName(),
+										"drawable", getPackageName()));
+					}
 				}
 			}.start();
 
@@ -368,5 +372,17 @@ public class Play extends Activity implements OnClickListener {
 			startActivity(Setting);
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	// 백버튼 두번 누르면 종료시킴 플래그 바꿔서
+	@Override
+	public void onBackPressed() {
+		if (mIsBackButtonTouched == false) {
+			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
+					.show();
+			mIsBackButtonTouched = true;
+		} else if (mIsBackButtonTouched == true) {
+			finish();
+		}
 	}
 }

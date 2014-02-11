@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PlayResult extends Activity implements OnClickListener {
 
@@ -27,6 +28,7 @@ public class PlayResult extends Activity implements OnClickListener {
 	private ImageView star1, star2, star3, star4, star5;
 	private ImageView halfstar1, halfstar2, halfstar3, halfstar4, halfstar5;
 
+	private boolean mIsBackButtonTouched = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,15 +166,28 @@ public class PlayResult extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.retrialbutton:
 			Intent rePlay = new Intent(PlayResult.this, Play.class);
+			finish();
 			startActivity(rePlay);
 			break;
 		case R.id.goToMain:
 			Intent goToMain = new Intent(PlayResult.this, CategoryTree.class);
+			finish();
 			startActivity(goToMain);
 			break;
 		}
 		// TODO Auto-generated method stub
 
+	}
+	// 백버튼 두번 누르면 종료시킴 플래그 바꿔서
+	@Override
+	public void onBackPressed() {
+		if (mIsBackButtonTouched == false) {
+			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
+					.show();
+			mIsBackButtonTouched = true;
+		} else if (mIsBackButtonTouched == true) {
+			finish();
+		}
 	}
 
 }

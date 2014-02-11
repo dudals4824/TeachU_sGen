@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="#efbfbf"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical" >
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/wordCard"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center" >
+        android:layout_height="match_parent"
+        android:layout_weight="1.16"
+        android:src="@drawable/apple" />
 
-        <TextView
-            android:id="@+id/itemNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="1 / 10"
-            android:textColor="#ffffff"
-            android:textSize="25dp" />
+    <ImageView
+        android:id="@+id/correct"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/verygood" />
 
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/wrong"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/wrong" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/itemNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:text="1 / 10"
+        android:textColor="#ffffff"
+        android:textSize="25dp" />
 
-        <ImageView
-            android:id="@+id/wordCard"
-            android:layout_width="match_parent"
-            android:layout_height="334dp"
-            android:layout_weight="1.16"
-            android:src="@drawable/apple" />
+    <ImageView
+        android:id="@+id/goMainAtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/gomain" />
 
-        <ImageView
-            android:id="@+id/correct"
-            android:layout_width="match_parent"
-            android:layout_height="348dp"
-            android:src="@drawable/verygood" />
-
-        <ImageView
-            android:id="@+id/wrong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/wrong" />
-
-    </FrameLayout>
-
-    
     <TextView
         android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center"
+        android:layout_alignBottom="@+id/teacherOn"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="18dp"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
-    <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="right">
-
-    <ImageView
-        android:id="@+id/teacherOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="20dp"
-        android:src="@drawable/teacher_off" />
 
     <ImageView
         android:id="@+id/teacherOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/teacherOff"
+        android:layout_marginBottom="29dp"
         android:src="@drawable/teacher_on" />
 
-    </RelativeLayout>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/teacherOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="29dp"
+        android:layout_marginRight="21dp"
+        android:src="@drawable/teacher_off" />
+
+</RelativeLayout>
