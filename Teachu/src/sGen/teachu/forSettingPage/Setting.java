@@ -72,6 +72,11 @@ public class Setting extends Activity implements OnClickListener {
 		btn_setting_delete = (Button) findViewById(R.id.btn_setting_delete);
 		btn_setting_prev = (Button) findViewById(R.id.btn_setting_prev);
 		pic_baby = (ImageView) findViewById(R.id.pic_baby);
+		
+		// 생성자에 퍼센트로 정답률 넣으면 됨
+		layout_correctionrate.addView(new ProgressView2(this, 0.5));
+		layout_correctionrate.addView(new ProgressView2(this, 0.8));
+		layout_correctionrate.addView(new ProgressView2(this, 0.6));
 
 		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
 				R.drawable.btn_addbaby_registpic);
