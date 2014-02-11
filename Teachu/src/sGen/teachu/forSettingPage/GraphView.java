@@ -28,7 +28,7 @@ public class GraphView extends View {
 
 	public GraphView(Context context) {
 		super(context);
-		layout_background=(LinearLayout)findViewById(R.id.layout_background);
+		layout_background = (LinearLayout) findViewById(R.id.layout_background);
 	}
 
 	private void setChartSettings(XYMultipleSeriesRenderer renderer,
@@ -36,11 +36,11 @@ public class GraphView extends View {
 			double xMax, double yMin, double yMax, int axesColor,
 			int labelsColor) {
 		// TODO Auto-generated method stub
-		
+
 		renderer.setApplyBackgroundColor(true);
-		//표 색깔
+		// 표 색깔
 		renderer.setBackgroundColor(Color.rgb(249, 178, 51));
-	//	renderer.setBarWidth(40.0f);
+		// renderer.setBarWidth(40.0f);
 		renderer.setMarginsColor(Color.rgb(249, 178, 51));
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
@@ -51,14 +51,16 @@ public class GraphView extends View {
 		renderer.setYAxisMax(yMax);
 		renderer.setAxesColor(axesColor);
 		renderer.setLabelsColor(labelsColor);
-		renderer.setXLabels(5);
-	//	renderer.setYLabels(5);
+		// 좌표 개수
+		renderer.setXLabels(10);
+		renderer.setYLabels(5);
 		renderer.setShowLegend(false);
 		renderer.setShowGrid(false);
 		renderer.setXLabelsAlign(Align.CENTER);
 		renderer.setYLabelsAlign(Align.CENTER);
-		renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
-	//	renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
+		// 그래프 이동
+		renderer.setPanLimits(new double[] { 0, 20, 0, 40 });
+		// renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 		renderer.setInScroll(false);
 
 	}
@@ -74,15 +76,14 @@ public class GraphView extends View {
 	private void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors,
 			PointStyle[] styles) {
 		// TODO Auto-generated method stub
-	//	renderer.setBarWidth(100);
+		// renderer.setBarWidth(100);
 		renderer.setAxisTitleTextSize(30);
 		renderer.setChartTitleTextSize(40);
 		renderer.setLabelsTextSize(20);
 		renderer.setPointSize(5f);
-	
-		
-		//top left bottom right
-		renderer.setMargins(new int[] {20,55,20,55});
+
+		// top left bottom right
+		renderer.setMargins(new int[] { 20, 55, 20, 55 });
 		int length = colors.length;
 		for (int i = 0; i < length; i++) {
 			XYSeriesRenderer r = new XYSeriesRenderer();
@@ -118,13 +119,11 @@ public class GraphView extends View {
 
 	}
 
+	void makeGraph(Context context, LinearLayout layout) {
 
-	void makeGraph(Context context,LinearLayout layout) {
-		
 		String[] titles = new String[] { "ㅇㅇㅇㅇ" };
 		List<double[]> x = new ArrayList<double[]>();
 		x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
-		// }
 		List<double[]> values = new ArrayList<double[]>();
 		values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
 		int[] colors = new int[] { Color.WHITE };
@@ -136,25 +135,29 @@ public class GraphView extends View {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
 					.setFillPoints(true);
 		}
-		setChartSettings(renderer, "", "날짜",
-				"정답률", 0, 100, 0, 100, Color.WHITE, Color.BLACK);
-		
+		setChartSettings(renderer, "", "날짜", "정답률", 0, 15, 0, 30, Color.WHITE,
+				Color.BLACK);
+
 		for (int i = 0; i < length; i++) {
-		      XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(i);
-		      if (i == length - 1) {
-		        FillOutsideLine fill = new FillOutsideLine(FillOutsideLine.Type.BOUNDS_ALL);
-		        fill.setColor(Color.rgb(0, 255, 151));
-		        seriesRenderer.addFillOutsideLine(fill);
-		      }
-		      seriesRenderer.setLineWidth(3.5f);
-		    //  seriesRenderer.setDisplayChartValues(true);
-		    //  seriesRenderer.setChartValuesTextSize(10f);
-		    }
+			XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer
+					.getSeriesRendererAt(i);
+			if (i == length - 1) {
+				FillOutsideLine fill = new FillOutsideLine(
+						FillOutsideLine.Type.BOUNDS_ALL);
+				fill.setColor(Color.rgb(0, 255, 151));
+				seriesRenderer.addFillOutsideLine(fill);
+			}
+			seriesRenderer.setLineWidth(3.5f);
+		//y값 표시
+			//	seriesRenderer.setDisplayChartValues(true);
+		//	seriesRenderer.setChartValuesTextSize(40);
+		}
 
 		if (mChartView == null) {
-			mChartView = ChartFactory.getLineChartView(context,mDataset(titles, x, values), renderer);
-			layout.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
-
+			mChartView = ChartFactory.getLineChartView(context,
+					mDataset(titles, x, values), renderer);
+			layout.addView(mChartView, new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
 		} else {
 			mChartView.repaint();
