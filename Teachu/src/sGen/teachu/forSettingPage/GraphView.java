@@ -45,6 +45,7 @@ public class GraphView extends View {
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
 		renderer.setYTitle(yTitle);
+		//그래프에 표시되는 x,y 최대 최소
 		renderer.setXAxisMin(xMin);
 		renderer.setXAxisMax(xMax);
 		renderer.setYAxisMin(yMin);
@@ -76,7 +77,6 @@ public class GraphView extends View {
 	private void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors,
 			PointStyle[] styles) {
 		// TODO Auto-generated method stub
-		// renderer.setBarWidth(100);
 		renderer.setAxisTitleTextSize(30);
 		renderer.setChartTitleTextSize(40);
 		renderer.setLabelsTextSize(20);
@@ -123,8 +123,10 @@ public class GraphView extends View {
 
 		String[] titles = new String[] { "ㅇㅇㅇㅇ" };
 		List<double[]> x = new ArrayList<double[]>();
+		// x값
 		x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
 		List<double[]> values = new ArrayList<double[]>();
+		// y값
 		values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
 		int[] colors = new int[] { Color.WHITE };
 		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE };
@@ -148,9 +150,9 @@ public class GraphView extends View {
 				seriesRenderer.addFillOutsideLine(fill);
 			}
 			seriesRenderer.setLineWidth(3.5f);
-		//y값 표시
-			//	seriesRenderer.setDisplayChartValues(true);
-		//	seriesRenderer.setChartValuesTextSize(40);
+			// y값 표시
+			// seriesRenderer.setDisplayChartValues(true);
+			// seriesRenderer.setChartValuesTextSize(40);
 		}
 
 		if (mChartView == null) {
