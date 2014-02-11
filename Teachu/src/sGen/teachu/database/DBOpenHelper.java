@@ -66,7 +66,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 			values.put("ITEM_FILENAME", itemList.get(i).getItemFileName());
 			_db.insert("ITEM", null, values);
 		}
+		
+		//add growthItem to BABY_GROWTH
 		registToGrowth();
+		for(int i = 0; i< babyGrowthList.size(); i++){
+			ContentValues values = new ContentValues();
+			values.put("ITEM_ID", babyGrowthList.get(i).getItemId());
+			values.put("CATE_ID", babyGrowthList.get(i).getCateId());
+			values.put("BABY_ID", 1);
+			values.put("SHOW_CNT" , babyGrowthList.get(i).getShowCnt());
+			values.put("CORRECT_ANS", babyGrowthList.get(i).getCorrectAns());
+			_db.insert("BABY_GROWTH", null, values);
+		}
 	}
 
 	private void registToGrowth() {

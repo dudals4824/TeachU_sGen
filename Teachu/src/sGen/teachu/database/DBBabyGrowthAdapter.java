@@ -133,14 +133,16 @@ public class DBBabyGrowthAdapter {
 	public int changeGrowthForItem(int _itemId, int _cateId, int _babyId,
 			boolean isCorrect) {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE
-				+ " where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId
+				+ " where CATE_ID = " + _cateId 
 				+ " and ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
 		Log.e("DB", "changeGrowthFroItem 함수에 들어옴");
+		Log.e("DB", "" + _itemId + _cateId + _babyId + isCorrect);
+		Log.e("DB", "" + cursor.getCount());
 		int currentShowCnt = cursor.getInt(COLUMN_SHOWCNT);
 		int currentCorrectCnt = cursor.getInt(COLUMN_CORRECT);
-
+		
 		Log.e("KJK", "출제 횟수 :" + currentShowCnt + "정답 횟수 : "
 				+ currentCorrectCnt);
 
@@ -156,6 +158,7 @@ public class DBBabyGrowthAdapter {
 		values.put("SHOW_CNT", currentShowCnt); // updating
 		values.put("CORRECT_ANS", currentCorrectCnt);
 
+		
 		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); // update
 																				// to
 																				// Database
