@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="185dp"
+        android:layout_marginTop="230dp"
         android:text="      / 10"
         android:textSize="15pt" />
 
@@ -34,7 +34,7 @@
         android:layout_below="@id/result_correctCnt"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="70px"
         android:background="@drawable/replay" />
 
     <Button

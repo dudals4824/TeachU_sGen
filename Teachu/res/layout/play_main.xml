@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:background="#FFFFFF"
+    android:background="#efbfbf"
     android:layout_gravity="center">
 
     <RelativeLayout
@@ -12,25 +12,14 @@
         android:gravity="center" >
 
         <TextView
-            android:id="@+id/correctCnt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:textSize="20dp"
-            android:text="0" />
-
-        <TextView
             android:id="@+id/itemNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/correctCnt"
-            android:layout_alignBottom="@+id/correctCnt"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:textSize="20dp"
-            android:text="1 / 10" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="1 / 10"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
 
     </RelativeLayout>
 
@@ -59,6 +48,7 @@
 
     </FrameLayout>
 
+    
     <TextView
         android:id="@+id/result"
         android:layout_width="match_parent"
@@ -67,4 +57,28 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right">
+
+    <ImageView
+        android:id="@+id/teacherOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="20dp"
+        android:src="@drawable/teacher_off" />
+
+    <ImageView
+        android:id="@+id/teacherOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="20dp"
+        android:src="@drawable/teacher_on" />
+
+    </RelativeLayout>
 </LinearLayout>
