@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,59 +62,91 @@ public class PlayResult extends Activity implements OnClickListener {
 		halfstar5 = (ImageView) findViewById(R.id.halfstar1);
 		halfstar5.setVisibility(View.INVISIBLE);
 		
+		Animation anima = AnimationUtils.loadAnimation(this, R.anim.alpha);
 		switch(totalCorrectCnt){
+		
 		case 10:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			star3.startAnimation(anima);
 			star3.setVisibility(View.VISIBLE);
+			star4.startAnimation(anima);
 			star4.setVisibility(View.VISIBLE);
+			star5.startAnimation(anima);
 			star5.setVisibility(View.VISIBLE);
 			break;
 
 		case 8:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			star3.startAnimation(anima);
 			star3.setVisibility(View.VISIBLE);
+			star4.startAnimation(anima);
 			star4.setVisibility(View.VISIBLE);
 			break;
 		case 9:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			star3.startAnimation(anima);
 			star3.setVisibility(View.VISIBLE);
+			star4.startAnimation(anima);
 			star4.setVisibility(View.VISIBLE);
+			halfstar5.startAnimation(anima);
 			halfstar5.setVisibility(View.VISIBLE);
 			break;
 			
 		case 7:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			star3.startAnimation(anima);
 			star3.setVisibility(View.VISIBLE);
+			halfstar4.startAnimation(anima);
 			halfstar4.setVisibility(View.VISIBLE);
 			break;
 			
 		case 6:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			star3.startAnimation(anima);
 			star3.setVisibility(View.VISIBLE);
 			break;
 		case 5:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
+			halfstar3.startAnimation(anima);
 			halfstar3.setVisibility(View.VISIBLE);
 			break;
 		case 4:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			star2.startAnimation(anima);
 			star2.setVisibility(View.VISIBLE);
 			break;
 		case 3:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
+			halfstar2.startAnimation(anima);
 			halfstar2.setVisibility(View.VISIBLE);
 			break;
 		case 2:
+			star1.startAnimation(anima);
 			star1.setVisibility(View.VISIBLE);
 			break;
 		case 1:
-			halfstar1.setVisibility(View.VISIBLE);
+	        halfstar1.startAnimation(anima);
+	        halfstar1.setVisibility(View.VISIBLE);
 			break;
 		case 0:
 			break;

@@ -49,7 +49,10 @@ public class Play extends Activity implements OnClickListener {
 	private ImageView itemImage, mCorrect, mWrong;
 	private int itemNumber = 0;
 
-	public static int correctCnt_ = 0;
+	public static int correctCnt_;// 총 맞은 갯수
+	private DBBabyGrowthAdapter mBabyAdapter;
+
+	private ImageView teacherOn, teacherOff;
 
 	// 문제 랜덤으로 나오게 하기
 	// 시간지나면 다음 문제 나오게 하기
@@ -62,7 +65,7 @@ public class Play extends Activity implements OnClickListener {
 		setContentView(R.layout.play_main);
 
 		initItem(itemList);
-
+		correctCnt_ = 0;// 초기화
 		// correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
 		mCorrect.setVisibility(View.INVISIBLE);
@@ -79,7 +82,12 @@ public class Play extends Activity implements OnClickListener {
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
-		mCorrectCnt = (TextView) findViewById(R.id.correctCnt);
+		// mCorrectCnt = (TextView) findViewById(R.id.correctCnt);
+
+		// teacherMode image
+		teacherOn = (ImageView) findViewById(R.id.teacherOn);
+		teacherOn.setVisibility(View.INVISIBLE);
+		teacherOff = (ImageView) findViewById(R.id.teacherOff);
 
 		Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
 		Log.e("minka", "this.getCategoryID() = " + CategoryTree.getCategoryID());
@@ -181,23 +189,24 @@ public class Play extends Activity implements OnClickListener {
 		Log.e("minka", "item.getItemName() 정답 = " + item.getItemName());
 		// 5개 음성인식 결과와 비교
 		for (int i = 0; i < mResult.size(); i++) {
-			 Compareword mCompare = new Compareword(item.getItemName(), mResult.get(i));
-			 double correctionrate = mCompare
-						.getCorrectionrate(mCompare.analysis_word_array);
+			Compareword mCompare = new Compareword(item.getItemName(),
+					mResult.get(i));
+			double correctionrate = mCompare
+					.getCorrectionrate(mCompare.analysis_word_array);
 			if (item.getItemName().equals(mResult.get(i))) { // 비교
 				Log.e("play", "결과물들중에 답이랑 똑같은게 잇어서 맞은경우");
 				correctFlag = true;
 				correctCnt_++;
 				break;
 			}
-			//compare 함수사용한경우
-			else if (correctionrate >= 70){
+			// compare 함수사용한경우
+			else if (correctionrate >= 70) {
 				Log.e("play", "compare 함수를 써서 70 이상인경우");
 				correctFlag = true;
 				correctCnt_++;
 				break;
 			}
-			//틀린경우
+			// 틀린경우
 			else
 				correctFlag = false;
 		}
@@ -205,9 +214,35 @@ public class Play extends Activity implements OnClickListener {
 		if (correctFlag == true) {
 			mCorrect.setVisibility(View.VISIBLE);
 			mResultTextView.setText("정답 :" + item.getItemName());
+			mBabyAdapter = new DBBabyGrowthAdapter(this);
+			// mBabyAdapter.changeGrowthForItem(mI, _cateId, _babyId, isCorrect)
+			// mItemNumber.getId()
+			new CountDownTimer(2000, 2000) {
+				@Override
+				public void onFinish() {
+					// TODO Auto-generated method stub
+					if (itemNumber >= 2) {
+						// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
+						// Log.e("endQuiz",
+						// "mCorrectCnt.getText().toString() = " +
+						// mCorrectCnt.getText().toString());
+						// correctCnt_ =
+						// Integer.parseInt(mCorrectCnt.getText().toString());
+						Intent playResult = new Intent(Play.this,
+								PlayResult.class);
+						startActivity(playResult);
+						// correctCnt_ = 0;
+					}
+				}
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					// TODO Auto-generated method stub
+				}
+
+			}.start();
 
 			new CountDownTimer(2000, 2000) {
-
 				public void onTick(long millisUntilFinished) {
 					System.out.println("ontick");
 				}
@@ -218,35 +253,55 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					Log.e("play", "correctCnt_ = " + correctCnt_);
-					//itemList.get(itemNumber); // 새문제 로딩
-					
+					// itemList.get(itemNumber); // 새문제 로딩
+
 					mItemNumber.setText(Integer.toString(itemNumber + 1)
 							+ " / 10");
-					mCorrectCnt.setText(Integer.toString(correctCnt_));
-					
-					Log.e("play", "mCorrectCnt.getText() = " + mCorrectCnt.getText());
-					
-					//ItemInfoDTO item = itemList.get(itemNumber);
+					// mCorrectCnt.setText(Integer.toString(correctCnt_));
+
+					// Log.e("play", "mCorrectCnt.getText() = " +
+					// mCorrectCnt.getText());
+
+					// ItemInfoDTO item = itemList.get(itemNumber);
 					// itemImage.setImageResource(item.getFileName());요기서 item이
 					// final이여야 만해서
 					// 여기다 일부로 하나 넣어줫는데 특별한 규칙으로 카드 다시 뿌려줄땐 제대로 수정해야함
 					itemImage.setImageResource(getResources().getIdentifier(
-							itemList.get(itemNumber).getItemFileName(), "drawable",
-							getPackageName()));
-					if (itemNumber >= 10){
-						//itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-						//Log.e("endQuiz", "mCorrectCnt.getText().toString() = " + mCorrectCnt.getText().toString());
-						//correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
-						Intent playResult = new Intent(Play.this, PlayResult.class);
-						startActivity(playResult);
-						
-					}
+							itemList.get(itemNumber).getItemFileName(),
+							"drawable", getPackageName()));
+
 				}
 			}.start();
 
 		} else {
 			mWrong.setVisibility(View.VISIBLE);
 			mResultTextView.setText("정답 :" + item.getItemName());
+
+			new CountDownTimer(2000, 2000) {
+				@Override
+				public void onFinish() {
+					// TODO Auto-generated method stub
+					if (itemNumber >= 2) {
+						// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
+						// Log.e("endQuiz",
+						// "mCorrectCnt.getText().toString() = " +
+						// mCorrectCnt.getText().toString());
+						// correctCnt_ =
+						// Integer.parseInt(mCorrectCnt.getText().toString());
+						Intent playResult = new Intent(Play.this,
+								PlayResult.class);
+						startActivity(playResult);
+						// correctCnt_ = 0;
+					}
+				}
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					// TODO Auto-generated method stub
+				}
+
+			}.start();
+
 			new CountDownTimer(2000, 2000) {
 
 				public void onTick(long millisUntilFinished) {
@@ -260,7 +315,7 @@ public class Play extends Activity implements OnClickListener {
 					itemNumber++;
 					mItemNumber.setText(Integer.toString(itemNumber + 1)
 							+ " / 10");
-					mCorrectCnt.setText(Integer.toString(correctCnt_));
+					// mCorrectCnt.setText(Integer.toString(correctCnt_));
 					ItemInfoDTO item = itemList.get(itemNumber);
 					// itemImage.setImageResource(item.getFileName());요기서 item이
 					// final이여야 만해서
@@ -268,14 +323,17 @@ public class Play extends Activity implements OnClickListener {
 					itemImage.setImageResource(getResources().getIdentifier(
 							item.getItemFileName(), "drawable",
 							getPackageName()));
-					if (itemNumber >= 10){
-						//itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
-						//Log.e("endQuiz", "mCorrectCnt.getText().toString() = " + mCorrectCnt.getText().toString());
-						//correctCnt_ = Integer.parseInt(mCorrectCnt.getText().toString());
-						Intent playResult = new Intent(Play.this, PlayResult.class);
-						startActivity(playResult);
-						
-					}
+					// if (itemNumber >= 10){
+					// itemNumber = 0; // 9번까지 하면 다시 1번부터 ItemInfoDTO item =
+					// Log.e("endQuiz", "mCorrectCnt.getText().toString() = " +
+					// mCorrectCnt.getText().toString());
+					// correctCnt_ =
+					// Integer.parseInt(mCorrectCnt.getText().toString());
+					// Intent playResult = new Intent(Play.this,
+					// PlayResult.class);
+					// startActivity(playResult);
+
+					// }
 				}
 			}.start();
 
