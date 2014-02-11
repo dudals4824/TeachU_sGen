@@ -2,8 +2,8 @@ package sGen.teachu.database;
 
 import java.util.ArrayList;
 
+import sGen.teachu.DTO.BabyGrowthDTO;
 import sGen.teachu.DTO.ItemInfoDTO;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +18,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	private static final int CATEGORY_TRANSPORT = 2; // 탈것
 	
 	private ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
+	private ArrayList<BabyGrowthDTO> babyGrowthList = new ArrayList<BabyGrowthDTO>();
 
 	public DBOpenHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -65,6 +66,75 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 			values.put("ITEM_FILENAME", itemList.get(i).getItemFileName());
 			_db.insert("ITEM", null, values);
 		}
+		registToGrowth();
+	}
+
+	private void registToGrowth() {
+		// TODO Auto-generated method stub
+		int idx = 0;
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_FRUIT, 1, 0, 0)); //사과
+		
+		//동물
+		
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_ANIMAL, 1, 0, 0)); //사과
+		
+		//사물
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		babyGrowthList.add(new BabyGrowthDTO(idx++, CATEGORY_TRANSPORT, 1, 0, 0)); //사과
+		
 	}
 
 	private void registAllItem() {
@@ -80,7 +150,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "레몬", "lemon")); // 레몬
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "복숭아", "peach")); // 복숭아
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "감", "persimmon")); // 배
-		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "토끼", "rabbit")); // 토끼
+		//itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "토끼", "rabbit")); // 토끼
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "토마토", "tomato")); // 토마토
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "수박", "watermelon"));// 수박
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_FRUIT, "석류", "pomegranate"));// 수박
