@@ -31,7 +31,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
-	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4;
+	private ImageView pic_cloud1,pic_cloud3,pic_yellowplanet,pic_cloud4,pic_cloud5,pic_cloud2;
 	private Button btn_categorytree_fruit, btn_category_setting;
 
 	@Override
@@ -46,6 +46,8 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
 		pic_cloud3 = (ImageView) findViewById(R.id.pic_categorytree_cloud3);
 		pic_cloud4 = (ImageView) findViewById(R.id.pic_categorytree_cloud4);
+		pic_cloud5 = (ImageView) findViewById(R.id.pic_categorytree_cloud5);
+		pic_cloud2 = (ImageView) findViewById(R.id.pic_categorytree_cloud2);
 		pic_yellowplanet=(ImageView)findViewById(R.id.pic_categorytree_yellowplantet);
 
 		btn_categorytree_fruit.setOnClickListener(this);
@@ -80,6 +82,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_yellowplanet.setAnimation(animation);
 		
+		
 		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
 				2.0f, Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF,0.0f);
@@ -87,6 +90,23 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud4.setAnimation(animation);
+		
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF,0.3f);
+		animation.setDuration(5000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_cloud5.setAnimation(animation);
+		
+		animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				0.2f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF,0.0f);
+		animation.setDuration(2000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_cloud2.setAnimation(animation);
+		
 	}
 
 	@Override
