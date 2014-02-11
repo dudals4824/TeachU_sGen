@@ -110,7 +110,7 @@ public class DBBabyGrowthAdapter {
 	// used in baby information page
 	public float getCategoryGrowth(int _cateId, int _babyId) {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE
-				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId;
+				+ " where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
 		float showCnt = 0, correctCnt = 0;
@@ -133,11 +133,11 @@ public class DBBabyGrowthAdapter {
 	public int changeGrowthForItem(int _itemId, int _cateId, int _babyId,
 			boolean isCorrect) {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE
-				+ "where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId
+				+ " where CATE_ID = " + _cateId + " and BABY_ID = " + _babyId
 				+ " and ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-
+		Log.e("DB", "changeGrowthFroItem 함수에 들어옴");
 		int currentShowCnt = cursor.getInt(COLUMN_SHOWCNT);
 		int currentCorrectCnt = cursor.getInt(COLUMN_CORRECT);
 
@@ -163,7 +163,7 @@ public class DBBabyGrowthAdapter {
 
 	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where ITEM_ID="
+		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where ITEM_ID = "
 				+ _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
