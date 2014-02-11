@@ -150,7 +150,8 @@ public class PlayMic extends Activity {
 	@Override
 	public void finish() {
 		if (mRecognizer != null)
-			mRecognizer.stopListening(); // 음성인식 중지
+			mRecognizer.destroy();// 음성인식 중지
+		mRecognizer = null;
 		mHandler.removeMessages(READY); // 메시지 삭제
 		mHandler.removeMessages(END); // 메시지 삭제
 		mHandler.removeMessages(FINISH); // 메시지 삭제
