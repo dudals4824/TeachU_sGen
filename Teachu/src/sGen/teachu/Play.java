@@ -3,6 +3,7 @@ package sGen.teachu;
 import sGen.teachu.R;
 import android.R.integer;
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import java.text.ParseException;
@@ -57,9 +58,13 @@ public class Play extends Activity implements OnClickListener {
 	private DBBabyGrowthAdapter mBabyAdapter;
 
 	private ImageView teacherOn, teacherOff, goToMain;
-	private boolean teacherMode = false;
+	private boolean teacherMode = false; // 선생님모드
 
 	private boolean mIsBackButtonTouched = false;
+
+	// 목소리 남자/여자
+	public static int voice=0;// 0이 남자 1이 여자
+	private static MediaPlayer mp;// 소리 재생을위한!
 
 	// 문제 랜덤으로 나오게 하기
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
@@ -71,6 +76,7 @@ public class Play extends Activity implements OnClickListener {
 		setContentView(R.layout.play_main);
 
 		initItem(itemList);
+
 		correctCnt_ = 0;// 초기화
 		// correct image
 		mCorrect = (ImageView) findViewById(R.id.correct);
@@ -82,13 +88,14 @@ public class Play extends Activity implements OnClickListener {
 		// item image
 		itemImage = (ImageView) findViewById(R.id.wordCard);
 		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
+
 		itemImage.setImageResource(getResources()
 				.getIdentifier(itemList.get(0).getItemFileName(), "drawable",
 						getPackageName()));
+		
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
-		// mCorrectCnt = (TextView) findViewById(R.id.correctCnt);
 
 		// teacherMode image
 		teacherOn = (ImageView) findViewById(R.id.teacherOn);
@@ -137,10 +144,51 @@ public class Play extends Activity implements OnClickListener {
 			teacherMode = false;
 			teacherOff.setVisibility(View.VISIBLE);
 			teacherOn.setVisibility(View.INVISIBLE);
+			
 		} else if (v.getId() == R.id.teacherOff) {
 			teacherMode = true;
 			teacherOff.setVisibility(View.INVISIBLE);
 			teacherOn.setVisibility(View.VISIBLE);
+			if(teacherMode) {
+				String soundThis = "this_";
+				if (voice == 1)
+					soundThis += "female";
+				else if (voice == 0)
+					soundThis += "male";
+				mp = MediaPlayer.create(this,
+						getResources()
+								.getIdentifier(soundThis, "raw", getPackageName()));
+				
+				
+				String sound = itemList.get(0).getItemFileName() + "_";
+				if (voice == 1)
+					sound += "female";
+				else if (voice == 0)
+					sound += "male";
+				MediaPlayer mp_ = MediaPlayer.create(this,
+						getResources().getIdentifier(sound, "raw", getPackageName()));
+				mp_.pause();
+				mp.start();
+				mp.stop();
+				if(mp.isPlaying() == false)
+				//mp.stop();
+					mp_.start();
+				
+				/*
+				if(mp.isPlaying() == false){
+					Log.e("sound" , "이건~~");
+					String sound = itemList.get(0).getItemFileName() + "_";
+					if (voice == 1)
+						sound += "female";
+					else if (voice == 0)
+						sound += "male";
+					MediaPlayer mp_ = MediaPlayer.create(this,
+							getResources().getIdentifier(sound, "raw", getPackageName()));
+					
+					mp_.start();
+				}
+				*/
+			}
 
 		} else if (v.getId() == R.id.goMainAtPlay) {
 			Intent CategoryTreeActivity = new Intent(Play.this,
