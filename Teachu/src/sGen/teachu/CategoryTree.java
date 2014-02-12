@@ -33,7 +33,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 	// 다른 액티비티에서 카테고리 트리를 종료시키기 위한 액티비티 변수
 	public static Activity categorytree;
 	private ImageView pic_cloud1, pic_cloud3, pic_yellowplanet, pic_cloud4,
-			pic_cloud5, pic_cloud2, pic_mintplanet;
+			pic_cloud5, pic_cloud2, pic_mintplanet, pic_spaceship1, pic_spaceship2;
 	private Button btn_categorytree_fruit, btn_category_setting,
 			btn_categorytree_animal, btn_categorytree_thing;
 	private ImageView light;
@@ -61,6 +61,9 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_cloud2 = (ImageView) findViewById(R.id.pic_categorytree_cloud2);
 		pic_yellowplanet = (ImageView) findViewById(R.id.pic_categorytree_yellowplantet);
 		pic_mintplanet = (ImageView) findViewById(R.id.pic_categorytree_mintplanet);
+		pic_spaceship1 = (ImageView)findViewById(R.id.pic_categorytree_spaceship1);
+		pic_spaceship2 = (ImageView)findViewById(R.id.pic_categorytree_spaceship2);
+		
 
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_categorytree_animal.setOnClickListener(this);
@@ -89,14 +92,6 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud3.setAnimation(animation);
 
-		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.2f,
-				Animation.RELATIVE_TO_SELF, 0.4f, Animation.RELATIVE_TO_SELF,
-				0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
-		animation.setDuration(3000);
-		animation.setRepeatCount(-1);
-		animation.setRepeatMode(Animation.REVERSE);
-		pic_yellowplanet.setAnimation(animation);
-
 		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
 				Animation.RELATIVE_TO_SELF, 2.0f, Animation.RELATIVE_TO_SELF,
 				0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
@@ -120,7 +115,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_cloud2.setAnimation(animation);
-
+		
 		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.1f,
 				Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF,
 				0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
@@ -128,6 +123,30 @@ public class CategoryTree extends Activity implements OnClickListener {
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.REVERSE);
 		pic_mintplanet.setAnimation(animation);
+
+
+		animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -0.2f,
+				Animation.RELATIVE_TO_SELF, 0.4f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
+		animation.setDuration(3000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.REVERSE);
+		pic_yellowplanet.setAnimation(animation);
+		
+		animation = new TranslateAnimation(-500.0f, 1400.0f, 1000.0f, -800.0f);
+		//animation = new TranslateAnimation(-100.2f, 100.4f, -200.0f, 100.0f);
+		animation.setDuration(5000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.RESTART);
+		pic_spaceship1.setAnimation(animation);
+		
+		//animation = new TranslateAnimation(-1000.2f, 1000.4f, -2000.0f, 1000.0f);
+		animation = new TranslateAnimation(500.0f, -300.0f, 400.0f, -1900.0f);
+		animation.setDuration(7000);
+		animation.setRepeatCount(-1);
+		animation.setRepeatMode(Animation.RESTART);
+		pic_spaceship2.setAnimation(animation);
+		
 
 	}
 

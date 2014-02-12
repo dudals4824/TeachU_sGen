@@ -39,6 +39,14 @@
                 android:src="@drawable/pic_categorytree_cloud2" />
 
             <ImageView
+                android:id="@+id/pic_categorytree_spaceship2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="400dp"
+                android:src="@drawable/pic_categorytree_spaceship2" />
+
+            <ImageView
                 android:id="@+id/pic_categorytree_cloud1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +79,14 @@
                 android:src="@drawable/pic_categorytree_mintplanet" />
 
             <ImageView
+                android:id="@+id/pic_categorytree_spaceship1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="600dp"
+                android:src="@drawable/pic_categorytree_spaceship1" />
+
+            <ImageView
                 android:id="@+id/pic_categorytree_cloud4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,27 +98,33 @@
                 android:id="@+id/btn_categorytree_object"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginLeft="420px"
+                android:layout_marginTop="1410px"
                 android:background="@drawable/object" />
 
             <Button
                 android:id="@+id/btn_categorytree_fruit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginLeft="405px"
+                android:layout_marginTop="625px"
                 android:background="@drawable/fruit" />
 
             <Button
                 android:id="@+id/btn_categorytree_animal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="400dp"
-                android:layout_marginTop="470dp"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="1040px"
                 android:background="@drawable/animal" />
+
+            <Button
+                android:id="@+id/btn_categorytree_vegetable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="125px"
+                android:layout_marginTop="355px"
+                android:background="@drawable/vegetable" />
         </RelativeLayout>
     </ScrollView>
 
@@ -112,13 +134,13 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/bg_categorytree_bottomfloat" />
 
-    <ImageView 
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:src="@drawable/arrow"
-        />
+        android:src="@drawable/arrow" />
+
     <Button
         android:id="@+id/btn_setting"
         android:layout_width="wrap_content"
