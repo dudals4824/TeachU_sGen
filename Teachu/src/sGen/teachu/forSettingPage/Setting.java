@@ -22,6 +22,7 @@ import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,11 +46,11 @@ public class Setting extends Activity implements OnClickListener {
 	private static final int CATEGORY_FRUIT = 0; // 과일
 	private static final int CATEGORY_ANIMAL = 1; // 동물
 	private static final int CATEGORY_TRANSPORT = 2; // 탈것
-	
+
 	private LinearLayout layout_graphview, progress, test;
 	private ScrollView layout_background;
 	private GridLayout layout_correctionrate;
-	private TextView textview_name, textview_birth;
+	private TextView textview_name, menu1, menu2;
 	private Button btn_setting_delete, btn_setting_prev;
 	private Bitmap mBitmap;
 	private ImageView pic_baby;
@@ -59,6 +60,7 @@ public class Setting extends Activity implements OnClickListener {
 	private DBBabyInfoAdapter mBabyAdapter = new DBBabyInfoAdapter(this);
 	private DBBabyGrowthAdapter mGrowthAdapter = new DBBabyGrowthAdapter(this);
 	private BabyInfoDTO Baby = new BabyInfoDTO();
+	private Typeface tf;
 
 	private ListViewDialog mDialog;
 	private File imgFile;
@@ -78,16 +80,31 @@ public class Setting extends Activity implements OnClickListener {
 		btn_setting_delete = (Button) findViewById(R.id.btn_setting_delete);
 		btn_setting_prev = (Button) findViewById(R.id.btn_setting_prev);
 		pic_baby = (ImageView) findViewById(R.id.pic_baby);
-		
+		menu1 = (TextView)findViewById(R.id.menu1);
+		menu2 = (TextView)findViewById(R.id.menu2);
+
+		tf = Typeface.createFromAsset(this.getAssets(),
+				"font/KOPUBDOTUMMEDIUM.TTF");
+
+		textview_name.setTypeface(tf);
+		menu1.setTypeface(tf);
+		menu2.setTypeface(tf);
+
 		mGrowthAdapter.open();
-		double graph1 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_FRUIT, 1);
-		double graph2 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_ANIMAL, 1);
-		double graph3 = (double)mGrowthAdapter.getCategoryGrowth(CATEGORY_TRANSPORT, 1);
-		
+		double graph1 = (double) mGrowthAdapter.getCategoryGrowth(
+				CATEGORY_FRUIT, 1);
+		double graph2 = (double) mGrowthAdapter.getCategoryGrowth(
+				CATEGORY_ANIMAL, 1);
+		double graph3 = (double) mGrowthAdapter.getCategoryGrowth(
+				CATEGORY_TRANSPORT, 1);
+
 		// 생성자에 퍼센트로 정답률 넣으면 됨
-		layout_correctionrate.addView(new ProgressView2(this, graph1));
-		layout_correctionrate.addView(new ProgressView2(this, graph2));
-		layout_correctionrate.addView(new ProgressView2(this, graph3));
+		layout_correctionrate.addView(new ProgressView2(this, 0.24,
+				CATEGORY_ANIMAL));
+		layout_correctionrate.addView(new ProgressView2(this, 0.84,
+				CATEGORY_FRUIT));
+		layout_correctionrate.addView(new ProgressView2(this, 0.55,
+				CATEGORY_TRANSPORT));
 
 		BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(
 				R.drawable.btn_addbaby_registpic);

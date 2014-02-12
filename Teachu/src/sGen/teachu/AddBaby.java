@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class AddBaby extends Activity implements OnClickListener {
 	static String SAMPLEIMG = "profile.png";
 	static final int REQUEST_ALBUM = 1;
 	static final int REQUEST_PICTURE = 2;
+	// font
+	private Typeface tf;
 
 	// object
 	private BabyInfoDTO Baby = new BabyInfoDTO();
@@ -62,18 +65,22 @@ public class AddBaby extends Activity implements OnClickListener {
 	private int photoAreaWidth;
 	private int photoAreaHeight;
 
-	// validation check
-	private boolean isEmpty = false;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addbaby);
 
+		// font setting
+		tf = Typeface.createFromAsset(this.getAssets(),
+				"font/KOPUBDOTUMMEDIUM.TTF");
+
 		// view initializing
 		edit_name = (EditText) findViewById(R.id.name);
+		edit_name.setTypeface(tf);
 		edit_password = (EditText) findViewById(R.id.password);
+		edit_password.setTypeface(tf);
 		edit_passwordcheck = (EditText) findViewById(R.id.password_check);
+		edit_passwordcheck.setTypeface(tf);
 		rg = (RadioGroup) findViewById(R.id.sexradiogroup);
 
 		// get mBitmap
@@ -95,7 +102,6 @@ public class AddBaby extends Activity implements OnClickListener {
 		btn_regist.setOnClickListener(this);
 
 		// TODO: after finishing add baby, unable backtraking button
-		isEmpty = false;
 
 	}
 
