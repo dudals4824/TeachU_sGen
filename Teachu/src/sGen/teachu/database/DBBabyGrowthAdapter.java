@@ -125,8 +125,12 @@ public class DBBabyGrowthAdapter {
 			totalItemCnt++;
 			cursor.moveToNext();
 		}
-
-		return correctRateSum / totalItemCnt;
+		if(correctRateSum == 0)
+			return 0;
+		else if(totalItemCnt == 0)
+			return 0;
+		else 
+			return correctRateSum / totalItemCnt;
 	}
 
 	//
@@ -176,7 +180,12 @@ public class DBBabyGrowthAdapter {
 		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
 
-		return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
+		if(babyGrowth.getShowCnt() == 0)
+			return 0;
+		else if(babyGrowth.getCorrectAns() == 0)
+			return 0;
+		else
+			return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
 
 		// return babyGrowth;
 	}

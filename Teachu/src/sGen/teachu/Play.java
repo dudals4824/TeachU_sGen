@@ -74,7 +74,8 @@ public class Play extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
-
+		mBabyAdapter = new DBBabyGrowthAdapter(this);
+		mBabyAdapter.open();
 		try {
 			initItem(itemList);
 		} catch (SQLException e) {
@@ -84,6 +85,7 @@ public class Play extends Activity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		mBabyAdapter.close();
 
 		correctCnt_ = 0;// 초기화
 		// correct image
@@ -139,23 +141,11 @@ public class Play extends Activity implements OnClickListener {
 			Log.e("minka",
 					"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
 		}
-		setQuiz(itemList);
-		for (int i = 0; i < itemList.size(); i++) {
-			Log.e("paly", "itemList.get(i).getItemId()"
-					+ itemList.get(i).getItemId());
-			Log.e("play",
-					"mBabyAdapter.getBabyGrowth(itemList.get(i).getItemId()) = "
-							+ mBabyAdapter.getBabyGrowth(itemList.get(i)
-									.getItemId()));
-		}
-	}
-
-	// 순서 정렬..
-	private void setQuiz(ArrayList<ItemInfoDTO> itemList) throws SQLException,
-			ParseException {
-		// TODO Auto-generated method stub
+		
+		//순서 정렬..
 		for (int i = 0; i < itemList.size() - 1; i++) {
 			for (int k = i; k < itemList.size(); k++) {
+
 				float front = mBabyAdapter.getBabyGrowth(itemList.get(i)
 						.getItemId());
 				float back = mBabyAdapter.getBabyGrowth(itemList.get(k)
@@ -168,8 +158,16 @@ public class Play extends Activity implements OnClickListener {
 			}
 
 		}
+	
+		for (int i = 0; i < itemList.size(); i++) {
+			Log.e("paly", "itemList.get(i).getItemId()"
+					+ itemList.get(i).getItemId());
+			Log.e("play",
+					"mBabyAdapter.getBabyGrowth(itemList.get(i).getItemId()) = "
+							+ mBabyAdapter.getBabyGrowth(itemList.get(i)
+									.getItemId()));
+		}
 	}
-
 	@Override
 	public void onClick(View v) {
 		int view = v.getId();
