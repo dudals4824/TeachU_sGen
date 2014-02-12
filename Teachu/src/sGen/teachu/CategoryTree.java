@@ -4,6 +4,7 @@ import sGen.teachu.database.DBBabyInfoAdapter;
 import sGen.teachu.forSettingPage.Setting;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -35,17 +36,22 @@ public class CategoryTree extends Activity implements OnClickListener {
 			pic_cloud5, pic_cloud2, pic_mintplanet;
 	private Button btn_categorytree_fruit, btn_category_setting,
 			btn_categorytree_animal, btn_categorytree_thing;
+	private ImageView light;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.category_tree);
 
+		light = (ImageView)findViewById(R.id.light);
+		Drawable alpha1 = light.getDrawable();
+		alpha1.setAlpha(50);
+		
 		categorytree = CategoryTree.this;
 
 		btn_categorytree_fruit = (Button) findViewById(R.id.btn_categorytree_fruit);
 		btn_categorytree_animal = (Button) findViewById(R.id.btn_categorytree_animal);
-		btn_categorytree_thing = (Button) findViewById(R.id.btn_categorytree_thing);
+		btn_categorytree_thing = (Button) findViewById(R.id.btn_categorytree_object);
 		btn_category_setting = (Button) findViewById(R.id.btn_setting);
 
 		pic_cloud1 = (ImageView) findViewById(R.id.pic_categorytree_cloud1);
@@ -131,7 +137,7 @@ public class CategoryTree extends Activity implements OnClickListener {
 		setCategoryID(v.getId());
 		if ((v.getId() == R.id.btn_categorytree_fruit)
 				|| (v.getId() == R.id.btn_categorytree_animal)
-				|| (v.getId() == R.id.btn_categorytree_thing)) {
+				|| (v.getId() == R.id.btn_categorytree_object)) {
 			Intent TeachuplayActivity = new Intent(CategoryTree.this,
 					Play.class);
 			startActivity(TeachuplayActivity);

@@ -63,7 +63,7 @@ public class Play extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 
 	// 목소리 남자/여자
-	public static int voice=0;// 0이 남자 1이 여자
+	public static int voice = 0;// 0이 남자 1이 여자
 	private static MediaPlayer mp;// 소리 재생을위한!
 
 	// 문제 랜덤으로 나오게 하기
@@ -75,7 +75,15 @@ public class Play extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
 
-		initItem(itemList);
+		try {
+			initItem(itemList);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		correctCnt_ = 0;// 초기화
 		// correct image
@@ -92,7 +100,6 @@ public class Play extends Activity implements OnClickListener {
 		itemImage.setImageResource(getResources()
 				.getIdentifier(itemList.get(0).getItemFileName(), "drawable",
 						getPackageName()));
-		
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
@@ -113,7 +120,8 @@ public class Play extends Activity implements OnClickListener {
 	}
 
 	// itemList 초기화
-	private void initItem(ArrayList<ItemInfoDTO> itemList) {
+	private void initItem(ArrayList<ItemInfoDTO> itemList) throws SQLException,
+			ParseException {
 		DBItemInfoAdapter mItemAdaper = new DBItemInfoAdapter(this);
 		mItemAdaper.open();
 		// category 확인
@@ -126,10 +134,39 @@ public class Play extends Activity implements OnClickListener {
 			itemList.addAll(mItemAdaper
 					.getItemInfoByCategoryId(CATEGORY_ANIMAL));// 깊은복사
 			break;
-		case R.id.btn_categorytree_thing:
+		case R.id.btn_categorytree_object:
 			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_THING));// 깊은복사
 			Log.e("minka",
 					"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
+		}
+		setQuiz(itemList);
+		for (int i = 0; i < itemList.size(); i++) {
+			Log.e("paly", "itemList.get(i).getItemId()"
+					+ itemList.get(i).getItemId());
+			Log.e("play",
+					"mBabyAdapter.getBabyGrowth(itemList.get(i).getItemId()) = "
+							+ mBabyAdapter.getBabyGrowth(itemList.get(i)
+									.getItemId()));
+		}
+	}
+
+	// 순서 정렬..
+	private void setQuiz(ArrayList<ItemInfoDTO> itemList) throws SQLException,
+			ParseException {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < itemList.size() - 1; i++) {
+			for (int k = i; k < itemList.size(); k++) {
+				float front = mBabyAdapter.getBabyGrowth(itemList.get(i)
+						.getItemId());
+				float back = mBabyAdapter.getBabyGrowth(itemList.get(k)
+						.getItemId());
+				if (front >= back) {
+					ItemInfoDTO trash = itemList.get(i);
+					itemList.set(i, itemList.get(k));
+					itemList.set(k, trash);
+				}
+			}
+
 		}
 	}
 
@@ -144,50 +181,41 @@ public class Play extends Activity implements OnClickListener {
 			teacherMode = false;
 			teacherOff.setVisibility(View.VISIBLE);
 			teacherOn.setVisibility(View.INVISIBLE);
-			
+
 		} else if (v.getId() == R.id.teacherOff) {
 			teacherMode = true;
 			teacherOff.setVisibility(View.INVISIBLE);
 			teacherOn.setVisibility(View.VISIBLE);
-			if(teacherMode) {
+			if (teacherMode) {
 				String soundThis = "this_";
 				if (voice == 1)
 					soundThis += "female";
 				else if (voice == 0)
 					soundThis += "male";
-				mp = MediaPlayer.create(this,
-						getResources()
-								.getIdentifier(soundThis, "raw", getPackageName()));
-				
-				
-				String sound = itemList.get(0).getItemFileName() + "_";
-				if (voice == 1)
-					sound += "female";
-				else if (voice == 0)
-					sound += "male";
-				MediaPlayer mp_ = MediaPlayer.create(this,
-						getResources().getIdentifier(sound, "raw", getPackageName()));
-				mp_.pause();
+				mp = MediaPlayer.create(
+						this,
+						getResources().getIdentifier(soundThis, "raw",
+								getPackageName()));
+
 				mp.start();
-				mp.stop();
-				if(mp.isPlaying() == false)
-				//mp.stop();
-					mp_.start();
-				
 				/*
-				if(mp.isPlaying() == false){
-					Log.e("sound" , "이건~~");
-					String sound = itemList.get(0).getItemFileName() + "_";
-					if (voice == 1)
-						sound += "female";
-					else if (voice == 0)
-						sound += "male";
-					MediaPlayer mp_ = MediaPlayer.create(this,
-							getResources().getIdentifier(sound, "raw", getPackageName()));
-					
-					mp_.start();
-				}
-				*/
+				 * String sound = itemList.get(0).getItemFileName() + "_"; if
+				 * (voice == 1) sound += "female"; else if (voice == 0) sound +=
+				 * "male"; MediaPlayer mp_ = MediaPlayer.create(this,
+				 * getResources().getIdentifier(sound, "raw",
+				 * getPackageName())); mp_.pause(); mp.start(); mp.stop();
+				 * if(mp.isPlaying() == false) //mp.stop(); mp_.start();
+				 */
+				/*
+				 * if(mp.isPlaying() == false){ Log.e("sound" , "이건~~"); String
+				 * sound = itemList.get(0).getItemFileName() + "_"; if (voice ==
+				 * 1) sound += "female"; else if (voice == 0) sound += "male";
+				 * MediaPlayer mp_ = MediaPlayer.create(this,
+				 * getResources().getIdentifier(sound, "raw",
+				 * getPackageName()));
+				 * 
+				 * mp_.start(); }
+				 */
 			}
 
 		} else if (v.getId() == R.id.goMainAtPlay) {
@@ -304,14 +332,15 @@ public class Play extends Activity implements OnClickListener {
 			Log.e("minka", "1이나옴 .. 참! 오예");
 
 			try {
+
 				Log.e("증가 후 play Item",
 						"mBabyAdapter.getBabyGrowth(item.getItemId()).getShowCnt() = "
-								+ mBabyAdapter.getBabyGrowth(item.getItemId())
-										.getShowCnt());
+								+ mBabyAdapter.getBabyGrowthByItemId(
+										item.getItemId()).getShowCnt());
 				Log.e("증가 후 play Item",
 						"mBabyAdapter.getBabyGrowth(item.getItemId()).getCorrectAns() = "
-								+ mBabyAdapter.getBabyGrowth(item.getItemId())
-										.getCorrectAns());
+								+ mBabyAdapter.getBabyGrowthByItemId(
+										item.getItemId()).getCorrectAns());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

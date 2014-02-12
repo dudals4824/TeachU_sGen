@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-	private Button btn_start;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +28,12 @@ public class MainActivity extends Activity {
 				int babyInt = mAdapter.getBabyCount();
 
 				if (babyInt == 0) { // baby not exist
-					btn_start = (Button) findViewById(R.id.btn_main_start);
-					btn_start.setVisibility(1);
-					btn_start.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							// TODO Auto-generated method stub
-							Intent AddBabyActivity = new Intent(
-									MainActivity.this, AddBaby.class);
-							startActivity(AddBabyActivity);
-							finish();
-						}
-					});
-
+					
+					Intent AddBabyActivity = new Intent(
+							MainActivity.this, AddBaby.class);
+					startActivity(AddBabyActivity);
+					finish();
+					
 				} else {
 					
 					// TODO Auto-generated method stub

@@ -133,8 +133,7 @@ public class DBBabyGrowthAdapter {
 	public int changeGrowthForItem(int _itemId, int _cateId, int _babyId,
 			boolean isCorrect) {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE
-				+ " where CATE_ID = " + _cateId 
-				+ " and ITEM_ID = " + _itemId;
+				+ " where CATE_ID = " + _cateId + " and ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
 		Log.e("DB", "changeGrowthFroItem 함수에 들어옴");
@@ -142,7 +141,7 @@ public class DBBabyGrowthAdapter {
 		Log.e("DB", "" + cursor.getCount());
 		int currentShowCnt = cursor.getInt(COLUMN_SHOWCNT);
 		int currentCorrectCnt = cursor.getInt(COLUMN_CORRECT);
-		
+
 		Log.e("KJK", "출제 횟수 :" + currentShowCnt + "정답 횟수 : "
 				+ currentCorrectCnt);
 
@@ -158,16 +157,15 @@ public class DBBabyGrowthAdapter {
 		values.put("SHOW_CNT", currentShowCnt); // updating
 		values.put("CORRECT_ANS", currentCorrectCnt);
 
-		
 		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); // update
 																				// to
 																				// Database
 	}
 
-	public BabyGrowthDTO getBabyGrowth(long _itemId) throws SQLException,
+	public float getBabyGrowth(long _itemId) throws SQLException,
 			ParseException {
-		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where ITEM_ID = "
-				+ _itemId;
+		String selectSQL = "SELECT * from " + DATABASE_TABLE
+				+ " where ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
 
@@ -178,7 +176,27 @@ public class DBBabyGrowthAdapter {
 		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
 
-		return babyGrowth;
+		return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
+
+		// return babyGrowth;
 	}
 
+	public BabyGrowthDTO getBabyGrowthByItemId(long _itemId) throws SQLException,
+			ParseException {
+		String selectSQL = "SELECT * from " + DATABASE_TABLE
+				+ " where ITEM_ID = " + _itemId;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
+
+		BabyGrowthDTO babyGrowth = new BabyGrowthDTO();
+		babyGrowth.setItemId(cursor.getInt(COLUMN_ITEMID));
+		babyGrowth.setCateId(cursor.getInt(COLUMN_CATEID));
+		babyGrowth.setBabyId(cursor.getInt(COLUMN_BABYID));
+		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
+		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
+
+		//return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
+
+		 return babyGrowth;
+	}
 }
