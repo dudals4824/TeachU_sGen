@@ -99,9 +99,9 @@ public class Setting extends Activity implements OnClickListener {
 				CATEGORY_TRANSPORT, 1);
 
 		// 생성자에 퍼센트로 정답률 넣으면 됨
-		layout_correctionrate.addView(new ProgressView2(this, graph1,
-				CATEGORY_ANIMAL));
 		layout_correctionrate.addView(new ProgressView2(this, graph2,
+				CATEGORY_ANIMAL));
+		layout_correctionrate.addView(new ProgressView2(this, graph1,
 				CATEGORY_FRUIT));
 		layout_correctionrate.addView(new ProgressView2(this, graph3,
 				CATEGORY_TRANSPORT));
