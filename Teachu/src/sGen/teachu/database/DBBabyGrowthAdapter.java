@@ -125,6 +125,7 @@ public class DBBabyGrowthAdapter {
 			totalItemCnt++;
 			cursor.moveToNext();
 		}
+		cursor.close();
 		if(correctRateSum == 0)
 			return 0;
 		else if(totalItemCnt == 0)
@@ -160,6 +161,7 @@ public class DBBabyGrowthAdapter {
 		values.put("BABY_ID", _babyId);
 		values.put("SHOW_CNT", currentShowCnt); // updating
 		values.put("CORRECT_ANS", currentCorrectCnt);
+		cursor.close();
 
 		return db.update(DATABASE_TABLE, values, "ITEM_ID=" + _itemId, null); // update
 																				// to
@@ -172,14 +174,14 @@ public class DBBabyGrowthAdapter {
 				+ " where ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-
 		BabyGrowthDTO babyGrowth = new BabyGrowthDTO();
 		babyGrowth.setItemId(cursor.getInt(COLUMN_ITEMID));
 		babyGrowth.setCateId(cursor.getInt(COLUMN_CATEID));
 		babyGrowth.setBabyId(cursor.getInt(COLUMN_BABYID));
 		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
-
+		
+		cursor.close();
 		if(babyGrowth.getShowCnt() == 0)
 			return 0;
 		else if(babyGrowth.getCorrectAns() == 0)
@@ -204,6 +206,7 @@ public class DBBabyGrowthAdapter {
 		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
 
+		cursor.close();
 		//return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
 
 		 return babyGrowth;

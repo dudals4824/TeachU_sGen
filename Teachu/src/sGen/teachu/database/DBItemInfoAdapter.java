@@ -93,27 +93,24 @@ public class DBItemInfoAdapter {
 		item.setCateId(cursor.getInt(1));
 		item.setItemName(cursor.getString(2));
 		item.setItemFileName(cursor.getString(3));
-
+		cursor.close();
 		return item;
 	}
 
 	public ArrayList<ItemInfoDTO> getItemInfoByCategoryId(int categoryId)
 			throws SQLException {
-		Log.e("GET ITEM CATE", "CATE CATE1");
 		String selectSQL = "SELECT * from " + DATABASE_TABLE + " where CATE_ID="
 				+ categoryId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
 		cursor.moveToFirst();
-		Log.e("sdklafdf", cursor.getCount()+"");
-		Log.e("GET ITEM CATE", "CATE CATE2");
 		ArrayList<ItemInfoDTO> itemList = new ArrayList<ItemInfoDTO>();
 		for (int i = 0; i < cursor.getCount(); i++) {
 			ItemInfoDTO item = new ItemInfoDTO(cursor.getInt(0),
 					cursor.getInt(1), cursor.getString(2), cursor.getString(3));
-			Log.e("GET ITEM CATE", item.toString());
 			itemList.add(item);
 			cursor.moveToNext();
 		}
+		cursor.close();
 		return itemList;
 	}
 

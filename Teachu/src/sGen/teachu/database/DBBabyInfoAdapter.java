@@ -133,6 +133,7 @@ public class DBBabyInfoAdapter {
 		Baby.setBirth(cursor.getLong(4));
 		Baby.setPhoto(photoBitmap);
 
+		cursor.close();
 		return Baby;
 	}
 

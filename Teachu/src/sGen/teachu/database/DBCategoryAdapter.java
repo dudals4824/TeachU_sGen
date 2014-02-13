@@ -105,6 +105,7 @@ public class DBCategoryAdapter {
 
 		boolean value = cursor.getInt(2) > 0;
 		cate.setPaid(value);
+		cursor.close();
 
 		return cate;
 	}

@@ -63,10 +63,9 @@ public class Play extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 
 	// 목소리 남자/여자
-	public static int voice = 0;// 0이 남자 1이 여자
+	public static int voice = 1;// 0이 남자 1이 여자
 	private static MediaPlayer mp;// 소리 재생을위한!
 
-	// 문제 랜덤으로 나오게 하기
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
 
 	/** Called when the activity is first created. */
@@ -97,11 +96,12 @@ public class Play extends Activity implements OnClickListener {
 
 		// item image
 		itemImage = (ImageView) findViewById(R.id.wordCard);
-		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
-
+		Log.e("여기가문제", "itemList.get(0).getItemFileNAme() = "
+				+ itemList.get(0).getItemFileName());
 		itemImage.setImageResource(getResources()
 				.getIdentifier(itemList.get(0).getItemFileName(), "drawable",
 						getPackageName()));
+		itemImage.setOnClickListener(this); // 내가 만든activity 이용.
 
 		mResultTextView = (TextView) findViewById(R.id.result); // 결과 출력 뷰
 		mItemNumber = (TextView) findViewById(R.id.itemNumber);
@@ -116,9 +116,6 @@ public class Play extends Activity implements OnClickListener {
 		goToMain = (ImageView) findViewById(R.id.goMainAtPlay);
 		goToMain.setOnClickListener(this);
 
-		Log.e("minka", "아이템사이지지지지지지ㅣitemList.size() = " + itemList.size());
-		Log.e("minka", "this.getCategoryID() = " + CategoryTree.getCategoryID());
-
 	}
 
 	// itemList 초기화
@@ -126,6 +123,9 @@ public class Play extends Activity implements OnClickListener {
 			ParseException {
 		DBItemInfoAdapter mItemAdaper = new DBItemInfoAdapter(this);
 		mItemAdaper.open();
+		Log.e("initList", "지금선택한 카테고리 아이디 = " + CategoryTree.getCategoryID());
+		Log.e("initList",
+				"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
 		// category 확인
 		switch (CategoryTree.getCategoryID()) {
 		case R.id.btn_categorytree_fruit:
@@ -138,11 +138,10 @@ public class Play extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_categorytree_object:
 			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_THING));// 깊은복사
-			Log.e("minka",
-					"지금선택한 카테고리 아이템갯수 itemList.size() = " + itemList.size());
+
 		}
-		
-		//순서 정렬..
+
+		// 순서 정렬..
 		for (int i = 0; i < itemList.size() - 1; i++) {
 			for (int k = i; k < itemList.size(); k++) {
 
@@ -158,7 +157,7 @@ public class Play extends Activity implements OnClickListener {
 			}
 
 		}
-	
+
 		for (int i = 0; i < itemList.size(); i++) {
 			Log.e("paly", "itemList.get(i).getItemId()"
 					+ itemList.get(i).getItemId());
@@ -168,6 +167,7 @@ public class Play extends Activity implements OnClickListener {
 									.getItemId()));
 		}
 	}
+
 	@Override
 	public void onClick(View v) {
 		int view = v.getId();
@@ -184,36 +184,18 @@ public class Play extends Activity implements OnClickListener {
 			teacherMode = true;
 			teacherOff.setVisibility(View.INVISIBLE);
 			teacherOn.setVisibility(View.VISIBLE);
-			if (teacherMode) {
-				String soundThis = "this_";
-				if (voice == 1)
-					soundThis += "female";
-				else if (voice == 0)
-					soundThis += "male";
-				mp = MediaPlayer.create(
-						this,
-						getResources().getIdentifier(soundThis, "raw",
-								getPackageName()));
 
-				mp.start();
-				/*
-				 * String sound = itemList.get(0).getItemFileName() + "_"; if
-				 * (voice == 1) sound += "female"; else if (voice == 0) sound +=
-				 * "male"; MediaPlayer mp_ = MediaPlayer.create(this,
-				 * getResources().getIdentifier(sound, "raw",
-				 * getPackageName())); mp_.pause(); mp.start(); mp.stop();
-				 * if(mp.isPlaying() == false) //mp.stop(); mp_.start();
-				 */
-				/*
-				 * if(mp.isPlaying() == false){ Log.e("sound" , "이건~~"); String
-				 * sound = itemList.get(0).getItemFileName() + "_"; if (voice ==
-				 * 1) sound += "female"; else if (voice == 0) sound += "male";
-				 * MediaPlayer mp_ = MediaPlayer.create(this,
-				 * getResources().getIdentifier(sound, "raw",
-				 * getPackageName()));
-				 * 
-				 * mp_.start(); }
-				 */
+			if (teacherMode) {
+
+				String sound = itemList.get(itemNumber).getItemFileName() + "_";
+				if (voice == 1)
+					sound += "female";
+				else if (voice == 0)
+					sound += "male";
+				MediaPlayer mp_ = MediaPlayer.create(this, getResources()
+						.getIdentifier(sound, "raw", getPackageName()));
+				mp_.start();
+
 			}
 
 		} else if (v.getId() == R.id.goMainAtPlay) {
@@ -348,10 +330,14 @@ public class Play extends Activity implements OnClickListener {
 			}
 
 		}
-
+		itemImage.setOnClickListener(null);
+		findViewById(R.id.wordCard).setOnClickListener(null);
+		findViewById(R.id.result).setOnClickListener(null);
 		// 5개 중에 정답이 있는 경우
 		if (correctFlag == true) {
 			mCorrect.setVisibility(View.VISIBLE);
+			mCorrect.setOnClickListener(null);
+
 			mResultTextView.setText("정답 :" + item.getItemName());
 
 			new CountDownTimer(2000, 2000) {
@@ -365,6 +351,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
+
 					if (itemNumber >= 9) {
 
 						finish();
@@ -385,7 +372,10 @@ public class Play extends Activity implements OnClickListener {
 
 		} else {
 			mWrong.setVisibility(View.VISIBLE);
+			mWrong.setOnClickListener(null);
+
 			mResultTextView.setText("정답 :" + item.getItemName());
+			findViewById(R.id.wordCard).setOnClickListener(null);
 
 			new CountDownTimer(2000, 2000) {
 
@@ -416,36 +406,21 @@ public class Play extends Activity implements OnClickListener {
 			}.start();
 
 		}
+		itemImage.setOnClickListener(this);
+		findViewById(R.id.wordCard).setOnClickListener(this);
+		
+		if (teacherMode) {
 
-	}
+			String sound = itemList.get(itemNumber).getItemFileName() + "_";
+			if (voice == 1)
+				sound += "female";
+			else if (voice == 0)
+				sound += "male";
+			MediaPlayer mp_ = MediaPlayer.create(this, getResources()
+					.getIdentifier(sound, "raw", getPackageName()));
+			mp_.start();
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		menu.add(0, 1, 0, "아기 초기화");
-		menu.add(0, 2, 0, "아기 상태보러가기");
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case 1:
-			// DB initializing : for testing
-			DBBabyInfoAdapter mAdapter = new DBBabyInfoAdapter(this);
-			mAdapter.open();
-			mAdapter.deleteBaby(1);
-			int babyInt = mAdapter.getBabyCount();
-			mAdapter.close();
-
-			Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
-
-		case 2:
-			Intent Setting = new Intent(Play.this, Setting.class);
-			startActivity(Setting);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	// 백버튼 두번 누르면 종료시킴 플래그 바꿔서
