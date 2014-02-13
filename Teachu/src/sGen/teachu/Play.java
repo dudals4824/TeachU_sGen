@@ -73,6 +73,10 @@ public class Play extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_main);
+		
+		Intent svc = new Intent(this, BackgroundSoundService.class);
+		stopService(svc);
+		
 		mBabyAdapter = new DBBabyGrowthAdapter(this);
 		mBabyAdapter.open();
 		try {
@@ -436,6 +440,8 @@ public class Play extends Activity implements OnClickListener {
 		if (mIsBackButtonTouched == false) {
 			Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
 					.show();
+			Intent svc = new Intent(this, BackgroundSoundService.class);
+			startService(svc);
 			mIsBackButtonTouched = true;
 		} else if (mIsBackButtonTouched == true) {
 			finish();

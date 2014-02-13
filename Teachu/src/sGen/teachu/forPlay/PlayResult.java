@@ -1,10 +1,12 @@
 package sGen.teachu.forPlay;
 
 import sGen.teachu.AddBaby;
+import sGen.teachu.BackgroundSoundService;
 import sGen.teachu.CategoryTree;
 import sGen.teachu.MainActivity;
 import sGen.teachu.Play;
 import sGen.teachu.R;
+import sGen.teachu.database.DBBabyGrowthAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +37,9 @@ public class PlayResult extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_result);
+		
+		Intent svc = new Intent(this, BackgroundSoundService.class);
+		startService(svc);
 		
 		//int totalCorrectCnt = Integer.parseInt(findViewById(R.id.correctCnt).toString());
 		totalCorrectCnt = Play.correctCnt_;
@@ -154,6 +159,11 @@ public class PlayResult extends Activity implements OnClickListener {
 			break;
 			
 		}
+		
+		//플레이 결과화면에 들어오면 그날의 성장률 반영
+		DBBabyGrowthAdapter mGrowthAdapter = new DBBabyGrowthAdapter(this);
+		mGrowthAdapter.open();
+		mGrowthAdapter.setDailyGrowth();
 		
 		retrialBtn = (Button)findViewById(R.id.retrialbutton);
 		goToMainBtn = (Button)findViewById(R.id.goToMain);

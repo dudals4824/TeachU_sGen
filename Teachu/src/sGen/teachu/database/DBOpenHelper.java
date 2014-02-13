@@ -48,6 +48,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	private static final String CATEGORY_CREATE = "create table CATEGORY("
 			+ "CATE_ID integer primary key autoincrement,"
 			+ "CATE_NAME text not null," + "PAID boolean not null);";
+	
+	private static final String DAILY_GROWTH = "create table DAILY_GROWTH(" +
+			"DATE string not null primary key," +
+			"GROWTH integer not null);";
 
 	// DB 파일이 생성될 때 호출됨
 	public void onCreate(SQLiteDatabase _db) {
@@ -55,6 +59,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		_db.execSQL(BABYGROWTH_CREATE);
 		_db.execSQL(ITEM_CREATE);
 		_db.execSQL(CATEGORY_CREATE);
+		_db.execSQL(DAILY_GROWTH);
 
 		// add item to DB
 		registAllItem();
@@ -230,6 +235,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		_db.execSQL("DROP TABLE IF EXISTS BABY_GROWTH");
 		_db.execSQL("DROP TABLE IF EXISTS ITEM");
 		_db.execSQL("DROP TABLE IF EXISTS CATEGORY");
+		_db.execSQL("DROP TABLE IF EXISTS DAILY_GROWTH");
 		onCreate(_db);
 	}
 }

@@ -1,6 +1,9 @@
 package sGen.teachu.database;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import sGen.teachu.DTO.BabyGrowthDTO;
 import android.content.ContentValues;
@@ -16,8 +19,8 @@ public class DBBabyGrowthAdapter {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_TABLE = "BABY_GROWTH";
 
-	private static final int COLUMN_CATEID = 0;
-	private static final int COLUMN_ITEMID = 1;
+	private static final int COLUMN_ITEMID = 0;
+	private static final int COLUMN_CATEID = 1;
 	private static final int COLUMN_BABYID = 2;
 	private static final int COLUMN_SHOWCNT = 3;
 	private static final int COLUMN_CORRECT = 4;
@@ -102,7 +105,7 @@ public class DBBabyGrowthAdapter {
 		if ((result.getCount() == 0) || !result.moveToFirst()) {
 			throw new SQLException("No growth found for item: " + _itemId);
 		}
-		
+
 		result.close();
 		return result;
 	}
@@ -121,17 +124,20 @@ public class DBBabyGrowthAdapter {
 		while (!cursor.isLast()) {
 			showCnt = cursor.getInt(COLUMN_SHOWCNT);
 			correctCnt = cursor.getInt(COLUMN_SHOWCNT);
-			correctRate = (float) (correctCnt / showCnt);
+			if (showCnt != 0.0)
+				correctRate = (float) (correctCnt / showCnt);
 			correctRateSum += correctRate;
 			totalItemCnt++;
 			cursor.moveToNext();
+			Log.e("GROWTH", "itemID = " + cursor.getInt(COLUMN_ITEMID)
+					+ "  showCnt =" + showCnt + "  correctCnt = " + correctCnt);
 		}
 		cursor.close();
-		if(correctRateSum == 0)
+		if (correctRateSum == 0)
 			return 0;
-		else if(totalItemCnt == 0)
+		else if (totalItemCnt == 0)
 			return 0;
-		else 
+		else
 			return correctRateSum / totalItemCnt;
 	}
 
@@ -181,11 +187,11 @@ public class DBBabyGrowthAdapter {
 		babyGrowth.setBabyId(cursor.getInt(COLUMN_BABYID));
 		babyGrowth.setShowCnt(cursor.getInt(COLUMN_SHOWCNT));
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
-		
+
 		cursor.close();
-		if(babyGrowth.getShowCnt() == 0)
+		if (babyGrowth.getShowCnt() == 0)
 			return 0;
-		else if(babyGrowth.getCorrectAns() == 0)
+		else if (babyGrowth.getCorrectAns() == 0)
 			return 0;
 		else
 			return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
@@ -193,8 +199,8 @@ public class DBBabyGrowthAdapter {
 		// return babyGrowth;
 	}
 
-	public BabyGrowthDTO getBabyGrowthByItemId(long _itemId) throws SQLException,
-			ParseException {
+	public BabyGrowthDTO getBabyGrowthByItemId(long _itemId)
+			throws SQLException, ParseException {
 		String selectSQL = "SELECT * from " + DATABASE_TABLE
 				+ " where ITEM_ID = " + _itemId;
 		Cursor cursor = db.rawQuery(selectSQL, null);
@@ -208,8 +214,64 @@ public class DBBabyGrowthAdapter {
 		babyGrowth.setCorrectAns(cursor.getInt(COLUMN_CORRECT));
 
 		cursor.close();
-		//return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
+		// return babyGrowth.getShowCnt() / babyGrowth.getCorrectAns();
 
-		 return babyGrowth;
+		return babyGrowth;
+	}
+
+	public long setDailyGrowth() {
+		// Make row
+		ContentValues values = new ContentValues();
+		double totalGrowth = 0;
+
+		// 오늘 날짜 얻기
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM.dd",
+				Locale.KOREA);
+		Date currentTime = new Date();
+		String mTime = mSimpleDateFormat.format(currentTime);
+
+		// Baby 전체 growth 값 얻기
+		String selectSQL = "SELECT * from " + DATABASE_TABLE;
+		Cursor cursor = db.rawQuery(selectSQL, null);
+		cursor.moveToFirst();
+		float showCnt = 0, correctCnt = 0;
+		float correctRate = 0, correctRateSum = 0;
+		int totalItemCnt = 0;
+
+		while (!cursor.isLast()) {
+			showCnt = cursor.getInt(COLUMN_SHOWCNT);
+			correctCnt = cursor.getInt(COLUMN_SHOWCNT);
+			if (showCnt != 0.0)
+				correctRate = (float) (correctCnt / showCnt);
+			correctRateSum += correctRate;
+			totalItemCnt++;
+			cursor.moveToNext();
+			Log.e("GROWTH", "itemID = " + cursor.getInt(COLUMN_ITEMID)
+					+ "  showCnt =" + showCnt + "  correctCnt = " + correctCnt);
+		}
+		cursor.close();
+		if (correctRateSum == 0)
+			totalGrowth = 0;
+		else if (totalItemCnt == 0)
+			totalGrowth = 0;
+		else
+			totalGrowth = correctRateSum / totalItemCnt;
+
+		Log.e("GROWTH 등록", mTime + "일 " + totalGrowth + "성장");
+		// 각 열에 값 할당
+		values.put("DATE", mTime);
+		values.put("GROWTH", totalGrowth);
+
+		// 열삽입
+		long result = db.insert("DAILY_GROWTH", null, values);
+		if(result<0)
+			result = db.update("DAILY_GROWTH", values, "DATE=" + mTime, null);
+		return result;
+
+	}
+
+	public Cursor getAllDailyGrowth() {
+		return db.query("DAILY_GROWTH", new String[] { "DATE", "GROWTH" },
+				null, null, null, null, null);
 	}
 }
