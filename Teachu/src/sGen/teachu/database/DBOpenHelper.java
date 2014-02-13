@@ -199,7 +199,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		
 
 		// 사물
-		itemList.add(new ItemInfoDTO(idx++, CATEGORY_TRANSPORT, "의자", "chair")); // 의자
+		//itemList.add(new ItemInfoDTO(idx++, CATEGORY_TRANSPORT, "의자", "chair")); // 의자
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_TRANSPORT, "안경", "glasses")); // 안경
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_TRANSPORT, "책", "book")); // 책
 		itemList.add(new ItemInfoDTO(idx++, CATEGORY_TRANSPORT, "연필", "pencil")); // 연필

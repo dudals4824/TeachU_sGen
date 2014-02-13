@@ -63,7 +63,7 @@ public class Play extends Activity implements OnClickListener {
 	private boolean mIsBackButtonTouched = false;
 
 	// 목소리 남자/여자
-	public static int voice = 1;// 0이 남자 1이 여자
+	public static int voice = 0;// 0이 남자 1이 여자
 	private static MediaPlayer mp;// 소리 재생을위한!
 
 	// categoryID 를 불러올때는 CategoryTree.getCategoryID();로....-> categoryTree에만
@@ -138,10 +138,12 @@ public class Play extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_categorytree_object:
 			itemList.addAll(mItemAdaper.getItemInfoByCategoryId(CATEGORY_THING));// 깊은복사
+			break;
 
 		}
-
+		mItemAdaper.close();
 		// 순서 정렬..
+		mBabyAdapter.open();
 		for (int i = 0; i < itemList.size() - 1; i++) {
 			for (int k = i; k < itemList.size(); k++) {
 
@@ -166,6 +168,7 @@ public class Play extends Activity implements OnClickListener {
 							+ mBabyAdapter.getBabyGrowth(itemList.get(i)
 									.getItemId()));
 		}
+		mBabyAdapter.close();
 	}
 
 	@Override
@@ -185,18 +188,7 @@ public class Play extends Activity implements OnClickListener {
 			teacherOff.setVisibility(View.INVISIBLE);
 			teacherOn.setVisibility(View.VISIBLE);
 
-			if (teacherMode) {
-
-				String sound = itemList.get(itemNumber).getItemFileName() + "_";
-				if (voice == 1)
-					sound += "female";
-				else if (voice == 0)
-					sound += "male";
-				MediaPlayer mp_ = MediaPlayer.create(this, getResources()
-						.getIdentifier(sound, "raw", getPackageName()));
-				mp_.start();
-
-			}
+			playSound();
 
 		} else if (v.getId() == R.id.goMainAtPlay) {
 			Intent CategoryTreeActivity = new Intent(Play.this,
@@ -248,6 +240,25 @@ public class Play extends Activity implements OnClickListener {
 			if (msg != null) // 오류 메시지가 null이 아니면 메시지 출력
 				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT)
 						.show();
+			playSound();
+		}
+		
+	}
+
+	//소리 출력하는 함수
+	public void playSound() {
+		if (teacherMode) {
+
+			String sound = itemList.get(itemNumber).getItemFileName() + "_";
+			Log.e("소리파일 이름", "" + sound);
+			if (voice == 1)
+				sound += "female";
+			else if (voice == 0)
+				sound += "male";
+			mp = MediaPlayer.create(this, getResources()
+					.getIdentifier(sound, "raw", getPackageName()));
+			mp.start();
+
 		}
 	}
 
@@ -300,7 +311,7 @@ public class Play extends Activity implements OnClickListener {
 		}
 		// 제출된 item에 대해 출제 횟수 증가 및 정답여부에 따른 정답횟수 증가
 		Log.e("play", "item.getItemId() = " + item.getItemId());
-		mBabyAdapter = new DBBabyGrowthAdapter(this);
+		
 		mBabyAdapter.open();
 		Log.e("play", "item.getItemId(),getCateId() =  " + item.getItemId()
 				+ "," + item.getCateId() + correctFlag);
@@ -330,8 +341,8 @@ public class Play extends Activity implements OnClickListener {
 			}
 
 		}
+		mBabyAdapter.close();
 		itemImage.setOnClickListener(null);
-		findViewById(R.id.wordCard).setOnClickListener(null);
 		findViewById(R.id.result).setOnClickListener(null);
 		// 5개 중에 정답이 있는 경우
 		if (correctFlag == true) {
@@ -339,7 +350,7 @@ public class Play extends Activity implements OnClickListener {
 			mCorrect.setOnClickListener(null);
 
 			mResultTextView.setText("정답 :" + item.getItemName());
-
+			findViewById(R.id.wordCard).setOnClickListener(null);
 			new CountDownTimer(2000, 2000) {
 				public void onTick(long millisUntilFinished) {
 					System.out.println("ontick");
@@ -352,7 +363,7 @@ public class Play extends Activity implements OnClickListener {
 					itemNumber++;
 					// TODO Auto-generated method stub
 
-					if (itemNumber >= 9) {
+					if (itemNumber >= 10) {
 
 						finish();
 						Intent playResult = new Intent(Play.this,
@@ -366,8 +377,11 @@ public class Play extends Activity implements OnClickListener {
 										itemList.get(itemNumber)
 												.getItemFileName(), "drawable",
 										getPackageName()));
+						playSound();
 					}
+					
 				}
+				
 			}.start();
 
 		} else {
@@ -389,7 +403,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
-					if (itemNumber >= 9) {
+					if (itemNumber >= 10) {
 						Intent playResult = new Intent(Play.this,
 								PlayResult.class);
 						finish();
@@ -401,7 +415,9 @@ public class Play extends Activity implements OnClickListener {
 						itemImage.setImageResource(getResources()
 								.getIdentifier(item.getItemFileName(),
 										"drawable", getPackageName()));
+						playSound();
 					}
+
 				}
 			}.start();
 
@@ -409,18 +425,7 @@ public class Play extends Activity implements OnClickListener {
 		itemImage.setOnClickListener(this);
 		findViewById(R.id.wordCard).setOnClickListener(this);
 		
-		if (teacherMode) {
-
-			String sound = itemList.get(itemNumber).getItemFileName() + "_";
-			if (voice == 1)
-				sound += "female";
-			else if (voice == 0)
-				sound += "male";
-			MediaPlayer mp_ = MediaPlayer.create(this, getResources()
-					.getIdentifier(sound, "raw", getPackageName()));
-			mp_.start();
-
-		}
+		playSound();
 	}
 
 	// 백버튼 두번 누르면 종료시킴 플래그 바꿔서

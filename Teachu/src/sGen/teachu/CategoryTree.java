@@ -64,7 +64,6 @@ public class CategoryTree extends Activity implements OnClickListener {
 		pic_spaceship1 = (ImageView)findViewById(R.id.pic_categorytree_spaceship1);
 		pic_spaceship2 = (ImageView)findViewById(R.id.pic_categorytree_spaceship2);
 		
-
 		btn_categorytree_fruit.setOnClickListener(this);
 		btn_categorytree_animal.setOnClickListener(this);
 		btn_categorytree_thing.setOnClickListener(this);
@@ -166,35 +165,6 @@ public class CategoryTree extends Activity implements OnClickListener {
 			startActivityForResult(TeachuSettingActivity, 1);
 		}
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		menu.add(0, 1, 0, "아기 초기화");
-		menu.add(0, 2, 0, "아기 상태 보러가기");
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case 1:
-			// DB initializing : for testing
-			DBBabyInfoAdapter mAdapter = new DBBabyInfoAdapter(this);
-			mAdapter.open();
-			mAdapter.deleteBaby(1);
-			int babyInt = mAdapter.getBabyCount();
-			mAdapter.close();
-
-			Log.e("MINKA", "delecomplele? mAdapter.getBabyCount() = " + babyInt);
-
-		case 2:
-			Intent Setting = new Intent(CategoryTree.this, Setting.class);
-			startActivity(Setting);
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	// 백버튼 두번 누르면 종료시킴 플래그 바꿔서

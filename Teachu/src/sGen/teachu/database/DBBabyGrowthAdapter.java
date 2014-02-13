@@ -102,7 +102,8 @@ public class DBBabyGrowthAdapter {
 		if ((result.getCount() == 0) || !result.moveToFirst()) {
 			throw new SQLException("No growth found for item: " + _itemId);
 		}
-
+		
+		result.close();
 		return result;
 	}
 

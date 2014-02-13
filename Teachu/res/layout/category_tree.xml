@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="420px"
-                android:layout_marginTop="1410px"
+                android:layout_marginTop="1710px"
                 android:background="@drawable/object" />
 
             <Button
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="405px"
-                android:layout_marginTop="625px"
+                android:layout_marginTop="685px"
                 android:background="@drawable/fruit" />
 
             <Button
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10px"
-                android:layout_marginTop="1040px"
+                android:layout_marginTop="1240px"
                 android:background="@drawable/animal" />
 
             <Button
