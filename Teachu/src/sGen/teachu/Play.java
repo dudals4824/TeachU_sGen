@@ -364,7 +364,7 @@ public class Play extends Activity implements OnClickListener {
 					itemNumber++;
 					// TODO Auto-generated method stub
 
-					if (itemNumber >= 1) {
+					if (itemNumber >= 10) {
 
 						
 						finish();
@@ -406,7 +406,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
-					if (itemNumber >= 1) {
+					if (itemNumber >= 10) {
 						Intent playResult = new Intent(Play.this,
 								PlayResult.class);
 						finish();
