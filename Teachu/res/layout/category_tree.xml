@@ -2,20 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/imagescroll"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="650dp"
     android:layout_margin="0dp"
     android:layout_marginTop="0dp"
     android:padding="0dp" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="650dp"
         android:scrollbars="none" >
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_categorytree_float" >
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:background="@drawable/bg_categorytree_float_resize" >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -98,32 +98,32 @@
                 android:id="@+id/btn_categorytree_object"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="420px"
-                android:layout_marginTop="1710px"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="780dp"
                 android:background="@drawable/object" />
 
             <Button
                 android:id="@+id/btn_categorytree_fruit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="405px"
-                android:layout_marginTop="685px"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="350dp"
                 android:background="@drawable/fruit" />
 
             <Button
                 android:id="@+id/btn_categorytree_animal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:layout_marginTop="1240px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="530dp"
                 android:background="@drawable/animal" />
 
             <Button
                 android:id="@+id/btn_categorytree_vegetable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="125px"
-                android:layout_marginTop="355px"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="140dp"
                 android:background="@drawable/vegetable" />
         </RelativeLayout>
     </ScrollView>
