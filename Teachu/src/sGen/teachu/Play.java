@@ -292,6 +292,7 @@ public class Play extends Activity implements OnClickListener {
 					mResult.get(i));
 			double correctionrate = mCompare
 					.getCorrectionrate(mCompare.analysis_word_array);
+			Log.e("몇점" , "점수 = " + correctionrate);
 			if (item.getItemName().equals(mResult.get(i))) { // 비교
 				Log.e("play", "결과물들중에 답이랑 똑같은게 잇어서 맞은경우");
 				correctFlag = true;
@@ -363,9 +364,11 @@ public class Play extends Activity implements OnClickListener {
 					itemNumber++;
 					// TODO Auto-generated method stub
 
-					if (itemNumber >= 10) {
+					if (itemNumber >= 1) {
 
+						
 						finish();
+						
 						Intent playResult = new Intent(Play.this,
 								PlayResult.class);
 						startActivity(playResult);
@@ -403,7 +406,7 @@ public class Play extends Activity implements OnClickListener {
 					mResultTextView.setText("");
 					itemNumber++;
 					// TODO Auto-generated method stub
-					if (itemNumber >= 10) {
+					if (itemNumber >= 1) {
 						Intent playResult = new Intent(Play.this,
 								PlayResult.class);
 						finish();
@@ -424,7 +427,6 @@ public class Play extends Activity implements OnClickListener {
 		}
 		itemImage.setOnClickListener(this);
 		findViewById(R.id.wordCard).setOnClickListener(this);
-		
 		playSound();
 	}
 

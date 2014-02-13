@@ -166,7 +166,6 @@ public class PlayResult extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.retrialbutton:
 			Intent rePlay = new Intent(PlayResult.this, Play.class);
-			finish();
 			startActivity(rePlay);
 			break;
 		case R.id.goToMain:
